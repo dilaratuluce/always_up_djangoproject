@@ -6,6 +6,11 @@ from django.contrib.auth.forms import AuthenticationForm
 
 from django.views import View
 
+from .forms import MessageForm
+from .models import ContactMessage
+from django.core.mail import send_mail
+from django.conf import settings
+
 
 def index(request):
     return render(request, "todo_app/index.html")
@@ -60,6 +65,30 @@ class HowItWorks(View):
         return render(request, "todo_app/howitworks.html")
 
 
+def contact(request):
+    if request.method == "POST":
+        form = MessageForm(request.POST or None)
+        if form.is_valid:
+            form.save()
+            message_list = ContactMessage.objects.all()
+
+            send_mail(
+                'message from ' + request.POST['name'],
+                request.POST['message'],
+                settings.EMAIL_HOST_USER,
+                ['dilaratuluce@gmail.com'],
+                fail_silently=False
+            )
+
+            return render(request, "todo_app/contact.html", {'message_list': message_list})
+
+
+    else:
+        message_list = ContactMessage.objects.all()
+        return render(request, "todo_app/contact.html", {'message_list': message_list})
+
+
+
 """
 def login_request(request):
     if request.method == "POST":
@@ -96,3 +125,5 @@ def signin_request(request):
 
 #def howitworks(request):
 #    return render(request, "todo_app/howitworks.html")
+
+
