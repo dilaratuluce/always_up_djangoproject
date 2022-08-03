@@ -49,20 +49,20 @@ def find_today_creators_todos(request):
     return today_creators_todos
 
 
-class MyToDos(View):
+class MyToDos(LoginRequiredMixin, View):
     def get(self, request):
         today_creators_todos = find_today_creators_todos(request)
         return render(request, "todo_logged_in_app/my_to_dos.html", {'today_creators_todos': today_creators_todos})
 
 
-class Delete(View):
+class Delete(LoginRequiredMixin, View):
     def get(self, request, Todo_id):
         todo = Todo.objects.get(pk=Todo_id)
         todo.delete()
         return redirect("/user/my-to-dos")
 
 
-class ChangeIsFinished(View):
+class ChangeIsFinished(LoginRequiredMixin, View):
     def get(self, request, Todo_id):
         todo = Todo.objects.get(pk=Todo_id)
         if todo.is_finished:
@@ -79,7 +79,7 @@ def add_time(clock, time):
     return result_clock
 
 
-class MakeSchedule(View):
+class MakeSchedule(LoginRequiredMixin, View):
     def get(self, request):
         begin_finish_clocks = []
         today_creators_todos = find_today_creators_todos(request)
@@ -106,7 +106,7 @@ class MakeSchedule(View):
                        'todo_and_clock_list': todo_and_clock_list})
 
 
-class MyDailyGraph(View):
+class MyDailyGraph(LoginRequiredMixin, View):
     def get(self, request):
         today_creators_todos = find_today_creators_todos(request)
         finished = 0
@@ -171,7 +171,7 @@ def my_week_helper(num):
         return num
 
 
-class MyWeek(View):
+class MyWeek(LoginRequiredMixin, View):
     def get(self, request):
         today = date.today()
         todays_num = today.weekday()
@@ -203,7 +203,7 @@ class MyWeek(View):
                                                                    'six_days_ago': days[six_days_ago_num]})
 
 
-class MyWeeklyGraph(View):
+class MyWeeklyGraph(LoginRequiredMixin, View):
     def get(self, request):
         today = date.today()
         todays_num = today.weekday()
