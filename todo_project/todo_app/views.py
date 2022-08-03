@@ -12,12 +12,9 @@ from django.core.mail import send_mail
 from django.conf import settings
 
 
-def index(request):
-    return render(request, "todo_app/index.html")
-
-
-def about(request):
-    return render(request, "todo_app/about.html")
+class Index(View):
+    def get(self, request):
+        return render(request, "todo_app/index.html")
 
 
 class LoginRequest(View):
@@ -65,61 +62,27 @@ class HowItWorks(View):
         return render(request, "todo_app/howitworks.html")
 
 
-def contact(request):
-    if request.method == "POST":
+class Contact(View):
+    def get(self, request):
+        message_list = ContactMessage.objects.all()
+        return render(request, "todo_app/contact.html", {'message_list': message_list})
+
+    def post(self, request):
         form = MessageForm(request.POST or None)
-        if form.is_valid:
+        if form.is_valid():
             form.save()
             message_list = ContactMessage.objects.all()
 
             send_mail(
-                'message from ' + request.POST['name'],
+                'Contact Form by ' + request.POST['name'],
                 request.POST['message'] + '\n\nE-mail: ' + request.POST['email'],
                 settings.EMAIL_HOST_USER,
                 ['dilaratuluce@gmail.com'],
                 fail_silently=False
             )
-
+            messages.success(request, "Thanks for your message! We will reply soon.")
             return render(request, "todo_app/contact.html", {'message_list': message_list})
-
-    else:
-        message_list = ContactMessage.objects.all()
-        return render(request, "todo_app/contact.html", {'message_list': message_list})
-
-
-"""
-def login_request(request):
-    if request.method == "POST":
-        form = AuthenticationForm(request, data=request.POST)
-        if form.is_valid():
-            username = form.cleaned_data.get('username')
-            password = form.cleaned_data.get('password')
-            user = authenticate(username=username, password=password)
-            if user is not None:
-                login(request, user)
-                messages.info(request, f"You are now logged in as {username}.")
-                return redirect("/user")
-            else:
-                messages.error(request, "Invalid username or password.")
         else:
-            messages.error(request, "Invalid username or password.")
-    form = AuthenticationForm()
-    return render(request=request, template_name="todo_app/login.html", context={"login_form": form})
-"""
-
-"""
-def signin_request(request):
-    if request.method == "POST":
-        form = NewUserForm(request.POST)
-        if form.is_valid():
-            user = form.save()
-            login(request, user)
-            messages.success(request, "Registration successful.")
-            return redirect("/user")
-        messages.error(request, "Unsuccessful registration. Invalid information.")
-    form = NewUserForm()
-    return render(request=request, template_name="todo_app/register.html", context={"register_form": form})
-"""
-
-# def howitworks(request):
-#    return render(request, "todo_app/howitworks.html")
+            message_list = ContactMessage.objects.all()
+            messages.error(request, "Couldn't send your message, please fulfill all the fields.")
+            return render(request, "todo_app/contact.html", {'message_list': message_list})
