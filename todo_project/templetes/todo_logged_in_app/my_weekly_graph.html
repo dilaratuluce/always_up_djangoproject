@@ -2,40 +2,40 @@
 {% load static %}
 
 {% block title %}
-    User Home
+User Home
 {% endblock title %}
 
 {% block page_body %}
 <br><br>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
 <br><br>
-<div align="center"><canvas id="myChart" style="width:100%;max-width:600px"></canvas></div>
+<div align="center">
+    <canvas id="myChart" style="width:100%;max-width:600px"></canvas>
+</div>
 <br>
 
 <script>
-xValues = ["{{ six_days_ago }}", "{{ five_days_ago }}", "{{ four_days_ago }}", "{{ three_days_ago }}", "{{ two_days_ago }}", "Yesterday","Today"];
-yValues = [ "{{six_before_score}}", "{{five_before_score}}", "{{four_before_score}}", "{{three_before_score}}", "{{two_before_score}}", "{{one_before_score}}", "{{todays_score}}",0, 100];
-barColors = ["red", "green","blue","orange","brown","pink","aquamarine"];
+    xValues = ["{{ six_days_ago }}", "{{ five_days_ago }}", "{{ four_days_ago }}", "{{ three_days_ago }}", "{{ two_days_ago }}", "Yesterday", "Today"];
+    yValues = ["{{six_before_score}}", "{{five_before_score}}", "{{four_before_score}}", "{{three_before_score}}", "{{two_before_score}}", "{{one_before_score}}", "{{todays_score}}", 0, 100];
+    barColors = ["red", "green", "blue", "orange", "brown", "pink", "aquamarine"];
 
-new Chart("myChart", {
-  type: "bar",
-  data: {
-    labels: xValues,
-    datasets: [{
-      backgroundColor: barColors,
-      data: yValues
-    }]
-  },
-  options: {
-    legend: {display: false},
-    title: {
-      display: true,
-      text: "My Productivity of The Week"
-    },
-
-
-  }
-});
+    new Chart("myChart", {
+        type: "bar",
+        data: {
+            labels: xValues,
+            datasets: [{
+                backgroundColor: barColors,
+                data: yValues
+            }]
+        },
+        options: {
+            legend: {display: false},
+            title: {
+                display: true,
+                text: "My Productivity of The Week"
+            },
+        }
+    });
 </script>
 
 {% endblock page_body %}

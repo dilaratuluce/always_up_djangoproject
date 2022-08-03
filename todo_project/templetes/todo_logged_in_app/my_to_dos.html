@@ -2,50 +2,56 @@
 {% load static %}
 
 {% block title %}
-    My To Do's
+My To Do's
 {% endblock title %}
 
 {% block page_body %}
 <br><br>
 <div class="container">
-<br><br>
+    <br><br>
     {% csrf_token %}
-  {% if today_creators_todos %}
+    {% if today_creators_todos %}
     <table class="table">
-  <thead>
-    <tr>
-      <th scope="col"> </th>
-        <th scope="col"> </th>
-      <th scope="col">Title</th>
-      <th scope="col">Description</th>
-      <th scope="col">Length</th>
-    </tr>
-  </thead>
-  <tbody>
-  {% for todo in today_creators_todos %}
-    {% if todo.is_finished %}
-    <tr>
-      <th scope="row"><a class="btn btn-danger" href="{% url 'delete' todo.id %}">Delete</a></th>
-      <th scope="row"><a class="btn btn-warning" href="{% url 'change_is_finished' todo.id %}">Check</a></th>
-      <td><del>{{ todo.title }}</del></td>
-      <td><del>{{ todo.description }}</del></td>
-      <td><del>{{ todo.length }}</del></td>
-    </tr>
+        <thead>
+        <tr>
+            <th scope="col"></th>
+            <th scope="col"></th>
+            <th scope="col">Title</th>
+            <th scope="col">Description</th>
+            <th scope="col">Length</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for todo in today_creators_todos %}
+        {% if todo.is_finished %}
+        <tr>
+            <th scope="row"><a class="btn btn-danger" href="{% url 'delete' todo.id %}">Delete</a></th>
+            <th scope="row"><a class="btn btn-warning" href="{% url 'change_is_finished' todo.id %}">Check</a></th>
+            <td>
+                <del>{{ todo.title }}</del>
+            </td>
+            <td>
+                <del>{{ todo.description }}</del>
+            </td>
+            <td>
+                <del>{{ todo.length }}</del>
+            </td>
+        </tr>
+        {% else %}
+        <tr>
+            <th scope="row"><a class="btn btn-danger" href="{% url 'delete' todo.id %}">Delete</a></th>
+            <th scope="row"><a class="btn btn-warning" href="{% url 'change_is_finished' todo.id %}">Check</a></th>
+            <td>{{ todo.title }}</td>
+            <td>{{ todo.description }}</td>
+            <td>{{ todo.length }}</td>
+        </tr>
+        {% endif %}
+        {% endfor %}
+        </tbody>
+    </table>
     {% else %}
-    <tr>
-      <th scope="row"><a class="btn btn-danger" href="{% url 'delete' todo.id %}">Delete</a></th>
-      <th scope="row"><a class="btn btn-warning" href="{% url 'change_is_finished' todo.id %}">Check</a></th>
-      <td>{{ todo.title }}</td>
-      <td>{{ todo.description }}</td>
-      <td>{{ todo.length }}</td>
-    </tr>
+    Nothing to see here today! Please add your todos!
     {% endif %}
-  {% endfor %}
-  </tbody>
-</table>
-  {% else %}
-  Nothing to see here today! Please add your todos!
-  {% endif %}
 </div>
 
 <br>

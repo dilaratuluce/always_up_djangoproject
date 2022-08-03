@@ -2,92 +2,90 @@
 {% load static %}
 
 {% block title %}
-   Home
+Home
 {% endblock title %}
 
 {% block page_body %}
-      <!-- banner section start -->
-      <div class="banner_section layout_padding">
-         <div class="container">
-            <div id="main_slider" class="carousel slide" data-ride="carousel">
-               <div class="carousel-inner">
-                  <div class="carousel-item active">
-                     <div class="row">
+<!-- banner section start -->
+<div class="banner_section layout_padding">
+    <div class="container">
+        <div class="carousel slide" data-ride="carousel" id="main_slider">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <div class="row">
                         <div class="col-md-6">
-                           <div class="banner_taital">
-                              <h1 class="banner_taital">Plan your </h1>
-                              <h1 class="banner_taital">day with</h1>
-                              <h1 class="banner_taital">ALWAYS UP</h1>
-                              <p class="banner_text">Using ALWAYS UP increases your daily and weekly productivity.</p>
-                           </div>
-                           <div class="btn_main">
-                              <div class="contact_bt"><a href="/signin"> Start Now! </a></div>
-                           </div>
+                            <div class="banner_taital">
+                                <h1 class="banner_taital">Plan your </h1>
+                                <h1 class="banner_taital">day with</h1>
+                                <h1 class="banner_taital">ALWAYS UP</h1>
+                                <p class="banner_text">Using ALWAYS UP increases your daily and weekly productivity.</p>
+                            </div>
+                            <div class="btn_main">
+                                <div class="contact_bt"><a href="/signin"> Start Now! </a></div>
+                            </div>
                         </div>
                         <div class="col-md-6">
-                           <div><img src="{% static 'todo_app_static/images/banner-img-1.jpeg' %}" class="banner_img"></div>
+                            <div><img class="banner_img" src="{% static 'todo_app_static/images/banner-img-1.jpeg' %}">
+                            </div>
                         </div>
-                     </div>
-                  </div>
-
-               </div>
-
+                    </div>
+                </div>
             </div>
-         </div>
-      </div>
-      <!-- banner section end -->
-      <!-- services section start -->
-      <div class="services_section layout_padding">
-         <div class="container">
-            <h1 class="services_taital">Daily activities fall into <span style="color: #0c426e"> three categories:</span></h1>
-
-            <div class="services_section_2 layout_padding">
-               <div class="row">
-                  <div class="col-md-4">
-                     <div class="services_box">
-                        <div><img src="{% static 'todo_app_static/images/img-2.jpeg' %}" class="image_1"></div>
+        </div>
+    </div>
+</div>
+<!-- banner section end -->
+<!-- services section start -->
+<div class="services_section layout_padding">
+    <div class="container">
+        <h1 class="services_taital">Daily activities fall into <span style="color: #0c426e"> three categories:</span>
+        </h1>
+        <div class="services_section_2 layout_padding">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="services_box">
+                        <div><img class="image_1" src="{% static 'todo_app_static/images/img-2.jpeg' %}"></div>
                         <h4 class="express_text">Development</h4>
-                        <p class="lorem_text">Any activity that improves you! Doing work related to your job, learning a language, reading a book, or even building muscles!</p>
+                        <p class="lorem_text">Any activity that improves you! Doing work related to your job, learning a
+                            language, reading a book, or even building muscles!</p>
                         <div class="seemore_bt"><a href="#">See More</a></div>
-                     </div>
-                  </div>
-                  <div class="col-md-4">
-                     <div class="services_box">
-                        <div><img src="{% static 'todo_app_static/images/img-1.jpeg' %}" class="image_1"></div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="services_box">
+                        <div><img class="image_1" src="{% static 'todo_app_static/images/img-1.jpeg' %}"></div>
                         <h4 class="express_text">Burden</h4>
-                        <p class="lorem_text">Daily chores you have to do! Cooking, doing the laundry, watering the flowers, or buying a gift for a friend.</p>
+                        <p class="lorem_text">Daily chores you have to do! Cooking, doing the laundry, watering the
+                            flowers, or buying a gift for a friend.</p>
                         <div class="seemore_bt"><a href="#">See More</a></div>
-                     </div>
-                  </div>
-                  <div class="col-md-4">
-                     <div class="services_box">
-                        <div><img src="{% static 'todo_app_static/images/img-3.jpeg' %}" class="image_1"></div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="services_box">
+                        <div><img class="image_1" src="{% static 'todo_app_static/images/img-3.jpeg' %}"></div>
                         <h4 class="express_text">Amusement</h4>
-                        <p class="lorem_text">Any activity you enjoy! Watching movies, having a cup of coffee, chatting with friends, playing video games</p>
+                        <p class="lorem_text">Any activity you enjoy! Watching movies, having a cup of coffee, chatting
+                            with friends, playing video games</p>
                         <div class="seemore_bt"><a href="#">See More</a></div>
-                     </div>
-                  </div>
-               </div>
+                    </div>
+                </div>
             </div>
-         </div>
-      </div>
-      <!-- services section end -->
-      <!-- quality section start -->
+        </div>
+    </div>
+</div>
+<!-- services section end -->
+<!-- quality section start -->
+<div class="providing_section layout_padding">
+    <div class="container py-5">
+        <h1 class="services_taital">We Make The Best <span style="color: #0c426e"> Daily Schedule For You </span></h1>
+    </div>
+</div>
+<!-- quality section end -->
+<!-- choose section start -->
 
-      <div class="providing_section layout_padding">
-         <div class="container py-5">
-            <h1 class="services_taital">We Make The Best <span style="color: #0c426e"> Daily Schedule For You </span></h1>
-         </div>
-      </div>
+<!-- choose section end -->
+<!-- testimonial section start -->
 
-
-
-      <!-- quality section end -->
-      <!-- choose section start -->
-
-      <!-- choose section end -->
-      <!-- testimonial section start -->
-
-      <!-- testimonial section end -->
+<!-- testimonial section end -->
 
 {% endblock page_body %}

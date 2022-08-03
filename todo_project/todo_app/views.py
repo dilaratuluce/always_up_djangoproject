@@ -82,11 +82,9 @@ def contact(request):
 
             return render(request, "todo_app/contact.html", {'message_list': message_list})
 
-
     else:
         message_list = ContactMessage.objects.all()
         return render(request, "todo_app/contact.html", {'message_list': message_list})
-
 
 
 """
@@ -123,7 +121,5 @@ def signin_request(request):
     return render(request=request, template_name="todo_app/register.html", context={"register_form": form})
 """
 
-#def howitworks(request):
+# def howitworks(request):
 #    return render(request, "todo_app/howitworks.html")
-
-

@@ -6,12 +6,9 @@
 {% endblock title %}
 
 {% block page_body %}
-
 {% load crispy_forms_tags %}
-
 <!--Register-->
 <div class="container py-5">
-
 	<h1>Register</h1>
 	<form method="POST">
 		{% csrf_token %}
@@ -20,6 +17,4 @@
 	</form>
 	<p class="text-center">If you already have an account, <a href="/login">login</a> instead.</p>
 </div>
-
-
 {% endblock page_body %}

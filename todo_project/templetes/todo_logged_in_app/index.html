@@ -2,40 +2,35 @@
 {% load static %}
 
 {% block title %}
-    User Home
+User Home
 {% endblock title %}
 
 {% block page_body %}
 
-
-
 <form method="POST">
-  {% csrf_token %}
-  <div class="container">
-    <br><br>
-  <div class="row mb-3">
-    <label class="col-sm-2 col-form-label">Title</label>
-    <div class="col-sm-10">
-      <input type="text" class="form-control" name="title">
-    </div>
-  </div>
-  <div class="row mb-3">
-    <label class="col-sm-2 col-form-label">Description</label>
-    <div class="col-sm-10">
-      <input type="text" class="form-control" name="description">
-    </div>
-  </div>
-
-   <div class="row mb-3">
-    <label class="col-sm-2 col-form-label">Duration (minutes)</label>
-    <div class="col-sm-10">
-      <input type="number" class="form-control" name="length">
-    </div>
-  </div>
-
-
-  <button type="submit" class="btn btn-danger">Add To Do</button>
-    <br><br>
+    {% csrf_token %}
+    <div class="container">
+        <br><br>
+        <div class="row mb-3">
+            <label class="col-sm-2 col-form-label">Title</label>
+            <div class="col-sm-10">
+                <input class="form-control" name="title" type="text">
+            </div>
+        </div>
+        <div class="row mb-3">
+            <label class="col-sm-2 col-form-label">Description</label>
+            <div class="col-sm-10">
+                <input class="form-control" name="description" type="text">
+            </div>
+        </div>
+        <div class="row mb-3">
+            <label class="col-sm-2 col-form-label">Duration (minutes)</label>
+            <div class="col-sm-10">
+                <input class="form-control" name="length" type="number">
+            </div>
+        </div>
+        <button class="btn btn-danger" type="submit">Add To Do</button>
+        <br><br>
     </div>
 </form>
 {% endblock page_body %}

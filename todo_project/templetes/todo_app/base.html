@@ -42,7 +42,8 @@
 <div class="header_section">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand"><a href="/"><img src="{% static 'todo_app_static/images/logo2.png' %}"></a>
-            <button aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler"
+            <button aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"
+                    class="navbar-toggler"
                     data-target="#navbarSupportedContent" data-toggle="collapse" type="button">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -57,24 +58,24 @@
                     </li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                  <li class="nav-item">
-                     <a class="nav-link" href="/signin">Sign In</a>
-                  </li>
-                  <li class="nav-item">
-                     <a class="nav-link" href="/login">Log In</a>
-                  </li>
-               </ul>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/signin">Sign In</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/login">Log In</a>
+                    </li>
+                </ul>
             </div>
     </nav>
 </div>
 <br><br><br><br>
-      <div class="container">
-      {% if messages %}
-         {% for message in messages %}
-            <div class="alert {{ message.tags }} m-2" id="msg" role="alert">{{ message }}</div>
-         {% endfor %}
-      {% endif %}
-      </div>
+<div class="container">
+    {% if messages %}
+    {% for message in messages %}
+    <div class="alert {{ message.tags }} m-2" id="msg" role="alert">{{ message }}</div>
+    {% endfor %}
+    {% endif %}
+</div>
 <!-- header section end -->
 
 {% block page_body %}
@@ -92,7 +93,6 @@
                         <li class="active"><a href="index.html">Home</a></li>
                         <li><a href="services.html">Register</a></li>
                         <li><a href="quality.html">Log In</a></li>
-
                     </ul>
                 </div>
             </div>
@@ -111,15 +111,12 @@
                 <div class="location_text"><a href="#"><i aria-hidden="true" class="fa fa-envelope"></i><span
                         class="padding_left_15">alwaysup@gmail.com</span></a></div>
             </div>
-
-
             <div class="col-lg-3 col-sm-6">
                 <h2 class="useful_text"> Support </h2>
                 <div class="footer_menu">
                     <ul>
                         <li class="active"><a href="index.html">Home</a></li>
-                        <li><a href="choose.html">How It Works?</a></li>
-
+                        <li><a href="/howitworks">How It Works?</a></li>
                     </ul>
                 </div>
             </div>
@@ -149,11 +146,11 @@
 <script src="{% static 'todo_app_static/js/owl.carousel.js' %}"></script>
 <script src="https:cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.js"></script>
 <script>
-         setTimeout(function(){
-            if ($('#msg').length > 0) {
-               $('#msg').remove();
-               }
-            }, 3000)
-      </script>
+    setTimeout(function () {
+        if ($('#msg').length > 0) {
+            $('#msg').remove();
+        }
+    }, 3000)
+</script>
 </body>
 </html>

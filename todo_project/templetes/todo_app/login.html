@@ -2,23 +2,19 @@
 {% load static %}
 
 {% block title %}
-   Sign In
+Sign In
 {% endblock title %}
 
 {% block page_body %}
-
 {% load crispy_forms_tags %}
-
 <!--Login-->
 <div class="container py-5">
-
-  <h1>Login</h1>
-  <form method="POST">
-    {% csrf_token %}
-    {{ login_form|crispy }}
-    <button class="btn btn-primary" type="submit">Log In</button>
-  </form>
-  <p class="text-center">Don't have an account? <a href="/signin">Create an account</a>.</p>
+    <h1>Login</h1>
+    <form method="POST">
+        {% csrf_token %}
+        {{ login_form|crispy }}
+        <button class="btn btn-primary" type="submit">Log In</button>
+    </form>
+    <p class="text-center">Don't have an account? <a href="/signin">Create an account</a>.</p>
 </div>
-
 {% endblock page_body %}

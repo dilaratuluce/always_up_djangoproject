@@ -138,7 +138,7 @@ def make_schedule(request):
     for i in today_creators_todos_notfinished:
         remaining_to_ten = add_time(clock, 10).minute % 10
         begin_clock = add_time(clock, 10 + (
-                    10 - remaining_to_ten))  # 10 dk sonrasından itibaren en yakın 10 a bölünen dakikada başlatıyor
+                10 - remaining_to_ten))  # 10 dk sonrasından itibaren en yakın 10 a bölünen dakikada başlatıyor
         finish_clock = add_time(begin_clock, i.length)
         todo_begin_finish_clock = [begin_clock.strftime("%H:%M"), finish_clock.strftime("%H:%M")]
         begin_finish_clocks.append(todo_begin_finish_clock)
