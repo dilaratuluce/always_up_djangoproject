@@ -74,7 +74,7 @@ def contact(request):
 
             send_mail(
                 'message from ' + request.POST['name'],
-                request.POST['message'],
+                request.POST['message'] + '\n\nE-mail: ' + request.POST['email'],
                 settings.EMAIL_HOST_USER,
                 ['dilaratuluce@gmail.com'],
                 fail_silently=False

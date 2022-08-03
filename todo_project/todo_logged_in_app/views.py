@@ -24,7 +24,6 @@ class Index(LoginRequiredMixin, View):
 class LogOutRequest(View):
     def get(self, request):
         logout(request)
-        messages.info(request, "You have successfully logged out.")
         return redirect("/")
 
 
@@ -56,16 +55,17 @@ class FormPage(LoginRequiredMixin, View):
     def post(self, request):
         todo_form = TodoForm(request.POST or None)
         if todo_form.is_valid():
-            #     todo_form.save()
             instance = todo_form.save(commit=False)
             instance.creator = request.user
             instance.save()
+            messages.success(request, "Todo is added succesfully.")
 
             todos = Todo.objects.all()
             return render(request, "todo_logged_in_app/index.html", {'todos': todos})
         else:
+            messages.warning(request, "Todo is not added, please fill all the fields.")
             todos = Todo.objects.all()
-            return render(request, "todo_app/index.html", {'todos': todos})
+            return render(request, "todo_logged_in_app/index.html", {'todos': todos})
 
 
 """

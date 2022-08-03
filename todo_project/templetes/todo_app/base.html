@@ -53,22 +53,28 @@
                         <a class="nav-link" href="/howitworks">How It Works?</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/signin">Sign In</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/login">Log In</a>
-                    </li>
-                    <li class="nav-item">
                         <a class="nav-link" href="/contact">Contact</a>
                     </li>
                 </ul>
-                <form class="form-inline my-2 my-lg-0">
-                    <div class="search_icon"><a href="#"><img
-                            src="{% static 'todo_app_static/images/search-icon.png' %}"></a></div>
-                </form>
+                <ul class="nav navbar-nav navbar-right">
+                  <li class="nav-item">
+                     <a class="nav-link" href="/signin">Sign In</a>
+                  </li>
+                  <li class="nav-item">
+                     <a class="nav-link" href="/login">Log In</a>
+                  </li>
+               </ul>
             </div>
     </nav>
 </div>
+<br><br><br><br>
+      <div class="container">
+      {% if messages %}
+         {% for message in messages %}
+            <div class="alert {{ message.tags }} m-2" id="msg" role="alert">{{ message }}</div>
+         {% endfor %}
+      {% endif %}
+      </div>
 <!-- header section end -->
 
 {% block page_body %}
@@ -142,5 +148,12 @@
 <!-- javascript -->
 <script src="{% static 'todo_app_static/js/owl.carousel.js' %}"></script>
 <script src="https:cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.js"></script>
+<script>
+         setTimeout(function(){
+            if ($('#msg').length > 0) {
+               $('#msg').remove();
+               }
+            }, 3000)
+      </script>
 </body>
 </html>

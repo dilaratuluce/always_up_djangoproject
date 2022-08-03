@@ -200,8 +200,22 @@
 
             </div>
          </nav>
-      </div >
+      </div>
+<br><br><br><br>
+      <div class="container">
+      {% if messages %}
+         {% for message in messages %}
+            <div class="alert {{ message.tags }} m-2" id="msg" role="alert">{{ message }}</div>
+         {% endfor %}
+      {% endif %}
+      </div>
+
+
+
       <!-- header section end -->
+
+
+
 
    {% block page_body %}
 
@@ -266,5 +280,12 @@
       <!-- javascript -->
       <script src="{% static 'todo_app_static/js/owl.carousel.js' %}"></script>
       <script src="https:cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.js"></script>
+      <script>
+         setTimeout(function(){
+            if ($('#msg').length > 0) {
+               $('#msg').remove();
+               }
+            }, 3000)
+      </script>
    </body>
 </html>
