@@ -5,7 +5,7 @@ from .models import Todo
 class TodoForm(forms.ModelForm):
     class Meta:
         model = Todo
-        fields = ('title', 'description', 'length', 'date')
+        fields = ('title', 'description', 'length', 'date', 'priority')
 
         labels = {
             'title': 'Title',

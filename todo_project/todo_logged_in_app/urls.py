@@ -12,4 +12,6 @@ urlpatterns = [
     path('my-daily-graph/', views.MyDailyGraph.as_view(), name='my_daily_graph'),
     path('my-weekly-graph/', views.MyWeeklyGraph.as_view(), name='my_weekly_graph'),
     path('my-week/', views.MyWeek.as_view(), name='my_graphs'),
+
+    path('change_finished/<int:pk>', views.ChangeFinished.as_view(), name="change_finished")  # kullanılmıyor, deneme için yazıldı
 ]

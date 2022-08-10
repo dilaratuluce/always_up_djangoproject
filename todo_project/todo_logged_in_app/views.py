@@ -10,7 +10,7 @@ from django.views import View
 from .forms import TodoForm
 from .models import Todo
 
-from django.http import HttpResponseRedirect
+from django.http import JsonResponse
 
 
 class LogOutRequest(LoginRequiredMixin, View):
@@ -110,34 +110,153 @@ class ChangeIsFinished(LoginRequiredMixin, View):
         return redirect("/user/my-to-dos")
 
 
+def change_finished(request, Todo_id):  # şu an kullanılmıyor, deneme için yazıldı
+    todo = Todo.objects.get(pk=Todo_id)
+    if todo.is_finished:
+        todo.is_finished = False
+        todo.save()
+    else:
+        todo.is_finished = True
+        todo.save()
+    todos = Todo.objects.all()
+    return JsonResponse({"todos": list(todos.values())})
+
+class ChangeFinished(View):   # şu an kullanılmıyor, deneme için yazıldı
+    def get(self, request, pk, *args, **kwargs):
+        if request.is_ajax():
+            todo = Todo.objects.get(pk=pk)
+            if todo.is_finished:
+                todo.is_finished = False
+                todo.save()
+            else:
+                todo.is_finished = True
+                todo.save()
+            return JsonResponse({'message:': "success"})
+        return JsonResponse({"message": "Wrong route"})
+
+
 def add_time(clock, time):
     result_clock = clock + timedelta(minutes=time)
     return result_clock
 
 
+def find_today_creators_todos_notfinished(request):
+    today_creators_todos = find_today_creators_todos(request)
+    today_creators_todos_notfinished = []
+    for i in today_creators_todos:
+        if not i.is_finished:
+            today_creators_todos_notfinished.append(i)
+    return today_creators_todos_notfinished
+
+
+def set_schedule_clocks(request, list):
+    begin_finish_clocks = []
+    clock = datetime.datetime.now()
+    for i in list:
+        remaining_to_ten = add_time(clock, 10).minute % 10
+        begin_clock = add_time(clock, 10 + (
+                10 - remaining_to_ten))  # 10 dk sonrasından itibaren en yakın 10 a bölünen dakikada başlatıyor
+        finish_clock = add_time(begin_clock, i.length)
+        todo_begin_finish_clock = [begin_clock.strftime("%H:%M"), finish_clock.strftime("%H:%M")]
+        begin_finish_clocks.append(todo_begin_finish_clock)
+        clock = finish_clock
+
+    todo_and_clock_list = []
+    for todo, begin_finish_clock in zip(list, begin_finish_clocks):
+        todo_and_clock_list.append([todo, begin_finish_clock])
+    return todo_and_clock_list
+
+
+def make_schedule_default_order(request):
+    today_creators_todos_notfinished = find_today_creators_todos_notfinished(request)
+    todo_and_clock_list = set_schedule_clocks(request, today_creators_todos_notfinished)
+    return todo_and_clock_list
+
+
+def make_schedule_short_first(request):
+    today_creators_todos_notfinished = find_today_creators_todos_notfinished(request)
+    for i in range(len(today_creators_todos_notfinished)):
+        for j in range(len(today_creators_todos_notfinished) - 1):
+            if today_creators_todos_notfinished[j].length > today_creators_todos_notfinished[j + 1].length:
+                today_creators_todos_notfinished[j], today_creators_todos_notfinished[j + 1] = today_creators_todos_notfinished[j + 1], today_creators_todos_notfinished[j]
+
+    todo_and_clock_list = set_schedule_clocks(request, today_creators_todos_notfinished)
+    return todo_and_clock_list
+
+
+def make_schedule_long_first(request):
+    today_creators_todos_notfinished = find_today_creators_todos_notfinished(request)
+    for i in range(len(today_creators_todos_notfinished)):
+        for j in range(len(today_creators_todos_notfinished) - 1):
+            if today_creators_todos_notfinished[j].length < today_creators_todos_notfinished[j + 1].length:
+                today_creators_todos_notfinished[j], today_creators_todos_notfinished[j + 1] = today_creators_todos_notfinished[j + 1], today_creators_todos_notfinished[j]
+
+    todo_and_clock_list = set_schedule_clocks(request, today_creators_todos_notfinished)
+    return todo_and_clock_list
+
+
+def make_schedule_important_first(request):
+    priority_dict = {'low': 1,
+                     'normal': 2,
+                     'high': 3,
+                     'very_high': 4}
+
+    today_creators_todos_notfinished = find_today_creators_todos_notfinished(request)
+    for i in range(len(today_creators_todos_notfinished)):
+        for j in range(len(today_creators_todos_notfinished) - 1):
+            if priority_dict[today_creators_todos_notfinished[j].priority] < priority_dict[today_creators_todos_notfinished[j + 1].priority]:
+                today_creators_todos_notfinished[j], today_creators_todos_notfinished[j + 1] = today_creators_todos_notfinished[j + 1], today_creators_todos_notfinished[j]
+
+    todo_and_clock_list = set_schedule_clocks(request, today_creators_todos_notfinished)
+    return todo_and_clock_list
+
+
+def length_score(length):
+    if length<=15:
+        return 4
+    elif length<=30:
+        return 3
+    elif length<=50:
+        return 2
+    else:
+        return 1
+
+
+def make_schedule_suggested_schedule(request):
+    priority_dict = {'low': 1,
+                     'normal': 2,
+                     'high': 3,
+                     'very_high': 4}
+
+    today_creators_todos_notfinished = find_today_creators_todos_notfinished(request)
+    for i in range(len(today_creators_todos_notfinished)):
+        for j in range(len(today_creators_todos_notfinished) - 1):
+            priority_score1 = priority_dict[today_creators_todos_notfinished[j].priority]
+            length_score1 = length_score(today_creators_todos_notfinished[j].length)
+            priority_score2 = priority_dict[today_creators_todos_notfinished[j+1].priority]
+            length_score2 = length_score(today_creators_todos_notfinished[j+1].length)
+            todo1_score = priority_score1 + length_score1
+            todo2_score = priority_score2 + length_score2
+            if todo1_score < todo2_score:
+                today_creators_todos_notfinished[j], today_creators_todos_notfinished[j + 1] = today_creators_todos_notfinished[j + 1], today_creators_todos_notfinished[j]
+
+    todo_and_clock_list = set_schedule_clocks(request, today_creators_todos_notfinished)
+    return todo_and_clock_list
+
+
 class MakeSchedule(LoginRequiredMixin, View):
     def get(self, request):
-        begin_finish_clocks = []
-        today_creators_todos = find_today_creators_todos(request)
-        clock = datetime.datetime.now()
-        today_creators_todos_notfinished = []
-        for i in today_creators_todos:
-            if not i.is_finished:
-                today_creators_todos_notfinished.append(i)
-        for i in today_creators_todos_notfinished:
-            remaining_to_ten = add_time(clock, 10).minute % 10
-            begin_clock = add_time(clock, 10 + (
-                    10 - remaining_to_ten))  # 10 dk sonrasından itibaren en yakın 10 a bölünen dakikada başlatıyor
-            finish_clock = add_time(begin_clock, i.length)
-            todo_begin_finish_clock = [begin_clock.strftime("%H:%M"), finish_clock.strftime("%H:%M")]
-            begin_finish_clocks.append(todo_begin_finish_clock)
-            clock = finish_clock
-
-        todo_and_clock_list = []
-        for todo, begin_finish_clock in zip(today_creators_todos_notfinished, begin_finish_clocks):
-            todo_and_clock_list.append([todo, begin_finish_clock])
+        todo_and_clock_list = make_schedule_default_order(request)
+        todo_and_clock_list_short_first = make_schedule_short_first(request)
+        todo_and_clock_list_long_first = make_schedule_long_first(request)
+        todo_and_clock_list_important_first = make_schedule_important_first(request)
+        todo_and_clock_list_suggested = make_schedule_suggested_schedule(request)
         return render(request, "todo_logged_in_app/make_schedule.html",
-                      {'todo_and_clock_list': todo_and_clock_list})
+                      {'todo_and_clock_list': todo_and_clock_list,
+                       'todo_and_clock_list_short_first': todo_and_clock_list_short_first,
+                       'todo_and_clock_list_long_first': todo_and_clock_list_long_first,
+                       'todo_and_clock_list_important_first': todo_and_clock_list_important_first,
+                       'todo_and_clock_list_suggested': todo_and_clock_list_suggested})
 
 
 class MyDailyGraph(LoginRequiredMixin, View):

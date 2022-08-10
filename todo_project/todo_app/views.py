@@ -21,7 +21,9 @@ class LoginRequest(View):
     def get(self, request):
         if request.user.is_authenticated:
             messages.info(request, "You are already logged in, so we redirected you to your personal page.")
-            return render(request, "todo_logged_in_app/index.html")
+            return redirect("/user")
+      #      return render(request, "todo_logged_in_app/index.html")
+
         else:
             form = AuthenticationForm()
             return render(request=request, template_name="todo_app/login.html", context={"login_form": form})
@@ -48,7 +50,8 @@ class SigninRequest(View):
     def get(self, request):
         if request.user.is_authenticated:
             messages.info(request, "You are already logged in, so we redirected you to your personal page.")
-            return render(request, "todo_logged_in_app/index.html")
+            return redirect("/user")
+        #    return render(request, "todo_logged_in_app/index.html")
         else:
             form = NewUserForm()
             return render(request=request, template_name="todo_app/register.html", context={"register_form": form})

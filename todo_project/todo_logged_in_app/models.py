@@ -18,17 +18,31 @@ DATE_CHOICES = (
 
 )
 
+PRIORITY_CHOICES = (
+    ('low', 'Low'),
+    ('normal', 'Normal'),
+    ('high', 'High'),
+    ('very_high', 'Very high')
+)
+
+
+class Catagory(models.Model):
+    name = models.CharField(max_length=100)
+    creator = models.ForeignKey(User, default=None, on_delete=models.CASCADE)
+    
 
 class Todo(models.Model):
-    title = models.CharField(max_length=50)
+    title = models.CharField(max_length=100)
     description = RichTextField(blank=True, null=True)
     length = models.IntegerField(default=60)
     is_finished = models.BooleanField(default=False)
     creator = models.ForeignKey(User, default=None, on_delete=models.CASCADE)
-    date = models.DateField(choices=DATE_CHOICES, blank=True, default=datetime.date.today)
+    date = models.DateField(choices=DATE_CHOICES, default=datetime.date.today)
+    priority = models.TextField(choices=PRIORITY_CHOICES, default='normal')
+    catagory = models.ForeignKey(Catagory, default=None)
 
     def __str__(self):
         return self.title
 
 
-    #kendi eklediği kategori, kategori seç ya da kendin ekle, jquery select2 kütüphanesi kullanabilirsin
+    # kendi eklediği kategori, kategori seç ya da kendin ekle, jquery select2 kütüphanesi kullanabilirsin
