@@ -10,8 +10,10 @@ from django.views import View
 from .forms import TodoForm
 from .models import Todo
 
+from django.http import HttpResponseRedirect
 
-class LogOutRequest(View):
+
+class LogOutRequest(LoginRequiredMixin, View):
     def get(self, request):
         logout(request)
         return redirect("/")
@@ -21,38 +23,72 @@ class FormPage(LoginRequiredMixin, View):
     raise_exception = True
 
     def get(self, request):
-        todos = Todo.objects.all()
-        return render(request, "todo_logged_in_app/index.html", {'todos': todos})
+        form = TodoForm
+        return render(request, "todo_logged_in_app/index.html", {'form': form})
 
     def post(self, request):
-        todo_form = TodoForm(request.POST or None)
-        if todo_form.is_valid():
-            instance = todo_form.save(commit=False)
+        form = TodoForm(request.POST or None)
+        if form.is_valid():
+            instance = form.save(commit=False)
             instance.creator = request.user
             instance.save()
             messages.success(request, "Todo is added succesfully.")
 
-            todos = Todo.objects.all()
-            return render(request, "todo_logged_in_app/index.html", {'todos': todos})
+            return render(request, "todo_logged_in_app/index.html", {'form': form})
         else:
             messages.warning(request, "Todo is not added, please fill all the fields.")
-            todos = Todo.objects.all()
-            return render(request, "todo_logged_in_app/index.html", {'todos': todos})
+            return render(request, "todo_logged_in_app/index.html", {'form': form})
+
+
 
 
 def find_today_creators_todos(request):
-    all_todos = Todo.objects.all()
-    today_creators_todos = []
-    for todo in all_todos:
-        if todo.creator == request.user and todo.date == datetime.date.today():
-            today_creators_todos.append(todo)
+    today_creators_todos = Todo.objects.filter(creator=request.user, date=datetime.date.today())
     return today_creators_todos
+
+
+def my_week_helper(num):
+    if num < 0:
+        return num + 7
+    elif num > 6:
+        return num - 7
+    else:
+        return num
 
 
 class MyToDos(LoginRequiredMixin, View):
     def get(self, request):
-        today_creators_todos = find_today_creators_todos(request)
-        return render(request, "todo_logged_in_app/my_to_dos.html", {'today_creators_todos': today_creators_todos})
+        today = date.today()
+        todays_num = today.weekday()
+        one_later_num = my_week_helper(todays_num + 1)
+        two_later_num = my_week_helper(todays_num + 2)
+        three_later_num = my_week_helper(todays_num + 3)
+        four_later_num = my_week_helper(todays_num + 4)
+        five_later_num = my_week_helper(todays_num + 5)
+        six_later_num = my_week_helper(todays_num + 6)
+        days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+        today_creators_todos = Todo.objects.filter(creator=request.user, date=datetime.date.today())
+        tomorrow_creators_todos = Todo.objects.filter(creator=request.user, date=datetime.date.today()-timedelta(days=1))
+        two_later_creators_todos = Todo.objects.filter(creator=request.user, date=datetime.date.today()+timedelta(days=2))
+        three_later_creators_todos = Todo.objects.filter(creator=request.user, date=datetime.date.today()+timedelta(days=3))
+        four_later_creators_todos = Todo.objects.filter(creator=request.user, date=datetime.date.today()+timedelta(days=4))
+        five_later_creators_todos = Todo.objects.filter(creator=request.user, date=datetime.date.today()+timedelta(days=5))
+        six_later_creators_todos = Todo.objects.filter(creator=request.user, date=datetime.date.today()+timedelta(days=6))
+        return render(request, "todo_logged_in_app/my_to_dos.html",
+                      {'today_creators_todos': today_creators_todos,
+                       'tomorrow_creators_todos': tomorrow_creators_todos,
+                       'two_later_creators_todos': two_later_creators_todos,
+                       'three_later_creators_todos': three_later_creators_todos,
+                       'four_later_creators_todos': four_later_creators_todos,
+                       'five_later_creators_todos': five_later_creators_todos,
+                       'six_later_creators_todos': six_later_creators_todos,
+                       'today': days[todays_num],
+                       'tomorrow': days[one_later_num],
+                       'two_later_day': days[two_later_num],
+                       'three_later_day': days[three_later_num],
+                       'four_later_day': days[four_later_num],
+                       'five_later_day': days[five_later_num],
+                       'six_later_day': days[six_later_num]})
 
 
 class Delete(LoginRequiredMixin, View):
@@ -101,9 +137,7 @@ class MakeSchedule(LoginRequiredMixin, View):
         for todo, begin_finish_clock in zip(today_creators_todos_notfinished, begin_finish_clocks):
             todo_and_clock_list.append([todo, begin_finish_clock])
         return render(request, "todo_logged_in_app/make_schedule.html",
-                      {'today_creators_todos_notfinished': today_creators_todos_notfinished,
-                       'begin_finish_clocks': begin_finish_clocks,
-                       'todo_and_clock_list': todo_and_clock_list})
+                      {'todo_and_clock_list': todo_and_clock_list})
 
 
 class MyDailyGraph(LoginRequiredMixin, View):
@@ -163,13 +197,13 @@ def find_creators_todos(request):
             creators_todos.append(todo)
     return creators_todos
 
-
+"""
 def my_week_helper(num):
     if num < 0:
         return num + 7
     else:
         return num
-
+"""
 
 class MyWeek(LoginRequiredMixin, View):
     def get(self, request):

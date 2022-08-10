@@ -6,7 +6,34 @@ My To Do's
 {% endblock title %}
 
 {% block page_body %}
-<div class="container">
+<div class="container" align="center">
+<ul class="nav nav-tabs" id="myTab" role="tablist">
+  <li class="nav-item" role="presentation">
+    <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#today-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">Today</button>
+  </li>
+  <li class="nav-item" role="presentation">
+    <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tomorrow-tab-pane" type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false">Tomorrow</button>
+  </li>
+  <li class="nav-item" role="presentation">
+    <button class="nav-link" data-bs-toggle="tab" data-bs-target="#twodays-tab-pane" type="button" role="tab" aria-controls="contact-tab-pane" aria-selected="false">{{ two_later_day }}</button>
+  </li>
+    <li class="nav-item" role="presentation">
+    <button class="nav-link" data-bs-toggle="tab" data-bs-target="#threedays-tab-pane" type="button" role="tab" aria-controls="contact-tab-pane" aria-selected="false">{{ three_later_day }}</button>
+  </li>
+    <li class="nav-item" role="presentation">
+    <button class="nav-link" data-bs-toggle="tab" data-bs-target="#fourdays-tab-pane" type="button" role="tab" aria-controls="contact-tab-pane" aria-selected="false">{{ four_later_day }}</button>
+  </li>
+    <li class="nav-item" role="presentation">
+    <button class="nav-link" data-bs-toggle="tab" data-bs-target="#fivedays-tab-pane" type="button" role="tab" aria-controls="contact-tab-pane" aria-selected="false">{{ five_later_day }}</button>
+  </li>
+    <li class="nav-item" role="presentation">
+    <button class="nav-link" data-bs-toggle="tab" data-bs-target="#sixdays-tab-pane" type="button" role="tab" aria-controls="contact-tab-pane" aria-selected="false">{{ six_later_day }}</button>
+  </li>
+</ul>
+</div>
+<div class="tab-content" id="myTabContent">
+  <div class="tab-pane fade show active" id="today-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
+      <div class="container">
     <br><br>
     {% csrf_token %}
     {% if today_creators_todos %}
@@ -23,26 +50,26 @@ My To Do's
         <tbody>
         {% for todo in today_creators_todos %}
         {% if todo.is_finished %}
-        <tr>
-            <th scope="row"><a class="btn btn-danger" href="{% url 'delete' todo.id %}">Delete</a></th>
-            <th scope="row"><a class="btn btn-warning" href="{% url 'change_is_finished' todo.id %}">Check</a></th>
+        <tr >
+            <th align="center" scope="row"><a class="btn btn-danger" href="{% url 'delete' todo.id %}">Delete</a></th>
+            <p><th scope="row"><a class="btn btn-warning" href="{% url 'change_is_finished' todo.id %}">Check</a></th></p>
             <td>
-                <del>{{ todo.title }}</del>
+                <del><p>{{ todo.title }}</p></del>
             </td>
             <td>
-                <del>{{ todo.description }}</del>
+                <del>{{ todo.description|safe }}</del>
             </td>
             <td>
-                <del>{{ todo.length }}</del>
+                <del><p>{{ todo.length }}</p></del>
             </td>
         </tr>
         {% else %}
         <tr>
             <th scope="row"><a class="btn btn-danger" href="{% url 'delete' todo.id %}">Delete</a></th>
             <th scope="row"><a class="btn btn-warning" href="{% url 'change_is_finished' todo.id %}">Check</a></th>
-            <td>{{ todo.title }}</td>
-            <td>{{ todo.description }}</td>
-            <td>{{ todo.length }}</td>
+            <td><p>{{ todo.title }}</p></td>
+            <td>{{ todo.description|safe }}</td>
+            <td><p>{{ todo.length }}</p></td>
         </tr>
         {% endif %}
         {% endfor %}
@@ -52,6 +79,315 @@ My To Do's
     Nothing to see here today! Please add your todos!
     {% endif %}
 </div>
+  </div>
+
+  <div class="tab-pane fade" id="tomorrow-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
+      <div class="container">
+    <br><br>
+    {% csrf_token %}
+    {% if tomorrow_creators_todos %}
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col"></th>
+            <th scope="col"></th>
+            <th scope="col">Title</th>
+            <th scope="col">Description</th>
+            <th scope="col">Length</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for todo in tomorrow_creators_todos %}
+        {% if todo.is_finished %}
+        <tr >
+            <th align="center" scope="row"><a class="btn btn-danger" href="{% url 'delete' todo.id %}">Delete</a></th>
+            <p><th scope="row"><a class="btn btn-warning" href="{% url 'change_is_finished' todo.id %}">Check</a></th></p>
+            <td>
+                <del><p>{{ todo.title }}</p></del>
+            </td>
+            <td>
+                <del>{{ todo.description|safe }}</del>
+            </td>
+            <td>
+                <del><p>{{ todo.length }}</p></del>
+            </td>
+        </tr>
+        {% else %}
+        <tr>
+            <th scope="row"><a class="btn btn-danger" href="{% url 'delete' todo.id %}">Delete</a></th>
+            <th scope="row"><a class="btn btn-warning" href="{% url 'change_is_finished' todo.id %}">Check</a></th>
+            <td><p>{{ todo.title }}</p></td>
+            <td>{{ todo.description|safe }}</td>
+            <td><p>{{ todo.length }}</p></td>
+        </tr>
+        {% endif %}
+        {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    Nothing to see here today! Please add your todos!
+    {% endif %}
+</div>
+  </div>
+
+  <div class="tab-pane fade" id="twodays-tab-pane" role="tabpanel" aria-labelledby="contact-tab" tabindex="0">
+
+<div class="container">
+    <br><br>
+    {% csrf_token %}
+    {% if two_later_creators_todos %}
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col"></th>
+            <th scope="col"></th>
+            <th scope="col">Title</th>
+            <th scope="col">Description</th>
+            <th scope="col">Length</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for todo in two_later_creators_todos %}
+        {% if todo.is_finished %}
+        <tr >
+            <th align="center" scope="row"><a class="btn btn-danger" href="{% url 'delete' todo.id %}">Delete</a></th>
+            <p><th scope="row"><a class="btn btn-warning" href="{% url 'change_is_finished' todo.id %}">Check</a></th></p>
+            <td>
+                <del><p>{{ todo.title }}</p></del>
+            </td>
+            <td>
+                <del>{{ todo.description|safe }}</del>
+            </td>
+            <td>
+                <del><p>{{ todo.length }}</p></del>
+            </td>
+        </tr>
+        {% else %}
+        <tr>
+            <th scope="row"><a class="btn btn-danger" href="{% url 'delete' todo.id %}">Delete</a></th>
+            <th scope="row"><a class="btn btn-warning" href="{% url 'change_is_finished' todo.id %}">Check</a></th>
+            <td><p>{{ todo.title }}</p></td>
+            <td>{{ todo.description|safe }}</td>
+            <td><p>{{ todo.length }}</p></td>
+        </tr>
+        {% endif %}
+        {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    Nothing to see here today! Please add your todos!
+    {% endif %}
+</div>
+  </div>
+
+  <div class="tab-pane fade" id="threedays-tab-pane" role="tabpanel" aria-labelledby="disabled-tab" tabindex="0">
+
+<div class="container">
+    <br><br>
+    {% csrf_token %}
+    {% if three_later_creators_todos %}
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col"></th>
+            <th scope="col"></th>
+            <th scope="col">Title</th>
+            <th scope="col">Description</th>
+            <th scope="col">Length</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for todo in three_later_creators_todos %}
+        {% if todo.is_finished %}
+        <tr >
+            <th align="center" scope="row"><a class="btn btn-danger" href="{% url 'delete' todo.id %}">Delete</a></th>
+            <p><th scope="row"><a class="btn btn-warning" href="{% url 'change_is_finished' todo.id %}">Check</a></th></p>
+            <td>
+                <del><p>{{ todo.title }}</p></del>
+            </td>
+            <td>
+                <del>{{ todo.description|safe }}</del>
+            </td>
+            <td>
+                <del><p>{{ todo.length }}</p></del>
+            </td>
+        </tr>
+        {% else %}
+        <tr>
+            <th scope="row"><a class="btn btn-danger" href="{% url 'delete' todo.id %}">Delete</a></th>
+            <th scope="row"><a class="btn btn-warning" href="{% url 'change_is_finished' todo.id %}">Check</a></th>
+            <td><p>{{ todo.title }}</p></td>
+            <td>{{ todo.description|safe }}</td>
+            <td><p>{{ todo.length }}</p></td>
+        </tr>
+        {% endif %}
+        {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    Nothing to see here today! Please add your todos!
+    {% endif %}
+</div>
+  </div>
+
+  <div class="tab-pane fade" id="fourdays-tab-pane" role="tabpanel" aria-labelledby="contact-tab" tabindex="0">
+
+<div class="container">
+    <br><br>
+    {% csrf_token %}
+    {% if four_later_creators_todos %}
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col"></th>
+            <th scope="col"></th>
+            <th scope="col">Title</th>
+            <th scope="col">Description</th>
+            <th scope="col">Length</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for todo in four_later_creators_todos %}
+        {% if todo.is_finished %}
+        <tr >
+            <th align="center" scope="row"><a class="btn btn-danger" href="{% url 'delete' todo.id %}">Delete</a></th>
+            <p><th scope="row"><a class="btn btn-warning" href="{% url 'change_is_finished' todo.id %}">Check</a></th></p>
+            <td>
+                <del><p>{{ todo.title }}</p></del>
+            </td>
+            <td>
+                <del>{{ todo.description|safe }}</del>
+            </td>
+            <td>
+                <del><p>{{ todo.length }}</p></del>
+            </td>
+        </tr>
+        {% else %}
+        <tr>
+            <th scope="row"><a class="btn btn-danger" href="{% url 'delete' todo.id %}">Delete</a></th>
+            <th scope="row"><a class="btn btn-warning" href="{% url 'change_is_finished' todo.id %}">Check</a></th>
+            <td><p>{{ todo.title }}</p></td>
+            <td>{{ todo.description|safe }}</td>
+            <td><p>{{ todo.length }}</p></td>
+        </tr>
+        {% endif %}
+        {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    Nothing to see here today! Please add your todos!
+    {% endif %}
+</div>
+  </div>
+
+  <div class="tab-pane fade" id="fivedays-tab-pane" role="tabpanel" aria-labelledby="contact-tab" tabindex="0">
+
+<div class="container">
+    <br><br>
+    {% csrf_token %}
+    {% if five_later_creators_todos %}
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col"></th>
+            <th scope="col"></th>
+            <th scope="col">Title</th>
+            <th scope="col">Description</th>
+            <th scope="col">Length</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for todo in five_later_creators_todos %}
+        {% if todo.is_finished %}
+        <tr >
+            <th align="center" scope="row"><a class="btn btn-danger" href="{% url 'delete' todo.id %}">Delete</a></th>
+            <p><th scope="row"><a class="btn btn-warning" href="{% url 'change_is_finished' todo.id %}">Check</a></th></p>
+            <td>
+                <del><p>{{ todo.title }}</p></del>
+            </td>
+            <td>
+                <del>{{ todo.description|safe }}</del>
+            </td>
+            <td>
+                <del><p>{{ todo.length }}</p></del>
+            </td>
+        </tr>
+        {% else %}
+        <tr>
+            <th scope="row"><a class="btn btn-danger" href="{% url 'delete' todo.id %}">Delete</a></th>
+            <th scope="row"><a class="btn btn-warning" href="{% url 'change_is_finished' todo.id %}">Check</a></th>
+            <td><p>{{ todo.title }}</p></td>
+            <td>{{ todo.description|safe }}</td>
+            <td><p>{{ todo.length }}</p></td>
+        </tr>
+        {% endif %}
+        {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    Nothing to see here today! Please add your todos!
+    {% endif %}
+</div>
+  </div>
+
+  <div class="tab-pane fade" id="sixdays-tab-pane" role="tabpanel" aria-labelledby="contact-tab" tabindex="0">
+
+<div class="container">
+    <br><br>
+    {% csrf_token %}
+    {% if six_later_creators_todos %}
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col"></th>
+            <th scope="col"></th>
+            <th scope="col">Title</th>
+            <th scope="col">Description</th>
+            <th scope="col">Length</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for todo in six_later_creators_todos %}
+        {% if todo.is_finished %}
+        <tr >
+            <th align="center" scope="row"><a class="btn btn-danger" href="{% url 'delete' todo.id %}">Delete</a></th>
+            <p><th scope="row"><a class="btn btn-warning" href="{% url 'change_is_finished' todo.id %}">Check</a></th></p>
+            <td>
+                <del><p>{{ todo.title }}</p></del>
+            </td>
+            <td>
+                <del>{{ todo.description|safe }}</del>
+            </td>
+            <td>
+                <del><p>{{ todo.length }}</p></del>
+            </td>
+        </tr>
+        {% else %}
+        <tr>
+            <th scope="row"><a class="btn btn-danger" href="{% url 'delete' todo.id %}">Delete</a></th>
+            <th scope="row"><a class="btn btn-warning" href="{% url 'change_is_finished' todo.id %}">Check</a></th>
+            <td><p>{{ todo.title }}</p></td>
+            <td>{{ todo.description|safe }}</td>
+            <td><p>{{ todo.length }}</p></td>
+        </tr>
+        {% endif %}
+        {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    Nothing to see here today! Please add your todos!
+    {% endif %}
+</div>
+  </div>
+</div>
+
+
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css"  integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
+
+
+
 
 <br>
 

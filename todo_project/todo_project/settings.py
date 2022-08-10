@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     'todo_app',
     'todo_logged_in_app',
+    'ckeditor',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

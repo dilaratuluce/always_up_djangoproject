@@ -12,9 +12,9 @@ My Week
         <li aria-current="true" class="list-group-item list-group-item-warning"> Yesterday</li>
         {% for todo in one_before_todos %}
         {% if todo.is_finished %}
-        <li class="list-group-item"><b>(+) {{ todo.title }} </b> : {{ todo.description }}</li>
+        <li class="list-group-item"><b>(+) {{ todo.title }} </b> : {{ todo.description|safe }}</li>
         {% else %}
-        <li class="list-group-item"><b>(-) {{ todo.title }}</b> : {{ todo.description }}</li>
+        <li class="list-group-item"><b>(-) {{ todo.title }}</b> : {{ todo.description|safe }}</li>
         {% endif %}
         {% endfor %}
         {% if not one_before_todos %}

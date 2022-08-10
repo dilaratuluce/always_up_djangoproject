@@ -72,14 +72,12 @@ class HowItWorks(View):
 
 class Contact(View):
     def get(self, request):
-        message_list = ContactMessage.objects.all()
-        return render(request, "todo_app/contact.html", {'message_list': message_list})
+        return render(request, "todo_app/contact.html")
 
     def post(self, request):
         form = MessageForm(request.POST or None)
         if form.is_valid():
             form.save()
-            message_list = ContactMessage.objects.all()
 
             send_mail(
                 'Contact Form by ' + request.POST['name'],
@@ -89,8 +87,7 @@ class Contact(View):
                 fail_silently=False
             )
             messages.success(request, "Thanks for your message! We will reply soon.")
-            return render(request, "todo_app/contact.html", {'message_list': message_list})
+            return render(request, "todo_app/contact.html")
         else:
-            message_list = ContactMessage.objects.all()
             messages.error(request, "Couldn't send your message, please fulfill all the fields.")
-            return render(request, "todo_app/contact.html", {'message_list': message_list})
+            return render(request, "todo_app/contact.html")
