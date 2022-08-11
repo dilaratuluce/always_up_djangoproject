@@ -1,5 +1,5 @@
 from django import forms
-from .models import Todo
+from .models import Todo, TodoCatagory
 
 
 class TodoForm(forms.ModelForm):
@@ -20,3 +20,9 @@ class TodoForm(forms.ModelForm):
            # 'length': forms.NumberInput(attrs={'class': 'form-control'}),
         #    'date': forms.DateTimeInput(attrs={'class': 'form-control'}),
      #   }
+
+
+class CatagoryForm(forms.ModelForm):
+    class Meta:
+        model = TodoCatagory
+        fields = ('name',)

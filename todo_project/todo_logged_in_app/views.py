@@ -7,10 +7,10 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, redirect
 from django.views import View
 
-from .forms import TodoForm
-from .models import Todo
+from .forms import TodoForm, CatagoryForm
+from .models import Todo, TodoCatagory
 
-from django.http import JsonResponse
+from django.http import HttpResponse, JsonResponse
 
 
 class LogOutRequest(LoginRequiredMixin, View):
@@ -403,3 +403,36 @@ class MyWeeklyGraph(LoginRequiredMixin, View):
                                                                            'four_days_ago': days[four_days_ago_num],
                                                                            'five_days_ago': days[five_days_ago_num],
                                                                            'six_days_ago': days[six_days_ago_num]})
+
+"""
+def mycatagories(request):
+    catagories = TodoCatagory.objects.all()
+    return JsonResponse({"catagories": list(catagories.values())})
+"""
+
+
+class MyCatagories(View):
+    def get(self, request):
+        catagories = TodoCatagory.objects.all()
+        form = CatagoryForm
+        return render(request, "todo_logged_in_app/catagories.html", {'form': form, 'catagories': catagories})
+
+    def post(self, request):
+        form = CatagoryForm(request.POST or None)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Catagory is added succesfully.")
+            catagories = TodoCatagory.objects.all()
+            return JsonResponse({"catagories2": list(catagories.values())})
+      #      return render(request, "todo_logged_in_app/catagories.html", {'form': form, 'catagories': catagories})
+        else:
+            messages.warning(request, "Catagory is not added.")
+            catagories = TodoCatagory.objects.all()
+            return render(request, "todo_logged_in_app/catagories.html", {'form': form, 'catagories': catagories})
+
+
+
+
+
+
+

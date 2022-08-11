@@ -1,0 +1,71 @@
+{% extends "todo_logged_in_app/base.html" %}
+{% load static %}
+
+{% block title %}
+User Home
+{% endblock title %}
+
+{% block page_body %}
+<!--
+<div class="container">
+<form id="post-form" method="POST" action="create_category">
+    {% csrf_token %}
+    <p>Name</p><input type=""text name="name" id="name"/>
+    <br>
+    <input type="submit"/>
+    <br><br>
+</form>
+</div> -->
+
+
+
+<div class="container">
+<form action="" method="POST">
+    {% csrf_token %}
+    {{ form.media }}
+    {{ form.as_p }}
+    <br>
+    <button class="btn btn-danger" id="add-button">Add To Do</button>
+    <br><br>
+</form>
+</div>
+
+<h1>List Of Catagories with Live Data:</h1>
+<ul id="display-data">
+    {% for catagory in catagories %}
+    <li>{{ catagory.name }}</li>
+    {% endfor %}
+</ul>
+
+<script
+  src="https://code.jquery.com/jquery-3.6.0.slim.min.js"
+  integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI="
+  crossorigin="anonymous"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+<script>
+$('#add-button').click(function(e){
+    e.preventDefault();
+
+        const name = $('#id_name').val()
+
+        $.ajax({
+            type: 'POST',
+            url : '/user/mycatagories/',
+            data:{
+                name:name,
+                csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
+            },
+            success: function(response){
+                console.log('AAAA',response.data)
+                $("#display-data").append('<li>' + name +' </li>');
+            },
+            error:  function (res){
+                console.log(res)
+            }
+        });
+});
+</script>
+
+
+{% endblock page_body %}

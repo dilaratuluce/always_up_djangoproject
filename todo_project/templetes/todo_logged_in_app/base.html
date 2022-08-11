@@ -155,6 +155,7 @@
 
 
 </head>
+
 <body>
 <!--header section start -->
 <div class="header_section">
@@ -174,6 +175,9 @@
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
                     <a class="nav-link" href="/user">Add To Do</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/user/mycatagories">My Catagories</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/user/my-to-dos">My To Do's</a>
@@ -235,6 +239,9 @@
 {% block page_body %}
 
 {% endblock page_body %}
+{% block script_body %}
+
+{% endblock script_body %}
 <!-- footer section start -->
 <div class="footer_section layout_padding">
     <div class="container">
@@ -304,6 +311,12 @@
 <!-- javascript -->
 <script src="{% static 'todo_app_static/js/owl.carousel.js' %}"></script>
 <script src="https:cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.js"></script>
+<script
+  src="https://code.jquery.com/jquery-3.6.0.slim.min.js"
+  integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI="
+  crossorigin="anonymous"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
 <script>
     setTimeout(function () {
         if ($('#msg').length > 0) {

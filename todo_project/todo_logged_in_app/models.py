@@ -26,10 +26,15 @@ PRIORITY_CHOICES = (
 )
 
 
+"""
 class Catagory(models.Model):
-    name = models.CharField(max_length=100)
-    creator = models.ForeignKey(User, default=None, on_delete=models.CASCADE)
-    
+    name = models.CharField(choices=CATAGORY_CHOICES, max_length=100, default='-')
+"""
+
+
+class TodoCatagory(models.Model):
+    name = models.CharField(max_length=100, default='-')
+
 
 class Todo(models.Model):
     title = models.CharField(max_length=100)
@@ -39,10 +44,10 @@ class Todo(models.Model):
     creator = models.ForeignKey(User, default=None, on_delete=models.CASCADE)
     date = models.DateField(choices=DATE_CHOICES, default=datetime.date.today)
     priority = models.TextField(choices=PRIORITY_CHOICES, default='normal')
-    catagory = models.ForeignKey(Catagory, default=None)
 
     def __str__(self):
         return self.title
 
-
+    #   catagory = models.ForeignKey(Catagory, blank=True, null=True, on_delete=models.CASCADE)
     # kendi eklediği kategori, kategori seç ya da kendin ekle, jquery select2 kütüphanesi kullanabilirsin
+
