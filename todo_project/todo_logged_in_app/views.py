@@ -404,12 +404,6 @@ class MyWeeklyGraph(LoginRequiredMixin, View):
                                                                            'five_days_ago': days[five_days_ago_num],
                                                                            'six_days_ago': days[six_days_ago_num]})
 
-"""
-def mycatagories(request):
-    catagories = TodoCatagory.objects.all()
-    return JsonResponse({"catagories": list(catagories.values())})
-"""
-
 
 class MyCatagories(View):
     def get(self, request):
@@ -421,9 +415,9 @@ class MyCatagories(View):
         form = CatagoryForm(request.POST or None)
         if form.is_valid():
             form.save()
-            messages.success(request, "Catagory is added succesfully.")
             catagories = TodoCatagory.objects.all()
-            return JsonResponse({"catagories2": list(catagories.values())})
+            return JsonResponse({"catagories2": list(catagories.values()),
+                                 "added_catagory": form.instance.id})
       #      return render(request, "todo_logged_in_app/catagories.html", {'form': form, 'catagories': catagories})
         else:
             messages.warning(request, "Catagory is not added.")
@@ -431,6 +425,13 @@ class MyCatagories(View):
             return render(request, "todo_logged_in_app/catagories.html", {'form': form, 'catagories': catagories})
 
 
+class MyCatagoriesDelete(View):
+    def post(self, request):
+        deleted_id = request.POST.get('deleted_id')
+        print(deleted_id)
+        TodoCatagory.objects.get(pk=deleted_id).delete()
+        catagories = TodoCatagory.objects.all()
+        return JsonResponse({"catagories3": list(catagories.values())})
 
 
 

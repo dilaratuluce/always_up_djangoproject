@@ -25,17 +25,35 @@ User Home
     {{ form.media }}
     {{ form.as_p }}
     <br>
-    <button class="btn btn-danger" id="add-button">Add To Do</button>
+    <button class="btn btn-danger" id="add-button">Add Category</button>
     <br><br>
 </form>
 </div>
 
-<h1>List Of Catagories with Live Data:</h1>
-<ul id="display-data">
-    {% for catagory in catagories %}
-    <li>{{ catagory.name }}</li>
-    {% endfor %}
-</ul>
+<div class="container">
+      <table class="table category-table">
+
+  <thead>
+    <tr>
+      <th scope="col"></th>
+      <th scope="col">Catagory</th>
+      <th scope="col">Delete</th>
+    </tr>
+  </thead>
+  <tbody id="display-data">
+
+  {% for catagory in catagories %}
+    <tr  id="row-{{ catagory.id }}">
+      <th scope="row" ></th>
+      <td>{{ catagory.name }}</td>
+      <td><button class="btn btn-danger delete-button" value={{ catagory.id }}>Delete</button></td>
+    </tr>
+  {% endfor %}
+
+  </tbody>
+            </table>
+
+</div>
 
 <script
   src="https://code.jquery.com/jquery-3.6.0.slim.min.js"
@@ -46,9 +64,7 @@ User Home
 <script>
 $('#add-button').click(function(e){
     e.preventDefault();
-
         const name = $('#id_name').val()
-
         $.ajax({
             type: 'POST',
             url : '/user/mycatagories/',
@@ -57,15 +73,41 @@ $('#add-button').click(function(e){
                 csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
             },
             success: function(response){
-                console.log('AAAA',response.data)
-                $("#display-data").append('<li>' + name +' </li>');
+                console.log('AAAA', response)
+                $("#display-data").append('<tr id="row-' + response.added_catagory + '"><th scope="row" ></th><td>'+ name + '</td><td><button class="btn btn-danger delete-button" value="' + response.added_catagory + '">Delete</button></td></tr>');
             },
             error:  function (res){
                 console.log(res)
             }
         });
 });
-</script>
 
+$('.category-table').on('click', '.delete-button', function(e){
+    e.preventDefault();
+        const deleted_id = $(this).val()
+    console.log("aaaaa ", deleted_id)
+        $.ajax({
+            type: 'POST',
+            url : '/user/mycatagories/delete',
+            data:{
+                deleted_id:deleted_id,
+                csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
+            },
+            success: function(response){
+                console.log('deleting',response.data)
+
+                $('#row-' + deleted_id).remove();
+
+
+            },
+            error:  function (res){
+                console.log('errorrr')
+                console.log(res)
+            }
+        });
+});
+
+
+</script>
 
 {% endblock page_body %}

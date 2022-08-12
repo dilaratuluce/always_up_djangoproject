@@ -13,7 +13,7 @@ urlpatterns = [
     path('my-weekly-graph/', views.MyWeeklyGraph.as_view(), name='my_weekly_graph'),
     path('my-week/', views.MyWeek.as_view(), name='my_graphs'),
     path('mycatagories/', views.MyCatagories.as_view(), name='mycatagories'),
-  #  path('create_category/', views.create_category, name="create_category"),
+    path('mycatagories/delete', views.MyCatagoriesDelete.as_view(), name='mycatagories_delete'),
 
     path('change_finished/<int:pk>', views.ChangeFinished.as_view(), name="change_finished")  # kullanılmıyor, deneme için yazıldı
 ]

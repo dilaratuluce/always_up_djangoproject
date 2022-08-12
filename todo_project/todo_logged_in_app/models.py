@@ -35,6 +35,9 @@ class Catagory(models.Model):
 class TodoCatagory(models.Model):
     name = models.CharField(max_length=100, default='-')
 
+    def __str__(self):
+        return self.name
+
 
 class Todo(models.Model):
     title = models.CharField(max_length=100)
