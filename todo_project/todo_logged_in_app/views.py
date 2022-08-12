@@ -40,8 +40,6 @@ class FormPage(LoginRequiredMixin, View):
             return render(request, "todo_logged_in_app/index.html", {'form': form})
 
 
-
-
 def find_today_creators_todos(request):
     today_creators_todos = Todo.objects.filter(creator=request.user, date=datetime.date.today())
     return today_creators_todos
@@ -405,16 +403,25 @@ class MyWeeklyGraph(LoginRequiredMixin, View):
                                                                            'six_days_ago': days[six_days_ago_num]})
 
 
+def find_creators_categories(request):
+    creators_categories = TodoCatagory.objects.filter(creator=request.user)
+    return creators_categories
+
+
 class MyCatagories(View):
     def get(self, request):
-        catagories = TodoCatagory.objects.all()
+  #      catagories = TodoCatagory.objects.all()
+        catagories = find_creators_categories(request)
         form = CatagoryForm
         return render(request, "todo_logged_in_app/catagories.html", {'form': form, 'catagories': catagories})
 
     def post(self, request):
         form = CatagoryForm(request.POST or None)
         if form.is_valid():
-            form.save()
+            instance = form.save(commit=False)
+            instance.creator = request.user
+            instance.save()
+   #         form.save()
             catagories = TodoCatagory.objects.all()
             return JsonResponse({"catagories2": list(catagories.values()),
                                  "added_catagory": form.instance.id})

@@ -2,22 +2,10 @@
 {% load static %}
 
 {% block title %}
-User Home
+My Categories
 {% endblock title %}
 
 {% block page_body %}
-<!--
-<div class="container">
-<form id="post-form" method="POST" action="create_category">
-    {% csrf_token %}
-    <p>Name</p><input type=""text name="name" id="name"/>
-    <br>
-    <input type="submit"/>
-    <br><br>
-</form>
-</div> -->
-
-
 
 <div class="container">
 <form action="" method="POST">
@@ -31,8 +19,7 @@ User Home
 </div>
 
 <div class="container">
-      <table class="table category-table">
-
+<table class="table category-table">
   <thead>
     <tr>
       <th scope="col"></th>
@@ -41,7 +28,6 @@ User Home
     </tr>
   </thead>
   <tbody id="display-data">
-
   {% for catagory in catagories %}
     <tr  id="row-{{ catagory.id }}">
       <th scope="row" ></th>
@@ -49,10 +35,8 @@ User Home
       <td><button class="btn btn-danger delete-button" value={{ catagory.id }}>Delete</button></td>
     </tr>
   {% endfor %}
-
   </tbody>
-            </table>
-
+</table>
 </div>
 
 <script
@@ -85,28 +69,28 @@ $('#add-button').click(function(e){
 $('.category-table').on('click', '.delete-button', function(e){
     e.preventDefault();
         const deleted_id = $(this).val()
-    console.log("aaaaa ", deleted_id)
+        console.log("aaaaa ", deleted_id)
+    var ask = confirm('Are you sure you want to delete this category?');
+    if(ask) {
         $.ajax({
             type: 'POST',
-            url : '/user/mycatagories/delete',
-            data:{
-                deleted_id:deleted_id,
+            url: '/user/mycatagories/delete',
+            data: {
+                deleted_id: deleted_id,
                 csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
             },
-            success: function(response){
-                console.log('deleting',response.data)
-
+            success: function (response) {
+                console.log('deleting', response.data)
                 $('#row-' + deleted_id).remove();
 
-
             },
-            error:  function (res){
+            error: function (res) {
                 console.log('errorrr')
                 console.log(res)
             }
         });
+    }
 });
-
 
 </script>
 
