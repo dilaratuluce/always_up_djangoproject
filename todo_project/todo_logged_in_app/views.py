@@ -24,10 +24,12 @@ class FormPage(LoginRequiredMixin, View):
 
     def get(self, request):
         form = TodoForm
+        form.base_fields['catagory'].limit_choices_to = {'creator': request.user}
         return render(request, "todo_logged_in_app/index.html", {'form': form})
 
     def post(self, request):
         form = TodoForm(request.POST or None)
+  #      form.base_fields['catagory'].limit_choices_to = {'creator': request.user}
         if form.is_valid():
             instance = form.save(commit=False)
             instance.creator = request.user
@@ -54,6 +56,19 @@ def my_week_helper(num):
         return num
 
 
+def sort_by_category(todo_list, request):
+    creators_categories = find_creators_categories(request)
+    sorted_list = []
+    for category in creators_categories:
+        for todo in todo_list:
+            if todo.catagory == category:
+                sorted_list.append(todo)
+    for todo in todo_list:
+        if not todo.catagory:
+            sorted_list.append(todo)
+    return sorted_list
+
+
 class MyToDos(LoginRequiredMixin, View):
     def get(self, request):
         today = date.today()
@@ -66,20 +81,20 @@ class MyToDos(LoginRequiredMixin, View):
         six_later_num = my_week_helper(todays_num + 6)
         days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
         today_creators_todos = Todo.objects.filter(creator=request.user, date=datetime.date.today())
-        tomorrow_creators_todos = Todo.objects.filter(creator=request.user, date=datetime.date.today()-timedelta(days=1))
+        tomorrow_creators_todos = Todo.objects.filter(creator=request.user, date=datetime.date.today()+timedelta(days=1))
         two_later_creators_todos = Todo.objects.filter(creator=request.user, date=datetime.date.today()+timedelta(days=2))
         three_later_creators_todos = Todo.objects.filter(creator=request.user, date=datetime.date.today()+timedelta(days=3))
         four_later_creators_todos = Todo.objects.filter(creator=request.user, date=datetime.date.today()+timedelta(days=4))
         five_later_creators_todos = Todo.objects.filter(creator=request.user, date=datetime.date.today()+timedelta(days=5))
         six_later_creators_todos = Todo.objects.filter(creator=request.user, date=datetime.date.today()+timedelta(days=6))
         return render(request, "todo_logged_in_app/my_to_dos.html",
-                      {'today_creators_todos': today_creators_todos,
-                       'tomorrow_creators_todos': tomorrow_creators_todos,
-                       'two_later_creators_todos': two_later_creators_todos,
-                       'three_later_creators_todos': three_later_creators_todos,
-                       'four_later_creators_todos': four_later_creators_todos,
-                       'five_later_creators_todos': five_later_creators_todos,
-                       'six_later_creators_todos': six_later_creators_todos,
+                      {'today_creators_todos': sort_by_category(today_creators_todos, request),
+                       'tomorrow_creators_todos': sort_by_category(tomorrow_creators_todos, request),
+                       'two_later_creators_todos': sort_by_category(two_later_creators_todos, request),
+                       'three_later_creators_todos': sort_by_category(three_later_creators_todos, request),
+                       'four_later_creators_todos': sort_by_category(four_later_creators_todos, request),
+                       'five_later_creators_todos': sort_by_category(five_later_creators_todos, request),
+                       'six_later_creators_todos': sort_by_category(six_later_creators_todos, request),
                        'today': days[todays_num],
                        'tomorrow': days[one_later_num],
                        'two_later_day': days[two_later_num],
@@ -118,6 +133,7 @@ def change_finished(request, Todo_id):  # şu an kullanılmıyor, deneme için y
         todo.save()
     todos = Todo.objects.all()
     return JsonResponse({"todos": list(todos.values())})
+
 
 class ChangeFinished(View):   # şu an kullanılmıyor, deneme için yazıldı
     def get(self, request, pk, *args, **kwargs):

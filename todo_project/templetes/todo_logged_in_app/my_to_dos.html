@@ -45,6 +45,7 @@ My To Do's
             <th scope="col">Title</th>
             <th scope="col">Description</th>
             <th scope="col">Length</th>
+            <th scope="col">Category</th>
         </tr>
         </thead>
         <tbody>
@@ -62,6 +63,15 @@ My To Do's
             <td>
                 <del><p>{{ todo.length }}</p></del>
             </td>
+            {% if todo.catagory %}
+            <td>
+                <del><p>{{ todo.catagory }}</p></del>
+            </td>
+            {% else %}
+            <td>
+                <del><p> - </p></del>
+            </td>
+            {% endif %}
         </tr>
         {% else %}
         <tr>
@@ -70,6 +80,11 @@ My To Do's
             <td><p>{{ todo.title }}</p></td>
             <td>{{ todo.description|safe }}</td>
             <td><p>{{ todo.length }}</p></td>
+            {% if todo.catagory %}
+            <td><p>{{ todo.catagory }}</p></td>
+            {% else %}
+            <td><p> - </p></td>
+            {% endif %}
         </tr>
         {% endif %}
         {% endfor %}
@@ -94,6 +109,7 @@ My To Do's
             <th scope="col">Title</th>
             <th scope="col">Description</th>
             <th scope="col">Length</th>
+            <th scope="col">Category</th>
         </tr>
         </thead>
         <tbody>
@@ -111,6 +127,15 @@ My To Do's
             <td>
                 <del><p>{{ todo.length }}</p></del>
             </td>
+            {% if todo.catagory %}
+            <td>
+                <del><p>{{ todo.catagory }}</p></del>
+            </td>
+            {% else %}
+            <td>
+                <del><p> - </p></del>
+            </td>
+            {% endif %}
         </tr>
         {% else %}
         <tr>
@@ -119,6 +144,11 @@ My To Do's
             <td><p>{{ todo.title }}</p></td>
             <td>{{ todo.description|safe }}</td>
             <td><p>{{ todo.length }}</p></td>
+            {% if todo.catagory %}
+            <td><p>{{ todo.catagory }}</p></td>
+            {% else %}
+            <td><p> - </p></td>
+            {% endif %}
         </tr>
         {% endif %}
         {% endfor %}
@@ -144,6 +174,7 @@ My To Do's
             <th scope="col">Title</th>
             <th scope="col">Description</th>
             <th scope="col">Length</th>
+            <th scope="col">Catagory</th>
         </tr>
         </thead>
         <tbody>
@@ -161,6 +192,15 @@ My To Do's
             <td>
                 <del><p>{{ todo.length }}</p></del>
             </td>
+            {% if todo.catagory %}
+            <td>
+                <del><p>{{ todo.catagory }}</p></del>
+            </td>
+            {% else %}
+            <td>
+                <del><p> - </p></del>
+            </td>
+            {% endif %}
         </tr>
         {% else %}
         <tr>
@@ -169,6 +209,11 @@ My To Do's
             <td><p>{{ todo.title }}</p></td>
             <td>{{ todo.description|safe }}</td>
             <td><p>{{ todo.length }}</p></td>
+            {% if todo.catagory %}
+            <td><p>{{ todo.catagory }}</p></td>
+            {% else %}
+            <td><p> - </p></td>
+            {% endif %}
         </tr>
         {% endif %}
         {% endfor %}
@@ -194,6 +239,7 @@ My To Do's
             <th scope="col">Title</th>
             <th scope="col">Description</th>
             <th scope="col">Length</th>
+            <th scope="col">Category</th>
         </tr>
         </thead>
         <tbody>
@@ -211,6 +257,15 @@ My To Do's
             <td>
                 <del><p>{{ todo.length }}</p></del>
             </td>
+            {% if todo.catagory %}
+            <td>
+                <del><p>{{ todo.catagory }}</p></del>
+            </td>
+            {% else %}
+            <td>
+                <del><p> - </p></del>
+            </td>
+            {% endif %}
         </tr>
         {% else %}
         <tr>
@@ -219,6 +274,11 @@ My To Do's
             <td><p>{{ todo.title }}</p></td>
             <td>{{ todo.description|safe }}</td>
             <td><p>{{ todo.length }}</p></td>
+            {% if todo.catagory %}
+            <td><p>{{ todo.catagory }}</p></td>
+            {% else %}
+            <td><p> - </p></td>
+            {% endif %}
         </tr>
         {% endif %}
         {% endfor %}
@@ -244,6 +304,7 @@ My To Do's
             <th scope="col">Title</th>
             <th scope="col">Description</th>
             <th scope="col">Length</th>
+            <th scope="col">Category</th>
         </tr>
         </thead>
         <tbody>
@@ -261,6 +322,15 @@ My To Do's
             <td>
                 <del><p>{{ todo.length }}</p></del>
             </td>
+            {% if todo.catagory %}
+            <td>
+                <del><p>{{ todo.catagory }}</p></del>
+            </td>
+            {% else %}
+            <td>
+                <del><p> - </p></del>
+            </td>
+            {% endif %}
         </tr>
         {% else %}
         <tr>
@@ -269,6 +339,11 @@ My To Do's
             <td><p>{{ todo.title }}</p></td>
             <td>{{ todo.description|safe }}</td>
             <td><p>{{ todo.length }}</p></td>
+            {% if todo.catagory %}
+            <td>><p>{{ todo.catagory }}</p></td>
+            {% else %}
+            <td><p> - </p></td>
+            {% endif %}
         </tr>
         {% endif %}
         {% endfor %}
@@ -294,6 +369,7 @@ My To Do's
             <th scope="col">Title</th>
             <th scope="col">Description</th>
             <th scope="col">Length</th>
+            <th scope="col">Category</th>
         </tr>
         </thead>
         <tbody>
@@ -311,6 +387,15 @@ My To Do's
             <td>
                 <del><p>{{ todo.length }}</p></del>
             </td>
+            {% if todo.catagory %}
+            <td>
+                <del><p>{{ todo.catagory }}</p></del>
+            </td>
+            {% else %}
+            <td>
+                <del><p> - </p></del>
+            </td>
+            {% endif %}
         </tr>
         {% else %}
         <tr>
@@ -319,6 +404,11 @@ My To Do's
             <td><p>{{ todo.title }}</p></td>
             <td>{{ todo.description|safe }}</td>
             <td><p>{{ todo.length }}</p></td>
+            {% if todo.catagory %}
+            <td><p>{{ todo.catagory }}</p></td>
+            {% else %}
+            <td><p> - </p></td>
+            {% endif %}
         </tr>
         {% endif %}
         {% endfor %}
@@ -344,6 +434,7 @@ My To Do's
             <th scope="col">Title</th>
             <th scope="col">Description</th>
             <th scope="col">Length</th>
+            <th scope="col">Category</th>
         </tr>
         </thead>
         <tbody>
@@ -361,6 +452,15 @@ My To Do's
             <td>
                 <del><p>{{ todo.length }}</p></del>
             </td>
+            {% if todo.catagory %}
+            <td>
+                <del><p>{{ todo.catagory }}</p></del>
+            </td>
+            {% else %}
+            <td>
+                <del><p> - </p></del>
+            </td>
+            {% endif %}
         </tr>
         {% else %}
         <tr>
@@ -369,6 +469,11 @@ My To Do's
             <td><p>{{ todo.title }}</p></td>
             <td>{{ todo.description|safe }}</td>
             <td><p>{{ todo.length }}</p></td>
+            {% if todo.catagory %}
+            <td><p>{{ todo.catagory }}</p></td>
+            {% else %}
+            <td><p> - </p></td>
+            {% endif %}
         </tr>
         {% endif %}
         {% endfor %}
@@ -382,10 +487,8 @@ My To Do's
 </div>
 
 
-
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css"  integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
-
 
 
 <br>

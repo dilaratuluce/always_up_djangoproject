@@ -7,6 +7,8 @@ from datetime import timedelta, date
 from django import forms
 # Create your models here.
 
+from django.contrib.auth import get_user_model
+
 DATE_CHOICES = (
     (datetime.date.today(), datetime.date.today()),
     (datetime.date.today() + timedelta(days=1), datetime.date.today() + timedelta(days=1)),
@@ -30,6 +32,11 @@ PRIORITY_CHOICES = (
 class Catagory(models.Model):
     name = models.CharField(choices=CATAGORY_CHOICES, max_length=100, default='-')
 """
+#Catagory_choices = ()
+#for catagory in TodoCatagory.objects.all():
+#    Catagory_choices = Catagory_choices + {"catagory.name": catagory.name})
+
+#CATAGORY_CHOICES = Catagory_choices
 
 
 class TodoCatagory(models.Model):
@@ -48,10 +55,14 @@ class Todo(models.Model):
     creator = models.ForeignKey(User, default=None, on_delete=models.CASCADE)
     date = models.DateField(choices=DATE_CHOICES, default=datetime.date.today)
     priority = models.TextField(choices=PRIORITY_CHOICES, default='normal')
+    catagory = models.ForeignKey(TodoCatagory, max_length=100, on_delete=models.CASCADE, blank=True, null=True)
 
     def __str__(self):
         return self.title
 
-    #   catagory = models.ForeignKey(Catagory, blank=True, null=True, on_delete=models.CASCADE)
+
     # kendi eklediği kategori, kategori seç ya da kendin ekle, jquery select2 kütüphanesi kullanabilirsin
+
+
+#   catagory = models.ForeignKey(TodoCatagory, max_length=100, on_delete=models.CASCADE, blank=True, null=True)
 
