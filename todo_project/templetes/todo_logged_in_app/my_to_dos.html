@@ -6,6 +6,7 @@ My To Do's
 {% endblock title %}
 
 {% block page_body %}
+<br>
 <div class="container" align="center">
 <ul class="nav nav-tabs" id="myTab" role="tablist">
   <li class="nav-item" role="presentation">
@@ -340,7 +341,7 @@ My To Do's
             <td>{{ todo.description|safe }}</td>
             <td><p>{{ todo.length }}</p></td>
             {% if todo.catagory %}
-            <td>><p>{{ todo.catagory }}</p></td>
+            <td><p>{{ todo.catagory }}</p></td>
             {% else %}
             <td><p> - </p></td>
             {% endif %}

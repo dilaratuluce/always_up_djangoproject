@@ -12,9 +12,9 @@ My Week
         <li aria-current="true" class="list-group-item list-group-item-warning"> Yesterday</li>
         {% for todo in one_before_todos %}
         {% if todo.is_finished %}
-        <li class="list-group-item"><b>(+) {{ todo.title }} </b> : {{ todo.description|safe }}</li>
+        <li class="list-group-item"><b>(+) {{ todo.title }} </b> {{ todo.description|safe }}</li>
         {% else %}
-        <li class="list-group-item"><b>(-) {{ todo.title }}</b> : {{ todo.description|safe }}</li>
+        <li class="list-group-item"><b>(-) {{ todo.title }}</b> {{ todo.description|safe }}</li>
         {% endif %}
         {% endfor %}
         {% if not one_before_todos %}
@@ -29,9 +29,9 @@ My Week
         <li aria-current="true" class="list-group-item list-group-item-success">{{ two_days_ago }}</li>
         {% for todo in two_before_todos %}
         {% if todo.is_finished %}
-        <li class="list-group-item"><b>(+) {{ todo.title }}</b> : {{ todo.description|safe }}</li>
+        <li class="list-group-item"><b>(+) {{ todo.title }}</b> {{ todo.description|safe }}</li>
         {% else %}
-        <li class="list-group-item"><b>(-) {{ todo.title }}</b> : {{ todo.description|safe }}</li>
+        <li class="list-group-item"><b>(-) {{ todo.title }}</b> {{ todo.description|safe }}</li>
         {% endif %}
         {% endfor %}
         {% if not two_before_todos %}
@@ -46,9 +46,9 @@ My Week
         <li aria-current="true" class="list-group-item list-group-item-warning">{{ three_days_ago }}</li>
         {% for todo in three_before_todos %}
         {% if todo.is_finished %}
-        <li class="list-group-item"><b>(+) {{ todo.title }}</b> : {{ todo.description|safe }}</li>
+        <li class="list-group-item"><b>(+) {{ todo.title }}</b> {{ todo.description|safe }}</li>
         {% else %}
-        <li class="list-group-item"><b>(-) {{ todo.title }}</b> : {{ todo.description|safe }}</li>
+        <li class="list-group-item"><b>(-) {{ todo.title }}</b> {{ todo.description|safe }}</li>
         {% endif %}
         {% endfor %}
         {% if not three_before_todos %}
@@ -63,9 +63,9 @@ My Week
         <li aria-current="true" class="list-group-item list-group-item-success">{{ four_days_ago }}</li>
         {% for todo in four_before_todos %}
         {% if todo.is_finished %}
-        <li class="list-group-item"><b>(+) {{ todo.title }}</b> : {{ todo.description|safe }}</li>
+        <li class="list-group-item"><b>(+) {{ todo.title }}</b> {{ todo.description|safe }}</li>
         {% else %}
-        <li class="list-group-item"><b>(-) {{ todo.title }}</b> : {{ todo.description|safe }}</li>
+        <li class="list-group-item"><b>(-) {{ todo.title }}</b> {{ todo.description|safe }}</li>
         {% endif %}
         {% endfor %}
         {% if not four_before_todos %}
@@ -80,9 +80,9 @@ My Week
         <li aria-current="true" class="list-group-item list-group-item-warning">{{ five_days_ago }}</li>
         {% for todo in five_before_todos %}
         {% if todo.is_finished %}
-        <li class="list-group-item"><b>(+) {{ todo.title }}</b> : {{ todo.description|safe }}</li>
+        <li class="list-group-item"><b>(+) {{ todo.title }}</b> {{ todo.description|safe }}</li>
         {% else %}
-        <li class="list-group-item"><b>(-) {{ todo.title }}</b> : {{ todo.description|safe }}</li>
+        <li class="list-group-item"><b>(-) {{ todo.title }}</b> {{ todo.description|safe }}</li>
         {% endif %}
         {% endfor %}
         {% if not five_before_todos %}
@@ -97,9 +97,9 @@ My Week
         <li aria-current="true" class="list-group-item list-group-item-success">{{ six_days_ago }}</li>
         {% for todo in six_before_todos %}
         {% if todo.is_finished %}
-        <li class="list-group-item"><b>(+) {{ todo.title }}</b> : {{ todo.description|safe }}</li>
+        <li class="list-group-item"><b>(+) {{ todo.title }}</b> {{ todo.description|safe }}</li>
         {% else %}
-        <li class="list-group-item"><b>(-) {{ todo.title }}</b> : {{ todo.description|safe }}</li>
+        <li class="list-group-item"><b>(-) {{ todo.title }}</b> {{ todo.description|safe }}</li>
         {% endif %}
         {% endfor %}
         {% if not six_before_todos %}
