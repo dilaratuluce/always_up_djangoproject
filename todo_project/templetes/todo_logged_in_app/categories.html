@@ -23,16 +23,16 @@ My Categories
   <thead>
     <tr>
       <th scope="col"></th>
-      <th scope="col">Catagory</th>
+      <th scope="col">Category</th>
       <th scope="col">Delete</th>
     </tr>
   </thead>
   <tbody id="display-data">
-  {% for catagory in catagories %}
-    <tr  id="row-{{ catagory.id }}">
+  {% for category in categories %}
+    <tr  id="row-{{ category.id }}">
       <th scope="row" ></th>
-      <td>{{ catagory.name }}</td>
-      <td><button class="btn btn-danger delete-button" value={{ catagory.id }}>Delete</button></td>
+      <td>{{ category.name }}</td>
+      <td><button class="btn btn-danger delete-button" value={{ category.id }}>Delete</button></td>
     </tr>
   {% endfor %}
   </tbody>
@@ -51,14 +51,14 @@ $('#add-button').click(function(e){
         const name = $('#id_name').val()
         $.ajax({
             type: 'POST',
-            url : '/user/mycatagories/',
+            url : '/user/mycategories/',
             data:{
                 name:name,
                 csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
             },
             success: function(response){
                 console.log('AAAA', response)
-                $("#display-data").append('<tr id="row-' + response.added_catagory + '"><th scope="row" ></th><td>'+ name + '</td><td><button class="btn btn-danger delete-button" value="' + response.added_catagory + '">Delete</button></td></tr>');
+                $("#display-data").append('<tr id="row-' + response.added_category + '"><th scope="row" ></th><td>'+ name + '</td><td><button class="btn btn-danger delete-button" value="' + response.added_category + '">Delete</button></td></tr>');
             },
             error:  function (res){
                 console.log(res)
@@ -74,7 +74,7 @@ $('.category-table').on('click', '.delete-button', function(e){
     if(ask) {
         $.ajax({
             type: 'POST',
-            url: '/user/mycatagories/delete',
+            url: '/user/mycategories/delete',
             data: {
                 deleted_id: deleted_id,
                 csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()

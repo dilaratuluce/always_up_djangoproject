@@ -7,8 +7,8 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, redirect
 from django.views import View
 
-from .forms import TodoForm, CatagoryForm
-from .models import Todo, TodoCatagory
+from .forms import TodoForm, CategoryForm
+from .models import Todo, TodoCategory
 
 from django.http import HttpResponse, JsonResponse
 
@@ -24,12 +24,12 @@ class FormPage(LoginRequiredMixin, View):
 
     def get(self, request):
         form = TodoForm
-        form.base_fields['catagory'].limit_choices_to = {'creator': request.user}
+        form.base_fields['category'].limit_choices_to = {'creator': request.user}
         return render(request, "todo_logged_in_app/index.html", {'form': form})
 
     def post(self, request):
         form = TodoForm(request.POST or None)
-  #      form.base_fields['catagory'].limit_choices_to = {'creator': request.user}
+  #      form.base_fields['category'].limit_choices_to = {'creator': request.user}
         if form.is_valid():
             instance = form.save(commit=False)
             instance.creator = request.user
@@ -61,10 +61,10 @@ def sort_by_category(todo_list, request):
     sorted_list = []
     for category in creators_categories:
         for todo in todo_list:
-            if todo.catagory == category:
+            if todo.category == category:
                 sorted_list.append(todo)
     for todo in todo_list:
-        if not todo.catagory:
+        if not todo.category:
             sorted_list.append(todo)
     return sorted_list
 
@@ -420,41 +420,39 @@ class MyWeeklyGraph(LoginRequiredMixin, View):
 
 
 def find_creators_categories(request):
-    creators_categories = TodoCatagory.objects.filter(creator=request.user)
+    creators_categories = TodoCategory.objects.filter(creator=request.user)
     return creators_categories
 
 
-class MyCatagories(View):
+class MyCategories(View):
     def get(self, request):
-  #      catagories = TodoCatagory.objects.all()
-        catagories = find_creators_categories(request)
-        form = CatagoryForm
-        return render(request, "todo_logged_in_app/catagories.html", {'form': form, 'catagories': catagories})
+        categories = find_creators_categories(request)
+        form = CategoryForm
+        return render(request, "todo_logged_in_app/categories.html", {'form': form, 'categories': categories})
 
     def post(self, request):
-        form = CatagoryForm(request.POST or None)
+        form = CategoryForm(request.POST or None)
         if form.is_valid():
             instance = form.save(commit=False)
             instance.creator = request.user
             instance.save()
-   #         form.save()
-            catagories = TodoCatagory.objects.all()
-            return JsonResponse({"catagories2": list(catagories.values()),
-                                 "added_catagory": form.instance.id})
-      #      return render(request, "todo_logged_in_app/catagories.html", {'form': form, 'catagories': catagories})
+            categories = TodoCategory.objects.all()
+            return JsonResponse({"categories2": list(categories.values()),
+                                 "added_category": form.instance.id})
+      #      return render(request, "todo_logged_in_app/categories.html", {'form': form, 'categories': categories})
         else:
-            messages.warning(request, "Catagory is not added.")
-            catagories = TodoCatagory.objects.all()
-            return render(request, "todo_logged_in_app/catagories.html", {'form': form, 'catagories': catagories})
+            messages.warning(request, "Category is not added.")
+            categories = TodoCategory.objects.all()
+            return render(request, "todo_logged_in_app/categories.html", {'form': form, 'categories': categories})
 
 
-class MyCatagoriesDelete(View):
+class MyCategoriesDelete(View):
     def post(self, request):
         deleted_id = request.POST.get('deleted_id')
         print(deleted_id)
-        TodoCatagory.objects.get(pk=deleted_id).delete()
-        catagories = TodoCatagory.objects.all()
-        return JsonResponse({"catagories3": list(catagories.values())})
+        TodoCategory.objects.get(pk=deleted_id).delete()
+        categories = TodoCategory.objects.all()
+        return JsonResponse({"categories3": list(categories.values())})
 
 
 

@@ -12,8 +12,8 @@ urlpatterns = [
     path('my-daily-graph/', views.MyDailyGraph.as_view(), name='my_daily_graph'),
     path('my-weekly-graph/', views.MyWeeklyGraph.as_view(), name='my_weekly_graph'),
     path('my-week/', views.MyWeek.as_view(), name='my_graphs'),
-    path('mycatagories/', views.MyCatagories.as_view(), name='mycatagories'),
-    path('mycatagories/delete', views.MyCatagoriesDelete.as_view(), name='mycatagories_delete'),
+    path('mycategories/', views.MyCategories.as_view(), name='mycategories'),
+    path('mycategories/delete', views.MyCategoriesDelete.as_view(), name='mycategories_delete'),
 
     path('change_finished/<int:pk>', views.ChangeFinished.as_view(), name="change_finished")  # kullanılmıyor, deneme için yazıldı
 ]

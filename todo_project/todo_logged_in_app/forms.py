@@ -1,21 +1,20 @@
 from django import forms
-from .models import Todo, TodoCatagory
+from .models import Todo, TodoCategory
 
 
 class TodoForm(forms.ModelForm):
     class Meta:
         model = Todo
-        fields = ('title', 'description', 'length', 'date', 'priority', 'catagory')
+        fields = ('title', 'description', 'length', 'date', 'priority', 'category')
 
         labels = {
             'title': 'Title',
             'description': 'Description',
             'length': 'Length (minutes):',
-       #     'date': 'Dateeee:',
         }
 
 
-class CatagoryForm(forms.ModelForm):
+class CategoryForm(forms.ModelForm):
     class Meta:
-        model = TodoCatagory
+        model = TodoCategory
         fields = ('name',)
