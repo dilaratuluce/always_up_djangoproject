@@ -123,32 +123,6 @@ class ChangeIsFinished(LoginRequiredMixin, View):
         return redirect("/user/my-to-dos")
 
 
-def change_finished(request, Todo_id):  # şu an kullanılmıyor, deneme için yazıldı
-    todo = Todo.objects.get(pk=Todo_id)
-    if todo.is_finished:
-        todo.is_finished = False
-        todo.save()
-    else:
-        todo.is_finished = True
-        todo.save()
-    todos = Todo.objects.all()
-    return JsonResponse({"todos": list(todos.values())})
-
-
-class ChangeFinished(View):   # şu an kullanılmıyor, deneme için yazıldı
-    def get(self, request, pk, *args, **kwargs):
-        if request.is_ajax():
-            todo = Todo.objects.get(pk=pk)
-            if todo.is_finished:
-                todo.is_finished = False
-                todo.save()
-            else:
-                todo.is_finished = True
-                todo.save()
-            return JsonResponse({'message:': "success"})
-        return JsonResponse({"message": "Wrong route"})
-
-
 def add_time(clock, time):
     result_clock = clock + timedelta(minutes=time)
     return result_clock

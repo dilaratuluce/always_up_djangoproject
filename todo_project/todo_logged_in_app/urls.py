@@ -15,5 +15,4 @@ urlpatterns = [
     path('mycategories/', views.MyCategories.as_view(), name='mycategories'),
     path('mycategories/delete', views.MyCategoriesDelete.as_view(), name='mycategories_delete'),
 
-    path('change_finished/<int:pk>', views.ChangeFinished.as_view(), name="change_finished")  # kullanılmıyor, deneme için yazıldı
 ]
