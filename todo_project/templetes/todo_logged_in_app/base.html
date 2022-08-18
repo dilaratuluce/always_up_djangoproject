@@ -179,8 +179,15 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/user/mycategories">My Categories</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/user/my-to-dos">My To Do's</a>
+                <li class="nav-item dropdown">
+                    <a aria-expanded="false" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#"
+                       role="button">
+                        My To Do's
+                    </a>
+                    <ul class="dropdown-content">
+                        <li><a href="/user/my-to-dos">All To Do's</a></li>
+                        <li><a href="/user/starred-to-dos">Starred To Do's</a></li>
+                    </ul>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/user/make-schedule">Make Schedule</a>

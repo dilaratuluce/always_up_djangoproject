@@ -105,14 +105,17 @@ class MyToDos(LoginRequiredMixin, View):
 
 
 class Delete(LoginRequiredMixin, View):
-    def get(self, request, Todo_id):
+    def get(self, request, Todo_id, starred_page):
         todo = Todo.objects.get(pk=Todo_id)
         todo.delete()
-        return redirect("/user/my-to-dos")
+        if starred_page == "True":
+            return redirect("/user/starred-to-dos")
+        else:
+            return redirect("/user/my-to-dos")
 
 
 class ChangeIsFinished(LoginRequiredMixin, View):
-    def get(self, request, Todo_id):
+    def get(self, request, Todo_id, starred_page):
         todo = Todo.objects.get(pk=Todo_id)
         if todo.is_finished:
             todo.is_finished = False
@@ -120,7 +123,10 @@ class ChangeIsFinished(LoginRequiredMixin, View):
         else:
             todo.is_finished = True
             todo.save()
-        return redirect("/user/my-to-dos")
+        if starred_page == "True":
+            return redirect("/user/starred-to-dos")
+        else:
+            return redirect("/user/my-to-dos")
 
 
 def add_time(clock, time):
@@ -184,7 +190,8 @@ def make_schedule_long_first(request):
 
 
 def make_schedule_important_first(request):
-    priority_dict = {'low': 1,
+    priority_dict = {'very_low': 0,
+                     'low': 1,
                      'normal': 2,
                      'high': 3,
                      'very_high': 4}
@@ -211,7 +218,8 @@ def length_score(length):
 
 
 def make_schedule_suggested_schedule(request):
-    priority_dict = {'low': 1,
+    priority_dict = {'very_low': 0,
+                     'low': 1,
                      'normal': 2,
                      'high': 3,
                      'very_high': 4}
@@ -427,6 +435,40 @@ class MyCategoriesDelete(View):
         TodoCategory.objects.get(pk=deleted_id).delete()
         categories = TodoCategory.objects.all()
         return JsonResponse({"categories3": list(categories.values())})
+
+
+class Star(View):
+    def get(self, request, Todo_id, starred_page):
+        todo = Todo.objects.get(pk=Todo_id)
+        if todo.starred:
+            todo.starred = False
+            todo.save()
+        else:
+            todo.starred = True
+            todo.save()
+        if starred_page == "True":
+            return redirect("/user/starred-to-dos")
+        else:
+            return redirect("/user/my-to-dos")
+
+
+class Star2(View):
+    def get(self, request, Todo_id):
+        todo = Todo.objects.get(pk=Todo_id)
+        if todo.starred:
+            todo.starred = False
+            todo.save()
+        else:
+            todo.starred = True
+            todo.save()
+        return redirect("/user/starred-to-dos")
+
+
+class StarredToDos(View):
+    def get(self, request):
+        creators_starred_todos = Todo.objects.filter(creator=request.user, starred=True)
+        return render(request, "todo_logged_in_app/starred_todos.html", {'creators_starred_todos': creators_starred_todos})
+
 
 
 
