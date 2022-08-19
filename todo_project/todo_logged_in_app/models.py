@@ -44,7 +44,7 @@ class Todo(models.Model):
     is_finished = models.BooleanField(default=False)
     creator = models.ForeignKey(User, default=None, on_delete=models.CASCADE)
     date = models.DateField(default=datetime.date.today)
-    priority = models.TextField(choices=PRIORITY_CHOICES, default='normal', blank=True, null=True) #default değerini kaldır ve priority yoksa sistem machine learning ile bir priority atasın
+    priority = models.TextField(choices=PRIORITY_CHOICES, blank=True, null=True) #default değerini kaldır ve priority yoksa sistem machine learning ile bir priority atasın
     category = models.ForeignKey(TodoCategory, max_length=100, on_delete=models.CASCADE, blank=True, null=True)
     starred = models.BooleanField(default=False)
 

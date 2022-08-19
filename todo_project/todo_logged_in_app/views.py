@@ -12,6 +12,8 @@ from .models import Todo, TodoCategory
 
 from django.http import HttpResponse, JsonResponse
 
+from difflib import SequenceMatcher
+
 
 class LogOutRequest(LoginRequiredMixin, View):
     def get(self, request):
@@ -29,12 +31,34 @@ class FormPage(LoginRequiredMixin, View):
 
     def post(self, request):
         form = TodoForm(request.POST or None)
-  #      form.base_fields['category'].limit_choices_to = {'creator': request.user}
         if form.is_valid():
             instance = form.save(commit=False)
             instance.creator = request.user
+            if not instance.priority:
+                priority_num = predict_priority(instance, request)
+                if priority_num == 0:
+                    instance.priority = "very_low"
+                    messages.success(request, "Todo is added succesfully, its priority is estimated and assigned as very low")
+                elif priority_num == 1:
+                    instance.priority = "low"
+                    messages.success(request,
+                                     "Todo is added succesfully, its priority is estimated and assigned as low")
+                elif priority_num == 2:
+                    instance.priority = "normal"
+                    messages.success(request,
+                                     "Todo is added succesfully, its priority is estimated and assigned as normal")
+                elif priority_num == 3:
+                    instance.priority = "high"
+                    messages.success(request,
+                                     "Todo is added succesfully, its priority is estimated and assigned as high")
+                elif priority_num == 4:
+                    instance.priority = "very_high"
+                    messages.success(request,
+                                     "Todo is added succesfully, its priority is estimated and assigned as very high")
+            else:
+                messages.success(request, "Todo is added succesfully.")
+
             instance.save()
-            messages.success(request, "Todo is added succesfully.")
 
             return render(request, "todo_logged_in_app/index.html", {'form': form})
         else:
@@ -470,6 +494,68 @@ class StarredToDos(View):
         return render(request, "todo_logged_in_app/starred_todos.html", {'creators_starred_todos': creators_starred_todos})
 
 
+def title_similarity(newtodo, todo_list):
+    common_sum = 0
+    for todo in todo_list:
+        match = SequenceMatcher(None, newtodo, todo.title).find_longest_match(0, len(newtodo), 0, len(todo.title))
+        common_size = match.size
+        if common_size >= 4:
+            common_sum += common_size
+    return common_sum
+
+
+def title_priority_score(newtodo, request):
+    priority0todos = Todo.objects.filter(creator=request.user, priority="very_low")
+    priority1todos = Todo.objects.filter(creator=request.user, priority="low")
+    priority2todos = Todo.objects.filter(creator=request.user, priority="normal")
+    priority3todos = Todo.objects.filter(creator=request.user, priority="high")
+    priority4todos = Todo.objects.filter(creator=request.user, priority="very_high")
+    title_similarity_withp0 = title_similarity(newtodo, priority0todos)
+    title_similarity_withp1 = title_similarity(newtodo, priority1todos)
+    title_similarity_withp2 = title_similarity(newtodo, priority2todos)
+    title_similarity_withp3 = title_similarity(newtodo, priority3todos)
+    title_similarity_withp4 = title_similarity(newtodo, priority4todos)
+    total = title_similarity_withp1*1 + title_similarity_withp2*2 + title_similarity_withp3*3 + title_similarity_withp4*4
+    print("yey:",(title_similarity_withp0 , title_similarity_withp1, title_similarity_withp2, title_similarity_withp3, title_similarity_withp4))
+
+    if total == 0: #yeni eklenen önceki datalardan hiçbirine benzer bir şey değil
+        return 0
+    else:
+        score = total / (
+                    title_similarity_withp0 + title_similarity_withp1 + title_similarity_withp2
+                    + title_similarity_withp3 + title_similarity_withp4)
+        return score
+
+
+def category_priority_score(newtodo, request):
+    category = newtodo.category
+    print("category:", category)
+    with_p0 = len(Todo.objects.filter(category=category, creator=request.user, priority="very_low"))
+    with_p1 = len(Todo.objects.filter(category=category, creator=request.user, priority="low"))
+    with_p2 = len(Todo.objects.filter(category=category, creator=request.user, priority="normal"))
+    with_p3 = len(Todo.objects.filter(category=category, creator=request.user, priority="high"))
+    with_p4 = len(Todo.objects.filter(category=category, creator=request.user, priority="very_high"))
+    total = with_p1*1 + with_p2*2 + with_p3*3 + with_p4*4
+    if total == 0:
+        return 0
+    else:
+        score = total / (with_p0 + with_p1 + with_p2 + with_p3 + with_p4)
+        return score
+
+
+def predict_priority(newtodo, request):
+    category_score = category_priority_score(newtodo, request)
+    print("category score:", category_score)
+    title_score = title_priority_score(newtodo.title, request)
+    print("title score:", title_score)
+    if title_score == 0.0 and category_score == 0.0:
+        return 2
+    elif title_score == 0:
+        return round(category_score)
+    elif category_score == 0:
+        return round(title_score)
+    else:
+        return round((title_score+category_score)/2)
 
 
 
