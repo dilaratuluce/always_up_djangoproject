@@ -30,7 +30,7 @@ PRIORITY_CHOICES = (
 
 
 class TodoCategory(models.Model):
-    name = models.CharField(max_length=100, default='-')
+    name = models.CharField(max_length=100)
     creator = models.ForeignKey(User, default=None, on_delete=models.CASCADE)
 
     def __str__(self):

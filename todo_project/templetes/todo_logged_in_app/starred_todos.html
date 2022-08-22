@@ -6,6 +6,7 @@ Starred To Do's
 {% endblock title %}
 
 {% block page_body %}
+{% if todos %}
 <br>
 <div class="container">
 <table class="table">
@@ -21,7 +22,7 @@ Starred To Do's
     </tr>
   </thead>
   <tbody>
-  {% for todo in creators_starred_todos%}
+  {% for todo in todos %}
   {% if todo.is_finished %}
         <tr>
             <th align="center" scope="row"><a class="btn btn-danger" href="{% url 'delete' todo.id True %}">Delete</a></th>
@@ -71,4 +72,48 @@ Starred To Do's
   </tbody>
 </table>
 </div>
+
+<nav aria-label="...">
+  <ul class="pagination justify-content-center">
+    {% if not todos.has_previous %}
+        <li class="page-item disabled">
+            <a class="page-link">Previous</a>
+        </li>
+    {% else %}
+        <li class="page-item">
+            <a class="page-link" href="?page={{ todos.previous_page_number }}">Previous</a>
+        </li>
+      {% endif %}
+
+      {% for i in page_num %}
+        {% if todos.number == forloop.counter %}
+            <li class="page-item active"><a class="page-link" href="?page={{ forloop.counter }}">{{ forloop.counter }}</a></li>
+        {% else %}
+      <li class="page-item"><a class="page-link" href="?page={{ forloop.counter }}">{{ forloop.counter }}</a></li>
+        {% endif %}
+      {% endfor %}
+
+      {% if todos.has_next %}
+        <li class="page-item">
+            <a class="page-link" href="?page={{ todos.next_page_number }}">Next</a>
+        </li>
+      {% else %}
+        <li class="page-item disabled">
+            <a class="page-link">Next</a>
+        </li>
+      {% endif %}
+  </ul>
+</nav>
+{% else %}
+<div class="container">Nothing to see here yet!</div>
+{% endif %}
+<br><br>
+
+<!--
+{{ todos }} <br>
+Has Previous: {{ todos.has_previous }} <br>
+Has Next: {{ todos.has_next }} <br>
+Current Page: {{ todos.number }} <br>
+Number of Pages: {{ todos.paginator.num_pages }} <br>
+-->
 {% endblock page_body %}

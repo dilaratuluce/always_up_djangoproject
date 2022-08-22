@@ -18,3 +18,9 @@ class CategoryForm(forms.ModelForm):
     class Meta:
         model = TodoCategory
         fields = ('name',)
+        labels = {
+            'name': 'Name:',
+        }
+        widgets = {
+            'name': forms.TextInput(attrs={'placeholder': '-'}),
+        }

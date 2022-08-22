@@ -475,7 +475,7 @@ class Star(View):
         else:
             return redirect("/user/my-to-dos")
 
-
+"""
 class Star2(View):
     def get(self, request, Todo_id):
         todo = Todo.objects.get(pk=Todo_id)
@@ -486,12 +486,24 @@ class Star2(View):
             todo.starred = True
             todo.save()
         return redirect("/user/starred-to-dos")
+"""
 
+from django.core.paginator import Paginator
 
 class StarredToDos(View):
     def get(self, request):
         creators_starred_todos = Todo.objects.filter(creator=request.user, starred=True)
-        return render(request, "todo_logged_in_app/starred_todos.html", {'creators_starred_todos': creators_starred_todos})
+
+        p = Paginator(creators_starred_todos, 4)
+        page = request.GET.get('page')
+        todos = p.get_page(page)
+
+        page_num = "a" * todos.paginator.num_pages
+
+        return render(request, "todo_logged_in_app/starred_todos.html",
+                      {'creators_starred_todos': creators_starred_todos,
+                       'todos': todos,
+                       'page_num': page_num})
 
 
 def title_similarity(newtodo, todo_list):
