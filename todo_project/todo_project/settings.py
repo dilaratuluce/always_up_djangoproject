@@ -158,3 +158,5 @@ MESSAGE_TAGS = {
 }
 
 django_on_heroku.settings(locals())
+
+ALLOWED_HOSTS = ['*']
