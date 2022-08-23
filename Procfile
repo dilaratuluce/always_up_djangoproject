@@ -1,1 +1,1 @@
-web: gunicorn todo_project.wsgi
+web: gunicorn --chdir todo_project my_module:app
