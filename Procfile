@@ -1,1 +1,1 @@
-web: gunicorn todo_project.wsgi
+web: gunicorn djangopro.wsgi
