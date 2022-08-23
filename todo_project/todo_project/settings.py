@@ -29,7 +29,7 @@ SECRET_KEY = 'django-insecure-nd(n!*qmrc21_m$5df)$89e^3!s#jy)@zn1pe6)m-vtd9foyh*
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -139,6 +139,8 @@ STATICFILES_DIRS = [
 ]
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 # Email Settings
 EMAIL_HOST = 'smtp.gmail.com'
