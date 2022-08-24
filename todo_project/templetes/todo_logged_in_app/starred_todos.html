@@ -41,7 +41,7 @@ Starred To Do's
                 <del><p>{{ todo.category }}</p></del>
             </td>
             {% else %}
-            <td>b
+            <td>
                 <del><p> - </p></del>
             </td>
             {% endif %}
@@ -109,11 +109,4 @@ Starred To Do's
 {% endif %}
 <br><br>
 
-<!--
-{{ todos }} <br>
-Has Previous: {{ todos.has_previous }} <br>
-Has Next: {{ todos.has_next }} <br>
-Current Page: {{ todos.number }} <br>
-Number of Pages: {{ todos.paginator.num_pages }} <br>
--->
 {% endblock page_body %}
