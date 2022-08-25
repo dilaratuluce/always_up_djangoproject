@@ -494,7 +494,7 @@ class StarredToDos(View):
     def get(self, request):
         creators_starred_todos = Todo.objects.filter(creator=request.user, starred=True)
 
-        p = Paginator(creators_starred_todos, 4)
+        p = Paginator(creators_starred_todos, 5)
         page = request.GET.get('page')
         todos = p.get_page(page)
 
@@ -528,7 +528,7 @@ def title_priority_score(newtodo, request):
     title_similarity_withp3 = title_similarity(newtodo, priority3todos)
     title_similarity_withp4 = title_similarity(newtodo, priority4todos)
     total = title_similarity_withp1*1 + title_similarity_withp2*2 + title_similarity_withp3*3 + title_similarity_withp4*4
-    print("yey:",(title_similarity_withp0 , title_similarity_withp1, title_similarity_withp2, title_similarity_withp3, title_similarity_withp4))
+    print("yey:", (title_similarity_withp0, title_similarity_withp1, title_similarity_withp2, title_similarity_withp3, title_similarity_withp4))
 
     if total == 0: #yeni eklenen önceki datalardan hiçbirine benzer bir şey değil
         return 0
