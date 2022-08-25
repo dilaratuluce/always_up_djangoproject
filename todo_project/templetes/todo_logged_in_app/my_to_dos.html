@@ -7,699 +7,872 @@ My To Do's
 
 {% block page_body %}
 <br>
-<div class="container" align="center">
-<ul class="nav nav-tabs" id="myTab" role="tablist">
-  <li class="nav-item" role="presentation">
-    <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#today-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">Today</button>
-  </li>
-  <li class="nav-item" role="presentation">
-    <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tomorrow-tab-pane" type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false">Tomorrow</button>
-  </li>
-  <li class="nav-item" role="presentation">
-    <button class="nav-link" data-bs-toggle="tab" data-bs-target="#twodays-tab-pane" type="button" role="tab" aria-controls="contact-tab-pane" aria-selected="false">{{ two_later_day }}</button>
-  </li>
-    <li class="nav-item" role="presentation">
-    <button class="nav-link" data-bs-toggle="tab" data-bs-target="#threedays-tab-pane" type="button" role="tab" aria-controls="contact-tab-pane" aria-selected="false">{{ three_later_day }}</button>
-  </li>
-    <li class="nav-item" role="presentation">
-    <button class="nav-link" data-bs-toggle="tab" data-bs-target="#fourdays-tab-pane" type="button" role="tab" aria-controls="contact-tab-pane" aria-selected="false">{{ four_later_day }}</button>
-  </li>
-    <li class="nav-item" role="presentation">
-    <button class="nav-link" data-bs-toggle="tab" data-bs-target="#fivedays-tab-pane" type="button" role="tab" aria-controls="contact-tab-pane" aria-selected="false">{{ five_later_day }}</button>
-  </li>
-    <li class="nav-item" role="presentation">
-    <button class="nav-link" data-bs-toggle="tab" data-bs-target="#sixdays-tab-pane" type="button" role="tab" aria-controls="contact-tab-pane" aria-selected="false">{{ six_later_day }}</button>
-  </li>
-</ul>
+<div align="center" class="container">
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="nav-item" role="presentation">
+            <button aria-controls="home-tab-pane" aria-selected="true" class="nav-link active" data-bs-target="#today-tab-pane"
+                    data-bs-toggle="tab" role="tab" type="button">Today
+            </button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button aria-controls="profile-tab-pane" aria-selected="false" class="nav-link" data-bs-target="#tomorrow-tab-pane" data-bs-toggle="tab"
+                    role="tab" type="button">Tomorrow
+            </button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button aria-controls="contact-tab-pane" aria-selected="false" class="nav-link" data-bs-target="#twodays-tab-pane" data-bs-toggle="tab"
+                    role="tab" type="button">{{ two_later_day }}
+            </button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button aria-controls="contact-tab-pane" aria-selected="false" class="nav-link" data-bs-target="#threedays-tab-pane" data-bs-toggle="tab"
+                    role="tab" type="button">{{ three_later_day }}
+            </button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button aria-controls="contact-tab-pane" aria-selected="false" class="nav-link" data-bs-target="#fourdays-tab-pane" data-bs-toggle="tab"
+                    role="tab" type="button">{{ four_later_day }}
+            </button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button aria-controls="contact-tab-pane" aria-selected="false" class="nav-link" data-bs-target="#fivedays-tab-pane" data-bs-toggle="tab"
+                    role="tab" type="button">{{ five_later_day }}
+            </button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button aria-controls="contact-tab-pane" aria-selected="false" class="nav-link" data-bs-target="#sixdays-tab-pane" data-bs-toggle="tab"
+                    role="tab" type="button">{{ six_later_day }}
+            </button>
+        </li>
+    </ul>
 </div>
 <div class="tab-content" id="myTabContent">
-  <div class="tab-pane show active" id="today-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
-      <div class="container">
-    <br><br>
-    {% csrf_token %}
-    {% if today_creators_todos %}
-    <table class="table">
-        <thead>
-        <tr>
-            <th scope="col"></th>
-            <th scope="col"></th>
-            <th scope="col">Title</th>
-            <th scope="col">Description</th>
-            <th scope="col">Length</th>
-            <th scope="col">Category</th>
-            <th scope="col"></th>
-        </tr>
-        </thead>
-        <tbody>
-        {% for todo in today_creators_todos %}
-        {% if todo.is_finished %}
-        <tr>
-            <th align="center" scope="row"><a class="btn btn-danger" href="{% url 'delete' todo.id False %}">Delete</a></th>
-            <th scope="row"><a class="btn btn-warning" href="{% url 'change_is_finished' todo.id False %}">Check</a></th>
-            <td>
-                <del><p>{{ todo.title }}</p></del>
-            </td>
-            <td>
-                <del>{{ todo.description|safe }}</del>
-            </td>
-            <td>
-                <del><p>{{ todo.length }}</p></del>
-            </td>
-            {% if todo.category %}
-            <td>
-                <del><p>{{ todo.category }}</p></del>
-            </td>
+    <div aria-labelledby="home-tab" class="tab-pane show active" id="today-tab-pane" role="tabpanel" tabindex="0">
+        <div class="container">
+            <br><br>
+            {% csrf_token %}
+            {% if today_creators_todos %}
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                    <th scope="col">Title</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Length</th>
+                    <th scope="col">Category</th>
+                    <th scope="col"></th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for todo in today_creators_todos %}
+                {% if todo.is_finished %}
+                <tr>
+                    <th align="center" scope="row"><a class="btn btn-danger" href="{% url 'delete' todo.id False %}">Delete</a>
+                    </th>
+                    <th scope="row"><a class="btn btn-warning"
+                                       href="{% url 'change_is_finished' todo.id False %}">Check</a></th>
+                    <td>
+                        <del><p>{{ todo.title }}</p></del>
+                    </td>
+                    <td>
+                        <del>{{ todo.description|safe }}</del>
+                    </td>
+                    <td>
+                        <del><p>{{ todo.length }}</p></del>
+                    </td>
+                    {% if todo.category %}
+                    <td>
+                        <del><p>{{ todo.category }}</p></del>
+                    </td>
+                    {% else %}
+                    <td>b
+                        <del><p> - </p></del>
+                    </td>
+                    {% endif %}
+                    {% if todo.starred %}
+                    <td>
+                        <a href="{% url 'star' todo.id False %}">
+                            <p>
+                                <svg class="bi bi-star-fill" fill="currentColor" height="16" viewBox="0 0 16 16"
+                                     width="16" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+                                </svg>
+                            </p>
+                        </a>
+                    </td>
+                    {% else %}
+                    <td>
+                        <a href="{% url 'star' todo.id False %}">
+                            <p>
+                                <svg class="bi bi-star" fill="currentColor" height="16" viewBox="0 0 16 16"
+                                     width="16" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288L8 2.223l1.847 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.565.565 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z"/>
+                                </svg>
+                            </p>
+                        </a>
+                    </td>
+                    {% endif %}
+                </tr>
+                {% else %}
+                <tr>
+                    <th scope="row"><a class="btn btn-danger" href="{% url 'delete' todo.id False %}">Delete</a></th>
+                    <th scope="row"><a class="btn btn-warning"
+                                       href="{% url 'change_is_finished' todo.id False %}">Check</a></th>
+                    <td><p>{{ todo.title }}</p></td>
+                    <td>{{ todo.description|safe }}</td>
+                    <td><p>{{ todo.length }}</p></td>
+                    {% if todo.category %}
+                    <td><p>{{ todo.category }}</p></td>
+                    {% else %}
+                    <td><p> - </p></td>
+                    {% endif %}
+                    {% if todo.starred %}
+                    <td>
+                        <a href="{% url 'star' todo.id False %}">
+                            <p>
+                                <svg class="bi bi-star-fill" fill="currentColor" height="16" viewBox="0 0 16 16"
+                                     width="16" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+                                </svg>
+                            </p>
+                        </a>
+                    </td>
+                    {% else %}
+                    <td>
+                        <a href="{% url 'star' todo.id False %}">
+                            <p>
+                                <svg class="bi bi-star" fill="currentColor" height="16" viewBox="0 0 16 16"
+                                     width="16" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288L8 2.223l1.847 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.565.565 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z"/>
+                                </svg>
+                            </p>
+                        </a>
+                    </td>
+                    {% endif %}
+                </tr>
+                {% endif %}
+                {% endfor %}
+                </tbody>
+            </table>
             {% else %}
-            <td>b
-                <del><p> - </p></del>
-            </td>
+            Nothing to see here today! Please add your todos!
             {% endif %}
-            {% if todo.starred %}
-            <td>
-                <a href="{% url 'star' todo.id False %}"><p><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
-                <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
-                </svg></p></a>
-            </td>
+        </div>
+    </div>
+
+    <div aria-labelledby="profile-tab" class="tab-pane" id="tomorrow-tab-pane" role="tabpanel" tabindex="0">
+        <div class="container">
+            <br><br>
+            {% csrf_token %}
+            {% if tomorrow_creators_todos %}
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                    <th scope="col">Title</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Length</th>
+                    <th scope="col">Category</th>
+                    <th scope="col"></th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for todo in tomorrow_creators_todos %}
+                {% if todo.is_finished %}
+                <tr>
+                    <th align="center" scope="row"><a class="btn btn-danger" href="{% url 'delete' todo.id False %}">Delete</a>
+                    </th>
+                    <th scope="row"><a class="btn btn-warning"
+                                       href="{% url 'change_is_finished' todo.id False %}">Check</a></th>
+                    <td>
+                        <del><p>{{ todo.title }}</p></del>
+                    </td>
+                    <td>
+                        <del>{{ todo.description|safe }}</del>
+                    </td>
+                    <td>
+                        <del><p>{{ todo.length }}</p></del>
+                    </td>
+                    {% if todo.category %}
+                    <td>
+                        <del><p>{{ todo.category }}</p></del>
+                    </td>
+                    {% else %}
+                    <td>
+                        <del><p> - </p></del>
+                    </td>
+                    {% endif %}
+                    {% if todo.starred %}
+                    <td>
+                        <a href="{% url 'star' todo.id False %}">
+                            <p>
+                                <svg class="bi bi-star-fill" fill="currentColor" height="16" viewBox="0 0 16 16"
+                                     width="16" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+                                </svg>
+                            </p>
+                        </a>
+                    </td>
+                    {% else %}
+                    <td>
+                        <a href="{% url 'star' todo.id False %}">
+                            <p>
+                                <svg class="bi bi-star" fill="currentColor" height="16" viewBox="0 0 16 16"
+                                     width="16" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288L8 2.223l1.847 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.565.565 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z"/>
+                                </svg>
+                            </p>
+                        </a>
+                    </td>
+                    {% endif %}
+                </tr>
+                {% else %}
+                <tr>
+                    <th scope="row"><a class="btn btn-danger" href="{% url 'delete' todo.id False %}">Delete</a></th>
+                    <th scope="row"><a class="btn btn-warning"
+                                       href="{% url 'change_is_finished' todo.id False %}">Check</a></th>
+                    <td><p>{{ todo.title }}</p></td>
+                    <td>{{ todo.description|safe }}</td>
+                    <td><p>{{ todo.length }}</p></td>
+                    {% if todo.category %}
+                    <td><p>{{ todo.category }}</p></td>
+                    {% else %}
+                    <td><p> - </p></td>
+                    {% endif %}
+                    {% if todo.starred %}
+                    <td>
+                        <a href="{% url 'star' todo.id False %}">
+                            <p>
+                                <svg class="bi bi-star-fill" fill="currentColor" height="16" viewBox="0 0 16 16"
+                                     width="16" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+                                </svg>
+                            </p>
+                        </a>
+                    </td>
+                    {% else %}
+                    <td>
+                        <a href="{% url 'star' todo.id False %}">
+                            <p>
+                                <svg class="bi bi-star" fill="currentColor" height="16" viewBox="0 0 16 16"
+                                     width="16" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288L8 2.223l1.847 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.565.565 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z"/>
+                                </svg>
+                            </p>
+                        </a>
+                    </td>
+                    {% endif %}
+                </tr>
+                {% endif %}
+                {% endfor %}
+                </tbody>
+            </table>
             {% else %}
-            <td>
-                <a href="{% url 'star' todo.id False %}"><p><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star" viewBox="0 0 16 16">
-                <path d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288L8 2.223l1.847 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.565.565 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z"/>
-                </svg></p></a>
-            </td>
+            Nothing to see here today! Please add your todos!
             {% endif %}
-        </tr>
-        {% else %}
-        <tr>
-            <th scope="row"><a class="btn btn-danger" href="{% url 'delete' todo.id False %}">Delete</a></th>
-            <th scope="row"><a class="btn btn-warning" href="{% url 'change_is_finished' todo.id False %}">Check</a></th>
-            <td><p>{{ todo.title }}</p></td>
-            <td>{{ todo.description|safe }}</td>
-            <td><p>{{ todo.length }}</p></td>
-            {% if todo.category %}
-            <td><p>{{ todo.category }}</p></td>
+        </div>
+    </div>
+
+    <div aria-labelledby="contact-tab" class="tab-pane" id="twodays-tab-pane" role="tabpanel" tabindex="0">
+
+        <div class="container">
+            <br><br>
+            {% csrf_token %}
+            {% if two_later_creators_todos %}
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                    <th scope="col">Title</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Length</th>
+                    <th scope="col">Category</th>
+                    <th scope="col"></th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for todo in two_later_creators_todos %}
+                {% if todo.is_finished %}
+                <tr>
+                    <th align="center" scope="row"><a class="btn btn-danger" href="{% url 'delete' todo.id False %}">Delete</a>
+                    </th>
+                    <th scope="row"><a class="btn btn-warning"
+                                       href="{% url 'change_is_finished' todo.id False %}">Check</a></th>
+                    <td>
+                        <del><p>{{ todo.title }}</p></del>
+                    </td>
+                    <td>
+                        <del>{{ todo.description|safe }}</del>
+                    </td>
+                    <td>
+                        <del><p>{{ todo.length }}</p></del>
+                    </td>
+                    {% if todo.category %}
+                    <td>
+                        <del><p>{{ todo.category }}</p></del>
+                    </td>
+                    {% else %}
+                    <td>
+                        <del><p> - </p></del>
+                    </td>
+                    {% endif %}
+                    {% if todo.starred %}
+                    <td>
+                        <a href="{% url 'star' todo.id False %}">
+                            <p>
+                                <svg class="bi bi-star-fill" fill="currentColor" height="16" viewBox="0 0 16 16"
+                                     width="16" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+                                </svg>
+                            </p>
+                        </a>
+                    </td>
+                    {% else %}
+                    <td>
+                        <a href="{% url 'star' todo.id False %}">
+                            <p>
+                                <svg class="bi bi-star" fill="currentColor" height="16" viewBox="0 0 16 16"
+                                     width="16" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288L8 2.223l1.847 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.565.565 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z"/>
+                                </svg>
+                            </p>
+                        </a>
+                    </td>
+                    {% endif %}
+                </tr>
+                {% else %}
+                <tr>
+                    <th scope="row"><a class="btn btn-danger" href="{% url 'delete' todo.id False %}">Delete</a></th>
+                    <th scope="row"><a class="btn btn-warning"
+                                       href="{% url 'change_is_finished' todo.id False %}">Check</a></th>
+                    <td><p>{{ todo.title }}</p></td>
+                    <td>{{ todo.description|safe }}</td>
+                    <td><p>{{ todo.length }}</p></td>
+                    {% if todo.category %}
+                    <td><p>{{ todo.category }}</p></td>
+                    {% else %}
+                    <td><p> - </p></td>
+                    {% endif %}
+                    {% if todo.starred %}
+                    <td>
+                        <a href="{% url 'star' todo.id False %}">
+                            <p>
+                                <svg class="bi bi-star-fill" fill="currentColor" height="16" viewBox="0 0 16 16"
+                                     width="16" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+                                </svg>
+                            </p>
+                        </a>
+                    </td>
+                    {% else %}
+                    <td>
+                        <a href="{% url 'star' todo.id False %}">
+                            <p>
+                                <svg class="bi bi-star" fill="currentColor" height="16" viewBox="0 0 16 16"
+                                     width="16" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288L8 2.223l1.847 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.565.565 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z"/>
+                                </svg>
+                            </p>
+                        </a>
+                    </td>
+                    {% endif %}
+                </tr>
+                {% endif %}
+                {% endfor %}
+                </tbody>
+            </table>
             {% else %}
-            <td><p> - </p></td>
+            Nothing to see here today! Please add your todos!
             {% endif %}
-            {% if todo.starred %}
-            <td>
-                <a href="{% url 'star' todo.id False %}"><p><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
-                <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
-                </svg></p></a>
-            </td>
+        </div>
+    </div>
+
+    <div aria-labelledby="disabled-tab" class="tab-pane" id="threedays-tab-pane" role="tabpanel" tabindex="0">
+
+        <div class="container">
+            <br><br>
+            {% csrf_token %}
+            {% if three_later_creators_todos %}
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                    <th scope="col">Title</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Length</th>
+                    <th scope="col">Category</th>
+                    <th scope="col"></th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for todo in three_later_creators_todos %}
+                {% if todo.is_finished %}
+                <tr>
+                    <th align="center" scope="row"><a class="btn btn-danger" href="{% url 'delete' todo.id False %}">Delete</a>
+                    </th>
+                    <th scope="row"><a class="btn btn-warning"
+                                       href="{% url 'change_is_finished' todo.id False %}">Check</a></th>
+                    <td>
+                        <del><p>{{ todo.title }}</p></del>
+                    </td>
+                    <td>
+                        <del>{{ todo.description|safe }}</del>
+                    </td>
+                    <td>
+                        <del><p>{{ todo.length }}</p></del>
+                    </td>
+                    {% if todo.category %}
+                    <td>
+                        <del><p>{{ todo.category }}</p></del>
+                    </td>
+                    {% else %}
+                    <td>
+                        <del><p> - </p></del>
+                    </td>
+                    {% endif %}
+                    {% if todo.starred %}
+                    <td>
+                        <a href="{% url 'star' todo.id False %}">
+                            <p>
+                                <svg class="bi bi-star-fill" fill="currentColor" height="16" viewBox="0 0 16 16"
+                                     width="16" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+                                </svg>
+                            </p>
+                        </a>
+                    </td>
+                    {% else %}
+                    <td>
+                        <a href="{% url 'star' todo.id False %}">
+                            <p>
+                                <svg class="bi bi-star" fill="currentColor" height="16" viewBox="0 0 16 16"
+                                     width="16" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288L8 2.223l1.847 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.565.565 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z"/>
+                                </svg>
+                            </p>
+                        </a>
+                    </td>
+                    {% endif %}
+                </tr>
+                {% else %}
+                <tr>
+                    <th scope="row"><a class="btn btn-danger" href="{% url 'delete' todo.id False %}">Delete</a></th>
+                    <th scope="row"><a class="btn btn-warning"
+                                       href="{% url 'change_is_finished' todo.id False %}">Check</a></th>
+                    <td><p>{{ todo.title }}</p></td>
+                    <td>{{ todo.description|safe }}</td>
+                    <td><p>{{ todo.length }}</p></td>
+                    {% if todo.category %}
+                    <td><p>{{ todo.category }}</p></td>
+                    {% else %}
+                    <td><p> - </p></td>
+                    {% endif %}
+                    {% if todo.starred %}
+                    <td>
+                        <a href="{% url 'star' todo.id False %}">
+                            <p>
+                                <svg class="bi bi-star-fill" fill="currentColor" height="16" viewBox="0 0 16 16"
+                                     width="16" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+                                </svg>
+                            </p>
+                        </a>
+                    </td>
+                    {% else %}
+                    <td>
+                        <a href="{% url 'star' todo.id False %}">
+                            <p>
+                                <svg class="bi bi-star" fill="currentColor" height="16" viewBox="0 0 16 16"
+                                     width="16" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288L8 2.223l1.847 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.565.565 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z"/>
+                                </svg>
+                            </p>
+                        </a>
+                    </td>
+                    {% endif %}
+                </tr>
+                {% endif %}
+                {% endfor %}
+                </tbody>
+            </table>
             {% else %}
-            <td>
-                <a href="{% url 'star' todo.id False %}"><p><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star" viewBox="0 0 16 16">
-                <path d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288L8 2.223l1.847 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.565.565 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z"/>
-                </svg></p></a>
-            </td>
+            Nothing to see here today! Please add your todos!
             {% endif %}
-        </tr>
-        {% endif %}
-        {% endfor %}
-        </tbody>
-    </table>
-    {% else %}
-    Nothing to see here today! Please add your todos!
-    {% endif %}
+        </div>
+    </div>
+
+    <div aria-labelledby="contact-tab" class="tab-pane" id="fourdays-tab-pane" role="tabpanel" tabindex="0">
+
+        <div class="container">
+            <br><br>
+            {% csrf_token %}
+            {% if four_later_creators_todos %}
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                    <th scope="col">Title</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Length</th>
+                    <th scope="col">Category</th>
+                    <th scope="col"></th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for todo in four_later_creators_todos %}
+                {% if todo.is_finished %}
+                <tr>
+                    <th align="center" scope="row"><a class="btn btn-danger" href="{% url 'delete' todo.id False %}">Delete</a>
+                    </th>
+                    <th scope="row"><a class="btn btn-warning"
+                                       href="{% url 'change_is_finished' todo.id False %}">Check</a></th>
+                    <td>
+                        <del><p>{{ todo.title }}</p></del>
+                    </td>
+                    <td>
+                        <del>{{ todo.description|safe }}</del>
+                    </td>
+                    <td>
+                        <del><p>{{ todo.length }}</p></del>
+                    </td>
+                    {% if todo.category %}
+                    <td>
+                        <del><p>{{ todo.category }}</p></del>
+                    </td>
+                    {% else %}
+                    <td>
+                        <del><p> - </p></del>
+                    </td>
+                    {% endif %}
+                    {% if todo.starred %}
+                    <td>
+                        <a href="{% url 'star' todo.id False %}">
+                            <p>
+                                <svg class="bi bi-star-fill" fill="currentColor" height="16" viewBox="0 0 16 16"
+                                     width="16" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+                                </svg>
+                            </p>
+                        </a>
+                    </td>
+                    {% else %}
+                    <td>
+                        <a href="{% url 'star' todo.id False %}">
+                            <p>
+                                <svg class="bi bi-star" fill="currentColor" height="16" viewBox="0 0 16 16"
+                                     width="16" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288L8 2.223l1.847 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.565.565 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z"/>
+                                </svg>
+                            </p>
+                        </a>
+                    </td>
+                    {% endif %}
+                </tr>
+                {% else %}
+                <tr>
+                    <th scope="row"><a class="btn btn-danger" href="{% url 'delete' todo.id False %}">Delete</a></th>
+                    <th scope="row"><a class="btn btn-warning"
+                                       href="{% url 'change_is_finished' todo.id False %}">Check</a></th>
+                    <td><p>{{ todo.title }}</p></td>
+                    <td>{{ todo.description|safe }}</td>
+                    <td><p>{{ todo.length }}</p></td>
+                    {% if todo.category %}
+                    <td><p>{{ todo.category }}</p></td>
+                    {% else %}
+                    <td><p> - </p></td>
+                    {% endif %}
+                    {% if todo.starred %}
+                    <td>
+                        <a href="{% url 'star' todo.id False %}">
+                            <p>
+                                <svg class="bi bi-star-fill" fill="currentColor" height="16" viewBox="0 0 16 16"
+                                     width="16" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+                                </svg>
+                            </p>
+                        </a>
+                    </td>
+                    {% else %}
+                    <td>
+                        <a href="{% url 'star' todo.id False %}">
+                            <p>
+                                <svg class="bi bi-star" fill="currentColor" height="16" viewBox="0 0 16 16"
+                                     width="16" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288L8 2.223l1.847 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.565.565 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z"/>
+                                </svg>
+                            </p>
+                        </a>
+                    </td>
+                    {% endif %}
+                </tr>
+                {% endif %}
+                {% endfor %}
+                </tbody>
+            </table>
+            {% else %}
+            Nothing to see here today! Please add your todos!
+            {% endif %}
+        </div>
+    </div>
+
+    <div aria-labelledby="contact-tab" class="tab-pane" id="fivedays-tab-pane" role="tabpanel" tabindex="0">
+
+        <div class="container">
+            <br><br>
+            {% csrf_token %}
+            {% if five_later_creators_todos %}
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                    <th scope="col">Title</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Length</th>
+                    <th scope="col">Category</th>
+                    <th scope="col"></th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for todo in five_later_creators_todos %}
+                {% if todo.is_finished %}
+                <tr>
+                    <th align="center" scope="row"><a class="btn btn-danger" href="{% url 'delete' todo.id False %}">Delete</a>
+                    </th>
+                    <th scope="row"><a class="btn btn-warning"
+                                       href="{% url 'change_is_finished' todo.id False %}">Check</a></th>
+                    <td>
+                        <del><p>{{ todo.title }}</p></del>
+                    </td>
+                    <td>
+                        <del>{{ todo.description|safe }}</del>
+                    </td>
+                    <td>
+                        <del><p>{{ todo.length }}</p></del>
+                    </td>
+                    {% if todo.category %}
+                    <td>
+                        <del><p>{{ todo.category }}</p></del>
+                    </td>
+                    {% else %}
+                    <td>
+                        <del><p> - </p></del>
+                    </td>
+                    {% endif %}
+                    {% if todo.starred %}
+                    <td>
+                        <a href="{% url 'star' todo.id False %}">
+                            <p>
+                                <svg class="bi bi-star-fill" fill="currentColor" height="16" viewBox="0 0 16 16"
+                                     width="16" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+                                </svg>
+                            </p>
+                        </a>
+                    </td>
+                    {% else %}
+                    <td>
+                        <a href="{% url 'star' todo.id False %}">
+                            <p>
+                                <svg class="bi bi-star" fill="currentColor" height="16" viewBox="0 0 16 16"
+                                     width="16" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288L8 2.223l1.847 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.565.565 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z"/>
+                                </svg>
+                            </p>
+                        </a>
+                    </td>
+                    {% endif %}
+                </tr>
+                {% else %}
+                <tr>
+                    <th scope="row"><a class="btn btn-danger" href="{% url 'delete' todo.id False %}">Delete</a></th>
+                    <th scope="row"><a class="btn btn-warning"
+                                       href="{% url 'change_is_finished' todo.id False %}">Check</a></th>
+                    <td><p>{{ todo.title }}</p></td>
+                    <td>{{ todo.description|safe }}</td>
+                    <td><p>{{ todo.length }}</p></td>
+                    {% if todo.category %}
+                    <td><p>{{ todo.category }}</p></td>
+                    {% else %}
+                    <td><p> - </p></td>
+                    {% endif %}
+                    {% if todo.starred %}
+                    <td>
+                        <a href="{% url 'star' todo.id False %}">
+                            <p>
+                                <svg class="bi bi-star-fill" fill="currentColor" height="16" viewBox="0 0 16 16"
+                                     width="16" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+                                </svg>
+                            </p>
+                        </a>
+                    </td>
+                    {% else %}
+                    <td>
+                        <a href="{% url 'star' todo.id False %}">
+                            <p>
+                                <svg class="bi bi-star" fill="currentColor" height="16" viewBox="0 0 16 16"
+                                     width="16" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288L8 2.223l1.847 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.565.565 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z"/>
+                                </svg>
+                            </p>
+                        </a>
+                    </td>
+                    {% endif %}
+                </tr>
+                {% endif %}
+                {% endfor %}
+                </tbody>
+            </table>
+            {% else %}
+            Nothing to see here today! Please add your todos!
+            {% endif %}
+        </div>
+    </div>
+
+    <div aria-labelledby="contact-tab" class="tab-pane" id="sixdays-tab-pane" role="tabpanel" tabindex="0">
+
+        <div class="container">
+            <br><br>
+            {% csrf_token %}
+            {% if six_later_creators_todos %}
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                    <th scope="col">Title</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Length</th>
+                    <th scope="col">Category</th>
+                    <th scope="col"></th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for todo in six_later_creators_todos %}
+                {% if todo.is_finished %}
+                <tr>
+                    <th align="center" scope="row"><a class="btn btn-danger" href="{% url 'delete' todo.id False %}">Delete</a>
+                    </th>
+                    <th scope="row"><a class="btn btn-warning"
+                                       href="{% url 'change_is_finished' todo.id False %}">Check</a></th>
+                    <td>
+                        <del><p>{{ todo.title }}</p></del>
+                    </td>
+                    <td>
+                        <del>{{ todo.description|safe }}</del>
+                    </td>
+                    <td>
+                        <del><p>{{ todo.length }}</p></del>
+                    </td>
+                    {% if todo.category %}
+                    <td>
+                        <del><p>{{ todo.category }}</p></del>
+                    </td>
+                    {% else %}
+                    <td>
+                        <del><p> - </p></del>
+                    </td>
+                    {% endif %}
+                    {% if todo.starred %}
+                    <td>
+                        <a href="{% url 'star' todo.id False %}">
+                            <p>
+                                <svg class="bi bi-star-fill" fill="currentColor" height="16" viewBox="0 0 16 16"
+                                     width="16" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+                                </svg>
+                            </p>
+                        </a>
+                    </td>
+                    {% else %}
+                    <td>
+                        <a href="{% url 'star' todo.id False %}">
+                            <p>
+                                <svg class="bi bi-star" fill="currentColor" height="16" viewBox="0 0 16 16"
+                                     width="16" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288L8 2.223l1.847 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.565.565 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z"/>
+                                </svg>
+                            </p>
+                        </a>
+                    </td>
+                    {% endif %}
+                </tr>
+                {% else %}
+                <tr>
+                    <th scope="row"><a class="btn btn-danger" href="{% url 'delete' todo.id False %}">Delete</a></th>
+                    th scope="row"><a class="btn btn-warning"
+                                      href="{% url 'change_is_finished' todo.id False %}">Check</a></th>
+                    <td><p>{{ todo.title }}</p></td>
+                    <td>{{ todo.description|safe }}</td>
+                    <td><p>{{ todo.length }}</p></td>
+                    {% if todo.category %}
+                    <td><p>{{ todo.category }}</p></td>
+                    {% else %}
+                    <td><p> - </p></td>
+                    {% endif %}
+                    {% if todo.starred %}
+                    <td>
+                        <a href="{% url 'star' todo.id False %}">
+                            <p>
+                                <svg class="bi bi-star-fill" fill="currentColor" height="16" viewBox="0 0 16 16"
+                                     width="16" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+                                </svg>
+                            </p>
+                        </a>
+                    </td>
+                    {% else %}
+                    <td>
+                        <a href="{% url 'star' todo.id False %}">
+                            <p>
+                                <svg class="bi bi-star" fill="currentColor" height="16" viewBox="0 0 16 16"
+                                     width="16" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288L8 2.223l1.847 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.565.565 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z"/>
+                                </svg>
+                            </p>
+                        </a>
+                    </td>
+                    {% endif %}
+                </tr>
+                {% endif %}
+                {% endfor %}
+                </tbody>
+            </table>
+            {% else %}
+            Nothing to see here today! Please add your todos!
+            {% endif %}
+        </div>
+    </div>
 </div>
-  </div>
-
-  <div class="tab-pane" id="tomorrow-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
-      <div class="container">
-    <br><br>
-    {% csrf_token %}
-    {% if tomorrow_creators_todos %}
-    <table class="table">
-        <thead>
-        <tr>
-            <th scope="col"></th>
-            <th scope="col"></th>
-            <th scope="col">Title</th>
-            <th scope="col">Description</th>
-            <th scope="col">Length</th>
-            <th scope="col">Category</th>
-            <th scope="col"></th>
-        </tr>
-        </thead>
-        <tbody>
-        {% for todo in tomorrow_creators_todos %}
-        {% if todo.is_finished %}
-        <tr>
-            <th align="center" scope="row"><a class="btn btn-danger" href="{% url 'delete' todo.id False %}">Delete</a></th>
-            <th scope="row"><a class="btn btn-warning" href="{% url 'change_is_finished' todo.id False %}">Check</a></th>
-            <td>
-                <del><p>{{ todo.title }}</p></del>
-            </td>
-            <td>
-                <del>{{ todo.description|safe }}</del>
-            </td>
-            <td>
-                <del><p>{{ todo.length }}</p></del>
-            </td>
-            {% if todo.category %}
-            <td>
-                <del><p>{{ todo.category }}</p></del>
-            </td>
-            {% else %}
-            <td>
-                <del><p> - </p></del>
-            </td>
-            {% endif %}
-            {% if todo.starred %}
-            <td>
-                <a href="{% url 'star' todo.id False %}"><p><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
-                <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
-                </svg></p></a>
-            </td>
-            {% else %}
-            <td>
-                <a href="{% url 'star' todo.id False %}"><p><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star" viewBox="0 0 16 16">
-                <path d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288L8 2.223l1.847 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.565.565 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z"/>
-                </svg></p></a>
-            </td>
-            {% endif %}
-        </tr>
-        {% else %}
-        <tr>
-            <th scope="row"><a class="btn btn-danger" href="{% url 'delete' todo.id False %}">Delete</a></th>
-            <th scope="row"><a class="btn btn-warning" href="{% url 'change_is_finished' todo.id False %}">Check</a></th>
-            <td><p>{{ todo.title }}</p></td>
-            <td>{{ todo.description|safe }}</td>
-            <td><p>{{ todo.length }}</p></td>
-            {% if todo.category %}
-            <td><p>{{ todo.category }}</p></td>
-            {% else %}
-            <td><p> - </p></td>
-            {% endif %}
-            {% if todo.starred %}
-            <td>
-                <a href="{% url 'star' todo.id False %}"><p><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
-                <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
-                </svg></p></a>
-            </td>
-            {% else %}
-            <td>
-                <a href="{% url 'star' todo.id False %}"><p><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star" viewBox="0 0 16 16">
-                <path d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288L8 2.223l1.847 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.565.565 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z"/>
-                </svg></p></a>
-            </td>
-            {% endif %}
-        </tr>
-        {% endif %}
-        {% endfor %}
-        </tbody>
-    </table>
-    {% else %}
-    Nothing to see here today! Please add your todos!
-    {% endif %}
-</div>
-  </div>
-
-  <div class="tab-pane" id="twodays-tab-pane" role="tabpanel" aria-labelledby="contact-tab" tabindex="0">
-
-<div class="container">
-    <br><br>
-    {% csrf_token %}
-    {% if two_later_creators_todos %}
-    <table class="table">
-        <thead>
-        <tr>
-            <th scope="col"></th>
-            <th scope="col"></th>
-            <th scope="col">Title</th>
-            <th scope="col">Description</th>
-            <th scope="col">Length</th>
-            <th scope="col">Category</th>
-            <th scope="col"></th>
-        </tr>
-        </thead>
-        <tbody>
-        {% for todo in two_later_creators_todos %}
-        {% if todo.is_finished %}
-        <tr >
-            <th align="center" scope="row"><a class="btn btn-danger" href="{% url 'delete' todo.id False %}">Delete</a></th>
-            <th scope="row"><a class="btn btn-warning" href="{% url 'change_is_finished' todo.id False %}">Check</a></th>
-            <td>
-                <del><p>{{ todo.title }}</p></del>
-            </td>
-            <td>
-                <del>{{ todo.description|safe }}</del>
-            </td>
-            <td>
-                <del><p>{{ todo.length }}</p></del>
-            </td>
-            {% if todo.category %}
-            <td>
-                <del><p>{{ todo.category }}</p></del>
-            </td>
-            {% else %}
-            <td>
-                <del><p> - </p></del>
-            </td>
-            {% endif %}
-            {% if todo.starred %}
-            <td>
-                <a href="{% url 'star' todo.id False %}"><p><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
-                <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
-                </svg></p></a>
-            </td>
-            {% else %}
-            <td>
-                <a href="{% url 'star' todo.id False %}"><p><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star" viewBox="0 0 16 16">
-                <path d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288L8 2.223l1.847 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.565.565 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z"/>
-                </svg></p></a>
-            </td>
-            {% endif %}
-        </tr>
-        {% else %}
-        <tr>
-            <th scope="row"><a class="btn btn-danger" href="{% url 'delete' todo.id False %}">Delete</a></th>
-            <th scope="row"><a class="btn btn-warning" href="{% url 'change_is_finished' todo.id False %}">Check</a></th>
-            <td><p>{{ todo.title }}</p></td>
-            <td>{{ todo.description|safe }}</td>
-            <td><p>{{ todo.length }}</p></td>
-            {% if todo.category %}
-            <td><p>{{ todo.category }}</p></td>
-            {% else %}
-            <td><p> - </p></td>
-            {% endif %}
-            {% if todo.starred %}
-            <td>
-                <a href="{% url 'star' todo.id False %}"><p><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
-                <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
-                </svg></p></a>
-            </td>
-            {% else %}
-            <td>
-                <a href="{% url 'star' todo.id False %}"><p><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star" viewBox="0 0 16 16">
-                <path d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288L8 2.223l1.847 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.565.565 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z"/>
-                </svg></p></a>
-            </td>
-            {% endif %}
-        </tr>
-        {% endif %}
-        {% endfor %}
-        </tbody>
-    </table>
-    {% else %}
-    Nothing to see here today! Please add your todos!
-    {% endif %}
-</div>
-  </div>
-
-  <div class="tab-pane" id="threedays-tab-pane" role="tabpanel" aria-labelledby="disabled-tab" tabindex="0">
-
-<div class="container">
-    <br><br>
-    {% csrf_token %}
-    {% if three_later_creators_todos %}
-    <table class="table">
-        <thead>
-        <tr>
-            <th scope="col"></th>
-            <th scope="col"></th>
-            <th scope="col">Title</th>
-            <th scope="col">Description</th>
-            <th scope="col">Length</th>
-            <th scope="col">Category</th>
-            <th scope="col"></th>
-        </tr>
-        </thead>
-        <tbody>
-        {% for todo in three_later_creators_todos %}
-        {% if todo.is_finished %}
-        <tr >
-            <th align="center" scope="row"><a class="btn btn-danger" href="{% url 'delete' todo.id False %}">Delete</a></th>
-            <th scope="row"><a class="btn btn-warning" href="{% url 'change_is_finished' todo.id False %}">Check</a></th>
-            <td>
-                <del><p>{{ todo.title }}</p></del>
-            </td>
-            <td>
-                <del>{{ todo.description|safe }}</del>
-            </td>
-            <td>
-                <del><p>{{ todo.length }}</p></del>
-            </td>
-            {% if todo.category %}
-            <td>
-                <del><p>{{ todo.category }}</p></del>
-            </td>
-            {% else %}
-            <td>
-                <del><p> - </p></del>
-            </td>
-            {% endif %}
-            {% if todo.starred %}
-            <td>
-                <a href="{% url 'star' todo.id False %}"><p><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
-                <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
-                </svg></p></a>
-            </td>
-            {% else %}
-            <td>
-                <a href="{% url 'star' todo.id False %}"><p><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star" viewBox="0 0 16 16">
-                <path d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288L8 2.223l1.847 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.565.565 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z"/>
-                </svg></p></a>
-            </td>
-            {% endif %}
-        </tr>
-        {% else %}
-        <tr>
-            <th scope="row"><a class="btn btn-danger" href="{% url 'delete' todo.id False %}">Delete</a></th>
-            <th scope="row"><a class="btn btn-warning" href="{% url 'change_is_finished' todo.id False %}">Check</a></th>
-            <td><p>{{ todo.title }}</p></td>
-            <td>{{ todo.description|safe }}</td>
-            <td><p>{{ todo.length }}</p></td>
-            {% if todo.category %}
-            <td><p>{{ todo.category }}</p></td>
-            {% else %}
-            <td><p> - </p></td>
-            {% endif %}
-            {% if todo.starred %}
-            <td>
-                <a href="{% url 'star' todo.id False %}"><p><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
-                <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
-                </svg></p></a>
-            </td>
-            {% else %}
-            <td>
-                <a href="{% url 'star' todo.id False %}"><p><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star" viewBox="0 0 16 16">
-                <path d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288L8 2.223l1.847 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.565.565 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z"/>
-                </svg></p></a>
-            </td>
-            {% endif %}
-        </tr>
-        {% endif %}
-        {% endfor %}
-        </tbody>
-    </table>
-    {% else %}
-    Nothing to see here today! Please add your todos!
-    {% endif %}
-</div>
-  </div>
-
-  <div class="tab-pane" id="fourdays-tab-pane" role="tabpanel" aria-labelledby="contact-tab" tabindex="0">
-
-<div class="container">
-    <br><br>
-    {% csrf_token %}
-    {% if four_later_creators_todos %}
-    <table class="table">
-        <thead>
-        <tr>
-            <th scope="col"></th>
-            <th scope="col"></th>
-            <th scope="col">Title</th>
-            <th scope="col">Description</th>
-            <th scope="col">Length</th>
-            <th scope="col">Category</th>
-            <th scope="col"></th>
-        </tr>
-        </thead>
-        <tbody>
-        {% for todo in four_later_creators_todos %}
-        {% if todo.is_finished %}
-        <tr >
-            <th align="center" scope="row"><a class="btn btn-danger" href="{% url 'delete' todo.id False %}">Delete</a></th>
-            <th scope="row"><a class="btn btn-warning" href="{% url 'change_is_finished' todo.id False %}">Check</a></th>
-            <td>
-                <del><p>{{ todo.title }}</p></del>
-            </td>
-            <td>
-                <del>{{ todo.description|safe }}</del>
-            </td>
-            <td>
-                <del><p>{{ todo.length }}</p></del>
-            </td>
-            {% if todo.category %}
-            <td>
-                <del><p>{{ todo.category }}</p></del>
-            </td>
-            {% else %}
-            <td>
-                <del><p> - </p></del>
-            </td>
-            {% endif %}
-            {% if todo.starred %}
-            <td>
-                <a href="{% url 'star' todo.id False %}"><p><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
-                <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
-                </svg></p></a>
-            </td>
-            {% else %}
-            <td>
-                <a href="{% url 'star' todo.id False %}"><p><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star" viewBox="0 0 16 16">
-                <path d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288L8 2.223l1.847 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.565.565 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z"/>
-                </svg></p></a>
-            </td>
-            {% endif %}
-        </tr>
-        {% else %}
-        <tr>
-            <th scope="row"><a class="btn btn-danger" href="{% url 'delete' todo.id False %}">Delete</a></th>
-            <th scope="row"><a class="btn btn-warning" href="{% url 'change_is_finished' todo.id False %}">Check</a></th>
-            <td><p>{{ todo.title }}</p></td>
-            <td>{{ todo.description|safe }}</td>
-            <td><p>{{ todo.length }}</p></td>
-            {% if todo.category %}
-            <td><p>{{ todo.category }}</p></td>
-            {% else %}
-            <td><p> - </p></td>
-            {% endif %}
-            {% if todo.starred %}
-            <td>
-                <a href="{% url 'star' todo.id False %}"><p><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
-                <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
-                </svg></p></a>
-            </td>
-            {% else %}
-            <td>
-                <a href="{% url 'star' todo.id False %}"><p><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star" viewBox="0 0 16 16">
-                <path d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288L8 2.223l1.847 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.565.565 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z"/>
-                </svg></p></a>
-            </td>
-            {% endif %}
-        </tr>
-        {% endif %}
-        {% endfor %}
-        </tbody>
-    </table>
-    {% else %}
-    Nothing to see here today! Please add your todos!
-    {% endif %}
-</div>
-  </div>
-
-  <div class="tab-pane" id="fivedays-tab-pane" role="tabpanel" aria-labelledby="contact-tab" tabindex="0">
-
-<div class="container">
-    <br><br>
-    {% csrf_token %}
-    {% if five_later_creators_todos %}
-    <table class="table">
-        <thead>
-        <tr>
-            <th scope="col"></th>
-            <th scope="col"></th>
-            <th scope="col">Title</th>
-            <th scope="col">Description</th>
-            <th scope="col">Length</th>
-            <th scope="col">Category</th>
-            <th scope="col"></th>
-        </tr>
-        </thead>
-        <tbody>
-        {% for todo in five_later_creators_todos %}
-        {% if todo.is_finished %}
-        <tr >
-            <th align="center" scope="row"><a class="btn btn-danger" href="{% url 'delete' todo.id False %}">Delete</a></th>
-            <th scope="row"><a class="btn btn-warning" href="{% url 'change_is_finished' todo.id False %}">Check</a></th>
-            <td>
-                <del><p>{{ todo.title }}</p></del>
-            </td>
-            <td>
-                <del>{{ todo.description|safe }}</del>
-            </td>
-            <td>
-                <del><p>{{ todo.length }}</p></del>
-            </td>
-            {% if todo.category %}
-            <td>
-                <del><p>{{ todo.category }}</p></del>
-            </td>
-            {% else %}
-            <td>
-                <del><p> - </p></del>
-            </td>
-            {% endif %}
-            {% if todo.starred %}
-            <td>
-                <a href="{% url 'star' todo.id False %}"><p><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
-                <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
-                </svg></p></a>
-            </td>
-            {% else %}
-            <td>
-                <a href="{% url 'star' todo.id False %}"><p><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star" viewBox="0 0 16 16">
-                <path d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288L8 2.223l1.847 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.565.565 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z"/>
-                </svg></p></a>
-            </td>
-            {% endif %}
-        </tr>
-        {% else %}
-        <tr>
-            <th scope="row"><a class="btn btn-danger" href="{% url 'delete' todo.id False %}">Delete</a></th>
-            <th scope="row"><a class="btn btn-warning" href="{% url 'change_is_finished' todo.id False %}">Check</a></th>
-            <td><p>{{ todo.title }}</p></td>
-            <td>{{ todo.description|safe }}</td>
-            <td><p>{{ todo.length }}</p></td>
-            {% if todo.category %}
-            <td><p>{{ todo.category }}</p></td>
-            {% else %}
-            <td><p> - </p></td>
-            {% endif %}
-            {% if todo.starred %}
-            <td>
-                <a href="{% url 'star' todo.id False %}"><p><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
-                <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
-                </svg></p></a>
-            </td>
-            {% else %}
-            <td>
-                <a href="{% url 'star' todo.id False %}"><p><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star" viewBox="0 0 16 16">
-                <path d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288L8 2.223l1.847 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.565.565 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z"/>
-                </svg></p></a>
-            </td>
-            {% endif %}
-        </tr>
-        {% endif %}
-        {% endfor %}
-        </tbody>
-    </table>
-    {% else %}
-    Nothing to see here today! Please add your todos!
-    {% endif %}
-</div>
-  </div>
-
-  <div class="tab-pane" id="sixdays-tab-pane" role="tabpanel" aria-labelledby="contact-tab" tabindex="0">
-
-<div class="container">
-    <br><br>
-    {% csrf_token %}
-    {% if six_later_creators_todos %}
-    <table class="table">
-        <thead>
-        <tr>
-            <th scope="col"></th>
-            <th scope="col"></th>
-            <th scope="col">Title</th>
-            <th scope="col">Description</th>
-            <th scope="col">Length</th>
-            <th scope="col">Category</th>
-            <th scope="col"></th>
-        </tr>
-        </thead>
-        <tbody>
-        {% for todo in six_later_creators_todos %}
-        {% if todo.is_finished %}
-        <tr >
-            <th align="center" scope="row"><a class="btn btn-danger" href="{% url 'delete' todo.id False %}">Delete</a></th>
-            <th scope="row"><a class="btn btn-warning" href="{% url 'change_is_finished' todo.id False %}">Check</a></th>
-            <td>
-                <del><p>{{ todo.title }}</p></del>
-            </td>
-            <td>
-                <del>{{ todo.description|safe }}</del>
-            </td>
-            <td>
-                <del><p>{{ todo.length }}</p></del>
-            </td>
-            {% if todo.category %}
-            <td>
-                <del><p>{{ todo.category }}</p></del>
-            </td>
-            {% else %}
-            <td>
-                <del><p> - </p></del>
-            </td>
-            {% endif %}
-            {% if todo.starred %}
-            <td>
-                <a href="{% url 'star' todo.id False %}"><p><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
-                <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
-                </svg></p></a>
-            </td>
-            {% else %}
-            <td>
-                <a href="{% url 'star' todo.id False %}"><p><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star" viewBox="0 0 16 16">
-                <path d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288L8 2.223l1.847 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.565.565 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z"/>
-                </svg></p></a>
-            </td>
-            {% endif %}
-        </tr>
-        {% else %}
-        <tr>
-            <th scope="row"><a class="btn btn-danger" href="{% url 'delete' todo.id False %}">Delete</a></th>
-            th scope="row"><a class="btn btn-warning" href="{% url 'change_is_finished' todo.id False %}">Check</a></th>
-            <td><p>{{ todo.title }}</p></td>
-            <td>{{ todo.description|safe }}</td>
-            <td><p>{{ todo.length }}</p></td>
-            {% if todo.category %}
-            <td><p>{{ todo.category }}</p></td>
-            {% else %}
-            <td><p> - </p></td>
-            {% endif %}
-            {% if todo.starred %}
-            <td>
-                <a href="{% url 'star' todo.id False %}"><p><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
-                <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
-                </svg></p></a>
-            </td>
-            {% else %}
-            <td>
-                <a href="{% url 'star' todo.id False %}"><p><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star" viewBox="0 0 16 16">
-                <path d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288L8 2.223l1.847 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.565.565 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z"/>
-                </svg></p></a>
-            </td>
-            {% endif %}
-        </tr>
-        {% endif %}
-        {% endfor %}
-        </tbody>
-    </table>
-    {% else %}
-    Nothing to see here today! Please add your todos!
-    {% endif %}
-</div>
-  </div>
-</div>
 
 
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css"  integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
+<link crossorigin="anonymous"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx">
+<script crossorigin="anonymous"
+        integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"></script>
 
 <script>
-$(function() {
-    // for bootstrap 3 use 'shown.bs.tab', for bootstrap 2 use 'shown' in the next line
-    $('button[data-bs-toggle="tab"]').on('shown.bs.tab', function (e) {
-        // save the latest tab; use cookies if you like 'em better:
-        localStorage.setItem('lastTab', $(this).attr('data-bs-target'));
-    });
+    $(function () {
+        // for bootstrap 3 use 'shown.bs.tab', for bootstrap 2 use 'shown' in the next line
+        $('button[data-bs-toggle="tab"]').on('shown.bs.tab', function (e) {
+            // save the latest tab; use cookies if you like 'em better:
+            localStorage.setItem('lastTab', $(this).attr('data-bs-target'));
+        });
 
-    // go to the latest tab, if it exists:
-    var lastTab = localStorage.getItem('lastTab');
-    if (lastTab) {
-        $('[data-bs-target="' + lastTab + '"]').tab('show');
-    }
-});
+        // go to the latest tab, if it exists:
+        var lastTab = localStorage.getItem('lastTab');
+        if (lastTab) {
+            $('[data-bs-target="' + lastTab + '"]').tab('show');
+        }
+    });
 </script>
 
 <br>
-
-<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star" viewBox="0 0 16 16">
-  <path d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288L8 2.223l1.847 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.565.565 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z"/>
-</svg>
-
 {% endblock page_body %}

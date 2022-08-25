@@ -7,11 +7,6 @@ My Weekly Graph
 
 {% block page_body %}
 
-{% for i in categories %}
-    {{ empty_list }}.append{{ i }}
-
-{% endfor %}
-
 <br><br>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
 <br><br>
@@ -22,10 +17,11 @@ My Weekly Graph
 
 
 <script>
-    xValues = {{ category_names|safe }};
-    yValues = {{ category_success_list|safe }};
+    xValues = {{ category_names|safe}}
+    yValues = {{ category_success_list|safe }}
+
     barColors = ["#b91d47", "#00aba9", "#2b5797", "#e8c3b9",
-        "purple", "orange", "#1e7145", "pink", "blue",  "red",
+        "purple", "orange", "#1e7145", "pink", "blue", "red",
         "green", "brown", "aquamarine", "purple"];
 
     new Chart("myChart", {

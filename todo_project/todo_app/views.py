@@ -1,15 +1,13 @@
-from django.shortcuts import render, redirect
-from .forms import NewUserForm
-from django.contrib.auth import login, authenticate
+from django.conf import settings
 from django.contrib import messages
+from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import AuthenticationForm
-
+from django.core.mail import send_mail
+from django.shortcuts import render, redirect
 from django.views import View
 
 from .forms import MessageForm
-from .models import ContactMessage
-from django.core.mail import send_mail
-from django.conf import settings
+from .forms import NewUserForm
 
 
 class Index(View):
@@ -22,7 +20,7 @@ class LoginRequest(View):
         if request.user.is_authenticated:
             messages.info(request, "You are already logged in, so we redirected you to your personal page.")
             return redirect("/user")
-      #      return render(request, "todo_logged_in_app/index.html")
+        #      return render(request, "todo_logged_in_app/index.html")
 
         else:
             form = AuthenticationForm()

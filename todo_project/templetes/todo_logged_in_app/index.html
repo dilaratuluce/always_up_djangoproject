@@ -7,13 +7,13 @@ User Home
 
 {% block page_body %}
 <div class="container">
-<form action="" method="POST">
-    {% csrf_token %}
-    {{ form.media }}
-    {{ form.as_p }}
-    <br>
-    <button class="btn btn-danger" type="submit">Add To Do</button>
-    <br><br>
-</form>
+    <form action="" method="POST">
+        {% csrf_token %}
+        {{ form.media }}
+        {{ form.as_p }}
+        <br>
+        <button class="btn btn-danger" type="submit">Add To Do</button>
+        <br><br>
+    </form>
 </div>
 {% endblock page_body %}

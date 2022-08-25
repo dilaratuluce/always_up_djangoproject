@@ -9,159 +9,158 @@ Make Schedule
 
 {% block page_body %}
 <div class="container">
-<div class="d-flex align-items-start">
-  <div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-    <button style="height: 100px;" class="nav-link active" id="v-pills-home-tab" data-bs-toggle="pill" data-bs-target="#v-pills-home" type="button" role="tab" aria-controls="v-pills-home" aria-selected="true">Default Order</button>
-    <button style="height: 100px;" class="nav-link" id="v-pills-profile-tab" data-bs-toggle="pill" data-bs-target="#v-pills-profile" type="button" role="tab" aria-controls="v-pills-profile" aria-selected="false">Short Todos First</button>
-    <button style="height: 100px;" class="nav-link" id="v-pills-messages-tab" data-bs-toggle="pill" data-bs-target="#v-pills-messages" type="button" role="tab" aria-controls="v-pills-messages" aria-selected="false">Long Todos First</button>
-    <button style="height: 100px;" class="nav-link" id="v-pills-settings-tab" data-bs-toggle="pill" data-bs-target="#v-pills-settings" type="button" role="tab" aria-controls="v-pills-settings" aria-selected="false">Important Ones First</button>
-    <button style="height: 100px;" class="nav-link" id="v-pills-suggested-tab" data-bs-toggle="pill" data-bs-target="#v-pills-suggested" type="button" role="tab" aria-controls="v-pills-suggested" aria-selected="false">Suggested Schedule</button>
-  </div>
-  <div class="tab-content" id="v-pills-tabContent">
-    <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab" tabindex="0">
-        <div class="container">
-    <ol class="list-group list-group-numbered">
-        <br>
-        {% for item in todo_and_clock_list %}
-        <li class="list-group-item d-flex justify-content-between align-items-start">
-            <div class="ms-2 me-auto">
-                <div class="font-weight-bold">{{ item.1.0 }} - {{ item.1.1 }}</div>
-                <div class="font-weight-normal">{{ item.0.title }}</div>
-                <div class="font-weight-normal">( {{ item.0.length }} minutes )</div>
+    <div class="d-flex align-items-start">
+        <div aria-orientation="vertical" class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist">
+            <button aria-controls="v-pills-home" aria-selected="true" class="nav-link active" data-bs-target="#v-pills-home"
+                    data-bs-toggle="pill" id="v-pills-home-tab" role="tab" style="height: 100px;"
+                    type="button">Default Order
+            </button>
+            <button aria-controls="v-pills-profile" aria-selected="false" class="nav-link" data-bs-target="#v-pills-profile"
+                    data-bs-toggle="pill" id="v-pills-profile-tab" role="tab" style="height: 100px;"
+                    type="button">Short Todos First
+            </button>
+            <button aria-controls="v-pills-messages" aria-selected="false" class="nav-link" data-bs-target="#v-pills-messages"
+                    data-bs-toggle="pill" id="v-pills-messages-tab" role="tab" style="height: 100px;"
+                    type="button">Long Todos First
+            </button>
+            <button aria-controls="v-pills-settings" aria-selected="false" class="nav-link" data-bs-target="#v-pills-settings"
+                    data-bs-toggle="pill" id="v-pills-settings-tab" role="tab" style="height: 100px;"
+                    type="button">Important Ones First
+            </button>
+            <button aria-controls="v-pills-suggested" aria-selected="false" class="nav-link" data-bs-target="#v-pills-suggested"
+                    data-bs-toggle="pill" id="v-pills-suggested-tab" role="tab" style="height: 100px;"
+                    type="button">Suggested Schedule
+            </button>
+        </div>
+        <div class="tab-content" id="v-pills-tabContent">
+            <div aria-labelledby="v-pills-home-tab" class="tab-pane fade show active" id="v-pills-home" role="tabpanel"
+                 tabindex="0">
+                <div class="container">
+                    <ol class="list-group list-group-numbered">
+                        <br>
+                        {% for item in todo_and_clock_list %}
+                        <li class="list-group-item d-flex justify-content-between align-items-start">
+                            <div class="ms-2 me-auto">
+                                <div class="font-weight-bold">{{ item.1.0 }} - {{ item.1.1 }}</div>
+                                <div class="font-weight-normal">{{ item.0.title }}</div>
+                                <div class="font-weight-normal">( {{ item.0.length }} minutes )</div>
+                            </div>
+                        </li>
+                        {% endfor %}
+
+                        {% if todo_and_clock_list %}
+                        * Breaks are arranged as 10 to 20 minutes.
+                        {% else %}
+                        Nothing to see here yet.
+                        {% endif %}
+
+                    </ol>
+                </div>
+
             </div>
-        </li>
-        {% endfor %}
+            <div aria-labelledby="v-pills-profile-tab" class="tab-pane fade" id="v-pills-profile" role="tabpanel"
+                 tabindex="0">
+                <div class="container">
+                    <ol class="list-group list-group-numbered">
+                        <br>
+                        {% for item in todo_and_clock_list_short_first %}
+                        <li class="list-group-item d-flex justify-content-between align-items-start">
+                            <div class="ms-2 me-auto">
+                                <div class="font-weight-bold">{{ item.1.0 }} - {{ item.1.1 }}</div>
+                                <div class="font-weight-normal">{{ item.0.title }}</div>
+                                <div class="font-weight-normal">( {{ item.0.length }} minutes )</div>
+                            </div>
+                        </li>
+                        {% endfor %}
 
-        {% if todo_and_clock_list %}
-        * Breaks are arranged as 10 to 20 minutes.
-        {% else %}
-        Nothing to see here yet.
-        {% endif %}
+                        {% if todo_and_clock_list_short_first %}
+                        * Breaks are arranged as 10 to 20 minutes.
+                        {% else %}
+                        Nothing to see here yet.
+                        {% endif %}
+                    </ol>
+                </div>
+            </div>
 
-    </ol>
-</div>
+            <div aria-labelledby="v-pills-messages-tab" class="tab-pane fade" id="v-pills-messages" role="tabpanel"
+                 tabindex="0">
+                <div class="container">
+                    <ol class="list-group list-group-numbered">
+                        <br>
+                        {% for item in todo_and_clock_list_long_first %}
+                        <li class="list-group-item d-flex justify-content-between align-items-start">
+                            <div class="ms-2 me-auto">
+                                <div class="font-weight-bold">{{ item.1.0 }} - {{ item.1.1 }}</div>
+                                <div class="font-weight-normal">{{ item.0.title }}</div>
+                                <div class="font-weight-normal">( {{ item.0.length }} minutes )</div>
+                            </div>
+                        </li>
+                        {% endfor %}
 
+                        {% if todo_and_clock_list_long_first %}
+                        * Breaks are arranged as 10 to 20 minutes.
+                        {% else %}
+                        Nothing to see here yet.
+                        {% endif %}
+                    </ol>
+                </div>
+            </div>
+
+            <div aria-labelledby="v-pills-settings-tab" class="tab-pane fade" id="v-pills-settings" role="tabpanel"
+                 tabindex="0">
+                <div class="container">
+                    <ol class="list-group list-group-numbered">
+                        <br>
+                        {% for item in todo_and_clock_list_important_first %}
+                        <li class="list-group-item d-flex justify-content-between align-items-start">
+                            <div class="ms-2 me-auto">
+                                <div class="font-weight-bold">{{ item.1.0 }} - {{ item.1.1 }}</div>
+                                <div class="font-weight-normal">{{ item.0.title }}</div>
+                                <div class="font-weight-normal">( {{ item.0.length }} minutes )</div>
+                            </div>
+                        </li>
+                        {% endfor %}
+
+                        {% if todo_and_clock_list_important_first %}
+                        * Breaks are arranged as 10 to 20 minutes.
+                        {% else %}
+                        Nothing to see here yet.
+                        {% endif %}
+                    </ol>
+                </div>
+            </div>
+
+            <div aria-labelledby="v-pills-suggested-tab" class="tab-pane fade" id="v-pills-suggested" role="tabpanel"
+                 tabindex="0">
+                <div class="container">
+                    <ol class="list-group list-group-numbered">
+                        <br>
+                        {% for item in todo_and_clock_list_suggested %}
+                        <li class="list-group-item d-flex justify-content-between align-items-start">
+                            <div class="ms-2 me-auto">
+                                <div class="font-weight-bold">{{ item.1.0 }} - {{ item.1.1 }}</div>
+                                <div class="font-weight-normal">{{ item.0.title }}</div>
+                                <div class="font-weight-normal">( {{ item.0.length }} minutes )</div>
+                            </div>
+                        </li>
+                        {% endfor %}
+
+                        {% if todo_and_clock_list_suggested %}
+                        * Breaks are arranged as 10 to 20 minutes.
+                        {% else %}
+                        Nothing to see here yet.
+                        {% endif %}
+                    </ol>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab" tabindex="0">
-        <div class="container">
-    <ol class="list-group list-group-numbered">
-        <br>
-        {% for item in todo_and_clock_list_short_first %}
-        <li class="list-group-item d-flex justify-content-between align-items-start">
-            <div class="ms-2 me-auto">
-                <div class="font-weight-bold">{{ item.1.0 }} - {{ item.1.1 }}</div>
-                <div class="font-weight-normal">{{ item.0.title }}</div>
-                <div class="font-weight-normal">( {{ item.0.length }} minutes )</div>
-            </div>
-        </li>
-        {% endfor %}
-
-        {% if todo_and_clock_list_short_first %}
-        * Breaks are arranged as 10 to 20 minutes.
-        {% else %}
-        Nothing to see here yet.
-        {% endif %}
-    </ol>
-</div>
-    </div>
-
-    <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab" tabindex="0">
-        <div class="container">
-    <ol class="list-group list-group-numbered">
-        <br>
-        {% for item in todo_and_clock_list_long_first %}
-        <li class="list-group-item d-flex justify-content-between align-items-start">
-            <div class="ms-2 me-auto">
-                <div class="font-weight-bold">{{ item.1.0 }} - {{ item.1.1 }}</div>
-                <div class="font-weight-normal">{{ item.0.title }}</div>
-                <div class="font-weight-normal">( {{ item.0.length }} minutes )</div>
-            </div>
-        </li>
-        {% endfor %}
-
-        {% if todo_and_clock_list_long_first %}
-        * Breaks are arranged as 10 to 20 minutes.
-        {% else %}
-        Nothing to see here yet.
-        {% endif %}
-    </ol>
-</div></div>
-
-    <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab" tabindex="0">
-        <div class="container">
-    <ol class="list-group list-group-numbered">
-        <br>
-        {% for item in todo_and_clock_list_important_first %}
-        <li class="list-group-item d-flex justify-content-between align-items-start">
-            <div class="ms-2 me-auto">
-                <div class="font-weight-bold">{{ item.1.0 }} - {{ item.1.1 }}</div>
-                <div class="font-weight-normal">{{ item.0.title }}</div>
-                <div class="font-weight-normal">( {{ item.0.length }} minutes )</div>
-            </div>
-        </li>
-        {% endfor %}
-
-        {% if todo_and_clock_list_important_first %}
-        * Breaks are arranged as 10 to 20 minutes.
-        {% else %}
-        Nothing to see here yet.
-        {% endif %}
-    </ol>
-</div>
-    </div>
-
-    <div class="tab-pane fade" id="v-pills-suggested" role="tabpanel" aria-labelledby="v-pills-suggested-tab" tabindex="0">
-        <div class="container">
-    <ol class="list-group list-group-numbered">
-        <br>
-        {% for item in todo_and_clock_list_suggested %}
-        <li class="list-group-item d-flex justify-content-between align-items-start">
-            <div class="ms-2 me-auto">
-                <div class="font-weight-bold">{{ item.1.0 }} - {{ item.1.1 }}</div>
-                <div class="font-weight-normal">{{ item.0.title }}</div>
-                <div class="font-weight-normal">( {{ item.0.length }} minutes )</div>
-            </div>
-        </li>
-        {% endfor %}
-
-        {% if todo_and_clock_list_suggested %}
-        * Breaks are arranged as 10 to 20 minutes.
-        {% else %}
-        Nothing to see here yet.
-        {% endif %}
-    </ol>
-</div>
-    </div>
-  </div>
-</div>
 </div>
 
-<!--  You can delete here, schedule ı yazdırma kodu, beş schedule seçeneğinde de bu şekilde gibi, liste değişik sadece
-<br><br>
-<div class="container">
-    <ol class="list-group list-group-numbered">
-        <br>
-        {% for item in todo_and_clock_list %}
-        <li class="list-group-item d-flex justify-content-between align-items-start">
-            <div class="ms-2 me-auto">
-                <div class="font-weight-bold">{{ item.1.0 }} - {{ item.1.1 }}</div>
-                <div class="font-weight-normal">{{ item.0.title }}</div>
-                <div class="font-weight-normal">( {{ item.0.length }} minutes )</div>
-            </div>
-        </li>
-        {% endfor %}
-
-        {% if todo_and_clock_list %}
-        * Breaks are arranged as 10 to 20 minutes.
-        {% else %}
-        Nothing to see here yet.
-        {% endif %}
-    </ol>
-</div>
-<br>
--->
-
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css"  integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
+<link crossorigin="anonymous"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx">
+<script crossorigin="anonymous"
+        integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"></script>
 
 {% endblock page_body %}

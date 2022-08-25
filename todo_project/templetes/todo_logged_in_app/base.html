@@ -151,7 +151,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css" media="screen"
           rel="stylesheet">
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
 
 </head>
@@ -160,7 +160,8 @@
 <!--header section start -->
 <div class="header_section">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <button aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler"
+        <button aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"
+                class="navbar-toggler"
                 data-target="#navbarSupportedContent" data-toggle="collapse" type="button">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -227,22 +228,22 @@
 
 
 <!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        ...
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
+<div aria-hidden="true" aria-labelledby="exampleModalLabel" class="modal fade" id="exampleModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <button aria-label="Close" class="btn-close" data-bs-dismiss="modal" type="button"></button>
+            </div>
+            <div class="modal-body">
+                ...
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" data-bs-dismiss="modal" type="button">Close</button>
+                <button class="btn btn-primary" type="button">Save changes</button>
+            </div>
+        </div>
     </div>
-  </div>
 </div>
 <!-- header section end -->
 {% block page_body %}
@@ -279,13 +280,15 @@
             </div>
             <div class="col-lg-3 col-sm-6">
                 <h2 class="useful_text">Contact</h2>
-                <div class="location_text"><li><a href="/contact">Contact Form</a></li></div>
-           <!--     <div class="location_text"><a href="#"><i aria-hidden="true" class="fa fa-map-marker"></i><span
-                        class="padding_left_15">Location</span></a></div>
-                <div class="location_text"><a href="#"><i aria-hidden="true" class="fa fa-phone"></i><span
-                        class="padding_left_15">(+90) 530 595 41 93</span></a></div>
-                <div class="location_text"><a href="#"><i aria-hidden="true" class="fa fa-envelope"></i><span
-                        class="padding_left_15">alwaysup@gmail.com</span></a></div>  -->
+                <div class="location_text">
+                    <li><a href="/contact">Contact Form</a></li>
+                </div>
+                <!--     <div class="location_text"><a href="#"><i aria-hidden="true" class="fa fa-map-marker"></i><span
+                             class="padding_left_15">Location</span></a></div>
+                     <div class="location_text"><a href="#"><i aria-hidden="true" class="fa fa-phone"></i><span
+                             class="padding_left_15">(+90) 530 595 41 93</span></a></div>
+                     <div class="location_text"><a href="#"><i aria-hidden="true" class="fa fa-envelope"></i><span
+                             class="padding_left_15">alwaysup@gmail.com</span></a></div>  -->
 
             </div>
             <div class="col-lg-3 col-sm-6">
@@ -301,10 +304,10 @@
         <div class="social_icon">
             <br>
             <ul>
-           <!-- <li><a href="#"><i aria-hidden="true" class="fa fa-facebook"></i></a></li>
-                <li><a href="#"><i aria-hidden="true" class="fa fa-twitter"></i></a></li>
-                <li><a href="#"><i aria-hidden="true" class="fa fa-linkedin"></i></a></li>
-                <li><a href="#"><i aria-hidden="true" class="fa fa-instagram"></i></a></li> -->
+                <!-- <li><a href="#"><i aria-hidden="true" class="fa fa-facebook"></i></a></li>
+                     <li><a href="#"><i aria-hidden="true" class="fa fa-twitter"></i></a></li>
+                     <li><a href="#"><i aria-hidden="true" class="fa fa-linkedin"></i></a></li>
+                     <li><a href="#"><i aria-hidden="true" class="fa fa-instagram"></i></a></li> -->
             </ul>
         </div>
     </div>
@@ -324,9 +327,9 @@
 <script src="{% static 'todo_app_static/js/owl.carousel.js' %}"></script>
 <script src="https:cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.js"></script>
 <script
-  src="https://code.jquery.com/jquery-3.6.0.slim.min.js"
-  integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI="
-  crossorigin="anonymous"></script>
+        crossorigin="anonymous"
+        integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI="
+        src="https://code.jquery.com/jquery-3.6.0.slim.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
 <script>

@@ -8,90 +8,92 @@ My Categories
 {% block page_body %}
 
 <div class="container">
-<form action="" method="POST">
-    {% csrf_token %}
-    {{ form.media }}
-    {{ form.as_p }}
-    <br>
-    <button class="btn btn-danger" id="add-button">Add Category</button>
-    <br><br>
-</form>
+    <form action="" method="POST">
+        {% csrf_token %}
+        {{ form.media }}
+        {{ form.as_p }}
+        <br>
+        <button class="btn btn-danger" id="add-button">Add Category</button>
+        <br><br>
+    </form>
 </div>
 
 <div class="container">
-<table class="table category-table">
-  <thead>
-    <tr>
-      <th scope="col"></th>
-      <th scope="col">Category</th>
-      <th scope="col">Delete</th>
-    </tr>
-  </thead>
-  <tbody id="display-data">
-  {% for category in categories %}
-    <tr  id="row-{{ category.id }}">
-      <th scope="row" ></th>
-      <td>{{ category.name }}</td>
-      <td><button class="btn btn-danger delete-button" value={{ category.id }}>Delete</button></td>
-    </tr>
-  {% endfor %}
-  </tbody>
-</table>
+    <table class="table category-table">
+        <thead>
+        <tr>
+            <th scope="col"></th>
+            <th scope="col">Category</th>
+            <th scope="col">Delete</th>
+        </tr>
+        </thead>
+        <tbody id="display-data">
+        {% for category in categories %}
+        <tr id="row-{{ category.id }}">
+            <th scope="row"></th>
+            <td>{{ category.name }}</td>
+            <td>
+                <button category.id class="btn btn-danger delete-button" value={{ category.id }}>Delete</button>
+            </td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
 </div>
 <br>
 
 <script
-  src="https://code.jquery.com/jquery-3.6.0.slim.min.js"
-  integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI="
-  crossorigin="anonymous"></script>
+        crossorigin="anonymous"
+        integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI="
+        src="https://code.jquery.com/jquery-3.6.0.slim.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
 <script>
-$('#add-button').click(function(e){
-    e.preventDefault();
+    $('#add-button').click(function (e) {
+        e.preventDefault();
         const name = $('#id_name').val()
         $.ajax({
             type: 'POST',
-            url : '/user/mycategories/',
-            data:{
-                name:name,
-                csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
-            },
-            success: function(response){
-                console.log('AAAA', response)
-                $("#display-data").append('<tr id="row-' + response.added_category + '"><th scope="row" ></th><td>'+ name + '</td><td><button class="btn btn-danger delete-button" value="' + response.added_category + '">Delete</button></td></tr>');
-            },
-            error:  function (res){
-                console.log(res)
-            }
-        });
-});
-
-$('.category-table').on('click', '.delete-button', function(e){
-    e.preventDefault();
-        const deleted_id = $(this).val()
-        console.log("aaaaa", deleted_id)
-    var ask = confirm('All todos in this category will also be deleted. Are you sure you want to delete this category?');
-    if(ask) {
-        $.ajax({
-            type: 'POST',
-            url: '/user/mycategories/delete',
+            url: '/user/mycategories/',
             data: {
-                deleted_id: deleted_id,
+                name: name,
                 csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
             },
             success: function (response) {
-                console.log('deleting', response.data)
-                $('#row-' + deleted_id).remove();
-
+                console.log('AAAA', response)
+                $("#display-data").append('<tr id="row-' + response.added_category + '"><th scope="row" ></th><td>' + name + '</td><td><button class="btn btn-danger delete-button" value="' + response.added_category + '">Delete</button></td></tr>');
             },
             error: function (res) {
-                console.log('errorrr')
                 console.log(res)
             }
         });
-    }
-});
+    });
+
+    $('.category-table').on('click', '.delete-button', function (e) {
+        e.preventDefault();
+        const deleted_id = $(this).val()
+        console.log("aaaaa", deleted_id)
+        var ask = confirm('All todos in this category will also be deleted. Are you sure you want to delete this category?');
+        if (ask) {
+            $.ajax({
+                type: 'POST',
+                url: '/user/mycategories/delete',
+                data: {
+                    deleted_id: deleted_id,
+                    csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
+                },
+                success: function (response) {
+                    console.log('deleting', response.data)
+                    $('#row-' + deleted_id).remove();
+
+                },
+                error: function (res) {
+                    console.log('errorrr')
+                    console.log(res)
+                }
+            });
+        }
+    });
 
 </script>
 

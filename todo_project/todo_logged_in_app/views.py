@@ -1,18 +1,16 @@
 import datetime
 from datetime import timedelta, date
+from difflib import SequenceMatcher
 
 from django.contrib import messages
 from django.contrib.auth import logout
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from django.views import View
 
 from .forms import TodoForm, CategoryForm
 from .models import Todo, TodoCategory
-
-from django.http import HttpResponse, JsonResponse
-
-from difflib import SequenceMatcher
 
 
 class LogOutRequest(LoginRequiredMixin, View):
@@ -38,7 +36,8 @@ class FormPage(LoginRequiredMixin, View):
                 priority_num = predict_priority(instance, request)
                 if priority_num == 0:
                     instance.priority = "very_low"
-                    messages.success(request, "Todo is added succesfully, its priority is estimated and assigned as very low")
+                    messages.success(request,
+                                     "Todo is added succesfully, its priority is estimated and assigned as very low")
                 elif priority_num == 1:
                     instance.priority = "low"
                     messages.success(request,
@@ -105,12 +104,18 @@ class MyToDos(LoginRequiredMixin, View):
         six_later_num = my_week_helper(todays_num + 6)
         days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
         today_creators_todos = Todo.objects.filter(creator=request.user, date=datetime.date.today())
-        tomorrow_creators_todos = Todo.objects.filter(creator=request.user, date=datetime.date.today()+timedelta(days=1))
-        two_later_creators_todos = Todo.objects.filter(creator=request.user, date=datetime.date.today()+timedelta(days=2))
-        three_later_creators_todos = Todo.objects.filter(creator=request.user, date=datetime.date.today()+timedelta(days=3))
-        four_later_creators_todos = Todo.objects.filter(creator=request.user, date=datetime.date.today()+timedelta(days=4))
-        five_later_creators_todos = Todo.objects.filter(creator=request.user, date=datetime.date.today()+timedelta(days=5))
-        six_later_creators_todos = Todo.objects.filter(creator=request.user, date=datetime.date.today()+timedelta(days=6))
+        tomorrow_creators_todos = Todo.objects.filter(creator=request.user,
+                                                      date=datetime.date.today() + timedelta(days=1))
+        two_later_creators_todos = Todo.objects.filter(creator=request.user,
+                                                       date=datetime.date.today() + timedelta(days=2))
+        three_later_creators_todos = Todo.objects.filter(creator=request.user,
+                                                         date=datetime.date.today() + timedelta(days=3))
+        four_later_creators_todos = Todo.objects.filter(creator=request.user,
+                                                        date=datetime.date.today() + timedelta(days=4))
+        five_later_creators_todos = Todo.objects.filter(creator=request.user,
+                                                        date=datetime.date.today() + timedelta(days=5))
+        six_later_creators_todos = Todo.objects.filter(creator=request.user,
+                                                       date=datetime.date.today() + timedelta(days=6))
         return render(request, "todo_logged_in_app/my_to_dos.html",
                       {'today_creators_todos': sort_by_category(today_creators_todos, request),
                        'tomorrow_creators_todos': sort_by_category(tomorrow_creators_todos, request),
@@ -196,7 +201,8 @@ def make_schedule_short_first(request):
     for i in range(len(today_creators_todos_notfinished)):
         for j in range(len(today_creators_todos_notfinished) - 1):
             if today_creators_todos_notfinished[j].length > today_creators_todos_notfinished[j + 1].length:
-                today_creators_todos_notfinished[j], today_creators_todos_notfinished[j + 1] = today_creators_todos_notfinished[j + 1], today_creators_todos_notfinished[j]
+                today_creators_todos_notfinished[j], today_creators_todos_notfinished[j + 1] = \
+                today_creators_todos_notfinished[j + 1], today_creators_todos_notfinished[j]
 
     todo_and_clock_list = set_schedule_clocks(request, today_creators_todos_notfinished)
     return todo_and_clock_list
@@ -207,7 +213,8 @@ def make_schedule_long_first(request):
     for i in range(len(today_creators_todos_notfinished)):
         for j in range(len(today_creators_todos_notfinished) - 1):
             if today_creators_todos_notfinished[j].length < today_creators_todos_notfinished[j + 1].length:
-                today_creators_todos_notfinished[j], today_creators_todos_notfinished[j + 1] = today_creators_todos_notfinished[j + 1], today_creators_todos_notfinished[j]
+                today_creators_todos_notfinished[j], today_creators_todos_notfinished[j + 1] = \
+                today_creators_todos_notfinished[j + 1], today_creators_todos_notfinished[j]
 
     todo_and_clock_list = set_schedule_clocks(request, today_creators_todos_notfinished)
     return todo_and_clock_list
@@ -223,19 +230,21 @@ def make_schedule_important_first(request):
     today_creators_todos_notfinished = find_today_creators_todos_notfinished(request)
     for i in range(len(today_creators_todos_notfinished)):
         for j in range(len(today_creators_todos_notfinished) - 1):
-            if priority_dict[today_creators_todos_notfinished[j].priority] < priority_dict[today_creators_todos_notfinished[j + 1].priority]:
-                today_creators_todos_notfinished[j], today_creators_todos_notfinished[j + 1] = today_creators_todos_notfinished[j + 1], today_creators_todos_notfinished[j]
+            if priority_dict[today_creators_todos_notfinished[j].priority] < priority_dict[
+                today_creators_todos_notfinished[j + 1].priority]:
+                today_creators_todos_notfinished[j], today_creators_todos_notfinished[j + 1] = \
+                today_creators_todos_notfinished[j + 1], today_creators_todos_notfinished[j]
 
     todo_and_clock_list = set_schedule_clocks(request, today_creators_todos_notfinished)
     return todo_and_clock_list
 
 
 def length_score(length):
-    if length<=15:
+    if length <= 15:
         return 4
-    elif length<=30:
+    elif length <= 30:
         return 3
-    elif length<=50:
+    elif length <= 50:
         return 2
     else:
         return 1
@@ -253,12 +262,13 @@ def make_schedule_suggested_schedule(request):
         for j in range(len(today_creators_todos_notfinished) - 1):
             priority_score1 = priority_dict[today_creators_todos_notfinished[j].priority]
             length_score1 = length_score(today_creators_todos_notfinished[j].length)
-            priority_score2 = priority_dict[today_creators_todos_notfinished[j+1].priority]
-            length_score2 = length_score(today_creators_todos_notfinished[j+1].length)
+            priority_score2 = priority_dict[today_creators_todos_notfinished[j + 1].priority]
+            length_score2 = length_score(today_creators_todos_notfinished[j + 1].length)
             todo1_score = priority_score1 + length_score1
             todo2_score = priority_score2 + length_score2
             if todo1_score < todo2_score:
-                today_creators_todos_notfinished[j], today_creators_todos_notfinished[j + 1] = today_creators_todos_notfinished[j + 1], today_creators_todos_notfinished[j]
+                today_creators_todos_notfinished[j], today_creators_todos_notfinished[j + 1] = \
+                today_creators_todos_notfinished[j + 1], today_creators_todos_notfinished[j]
 
     todo_and_clock_list = set_schedule_clocks(request, today_creators_todos_notfinished)
     return todo_and_clock_list
@@ -336,13 +346,6 @@ def find_creators_todos(request):
             creators_todos.append(todo)
     return creators_todos
 
-"""
-def my_week_helper(num):
-    if num < 0:
-        return num + 7
-    else:
-        return num
-"""
 
 class MyWeek(LoginRequiredMixin, View):
     def get(self, request):
@@ -445,7 +448,7 @@ class MyCategories(View):
             categories = TodoCategory.objects.all()
             return JsonResponse({"categories2": list(categories.values()),
                                  "added_category": form.instance.id})
-      #      return render(request, "todo_logged_in_app/categories.html", {'form': form, 'categories': categories})
+        #      return render(request, "todo_logged_in_app/categories.html", {'form': form, 'categories': categories})
         else:
             messages.warning(request, "Category is not added.")
             categories = TodoCategory.objects.all()
@@ -475,20 +478,9 @@ class Star(View):
         else:
             return redirect("/user/my-to-dos")
 
-"""
-class Star2(View):
-    def get(self, request, Todo_id):
-        todo = Todo.objects.get(pk=Todo_id)
-        if todo.starred:
-            todo.starred = False
-            todo.save()
-        else:
-            todo.starred = True
-            todo.save()
-        return redirect("/user/starred-to-dos")
-"""
 
 from django.core.paginator import Paginator
+
 
 class StarredToDos(View):
     def get(self, request):
@@ -527,15 +519,16 @@ def title_priority_score(newtodo, request):
     title_similarity_withp2 = title_similarity(newtodo, priority2todos)
     title_similarity_withp3 = title_similarity(newtodo, priority3todos)
     title_similarity_withp4 = title_similarity(newtodo, priority4todos)
-    total = title_similarity_withp1*1 + title_similarity_withp2*2 + title_similarity_withp3*3 + title_similarity_withp4*4
-    print("yey:", (title_similarity_withp0, title_similarity_withp1, title_similarity_withp2, title_similarity_withp3, title_similarity_withp4))
+    total = title_similarity_withp1 * 1 + title_similarity_withp2 * 2 + title_similarity_withp3 * 3 + title_similarity_withp4 * 4
+    print("yey:", (title_similarity_withp0, title_similarity_withp1, title_similarity_withp2, title_similarity_withp3,
+                   title_similarity_withp4))
 
-    if total == 0: #yeni eklenen önceki datalardan hiçbirine benzer bir şey değil
+    if total == 0:  # yeni eklenen önceki datalardan hiçbirine benzer bir şey değil
         return 0
     else:
         score = total / (
-                    title_similarity_withp0 + title_similarity_withp1 + title_similarity_withp2
-                    + title_similarity_withp3 + title_similarity_withp4)
+                title_similarity_withp0 + title_similarity_withp1 + title_similarity_withp2
+                + title_similarity_withp3 + title_similarity_withp4)
         return score
 
 
@@ -547,7 +540,7 @@ def category_priority_score(newtodo, request):
     with_p2 = len(Todo.objects.filter(category=category, creator=request.user, priority="normal"))
     with_p3 = len(Todo.objects.filter(category=category, creator=request.user, priority="high"))
     with_p4 = len(Todo.objects.filter(category=category, creator=request.user, priority="very_high"))
-    total = with_p1*1 + with_p2*2 + with_p3*3 + with_p4*4
+    total = with_p1 * 1 + with_p2 * 2 + with_p3 * 3 + with_p4 * 4
     if total == 0:
         return 0
     else:
@@ -567,12 +560,12 @@ def predict_priority(newtodo, request):
     elif category_score == 0:
         return round(title_score)
     else:
-        return round((title_score+category_score)/2)
+        return round((title_score + category_score) / 2)
 
 
 def category_success_rate(category, request):
     todos = Todo.objects.filter(creator=request.user, category=category)
-    if len(todos)==0:
+    if len(todos) == 0:
         return 0
     finished_num = 0
     unfinished_num = 0
@@ -581,7 +574,7 @@ def category_success_rate(category, request):
             finished_num += 1
         else:
             unfinished_num += 1
-    return round((finished_num / (finished_num+unfinished_num))*100, 1)
+    return round((finished_num / (finished_num + unfinished_num)) * 100, 1)
 
 
 class CategoryGraph(View):
@@ -598,7 +591,3 @@ class CategoryGraph(View):
 
         return render(request, "todo_logged_in_app/category_graph.html", {"category_names": category_names,
                                                                           "category_success_list": category_success_list})
-
-
-
-
