@@ -16,6 +16,6 @@ urlpatterns = [
     path('mycategories/delete', views.MyCategoriesDelete.as_view(), name='mycategories_delete'),
     path('star/<Todo_id>/<starred_page>', views.Star.as_view(), name='star'),
     path('starred-to-dos/', views.StarredToDos.as_view(), name="my_to_dos"),
-  #  path('predict_priority/', views.PredictPriority.as_view(), name='predict_priority'),
+    path('category-graph/', views.CategoryGraph.as_view(), name="my_to_dos"),
 
 ]

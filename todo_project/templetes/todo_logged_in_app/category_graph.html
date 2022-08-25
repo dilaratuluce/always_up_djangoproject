@@ -6,6 +6,12 @@ My Weekly Graph
 {% endblock title %}
 
 {% block page_body %}
+
+{% for i in categories %}
+    {{ empty_list }}.append{{ i }}
+
+{% endfor %}
+
 <br><br>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
 <br><br>
@@ -14,11 +20,13 @@ My Weekly Graph
 </div>
 <br>
 
+
 <script>
-    xValues = ["{{ six_days_ago }}", "{{ five_days_ago }}", "{{ four_days_ago }}", "{{ three_days_ago }}", "{{ two_days_ago }}", "Yesterday", "Today"];
-    yValues = ["{{six_before_score}}", "{{five_before_score}}", "{{four_before_score}}", "{{three_before_score}}", "{{two_before_score}}", "{{one_before_score}}", "{{todays_score}}", 0, 100];
-    barColors = [
-         "red", "#1e7145", "blue", "orange", "brown", "pink", "aquamarine", "#e8c3b9"];
+    xValues = {{ category_names|safe }};
+    yValues = {{ category_success_list|safe }};
+    barColors = ["#b91d47", "#00aba9", "#2b5797", "#e8c3b9",
+        "purple", "orange", "#1e7145", "pink", "blue",  "red",
+        "green", "brown", "aquamarine", "purple"];
 
     new Chart("myChart", {
         type: "bar",
@@ -33,7 +41,7 @@ My Weekly Graph
             legend: {display: false},
             title: {
                 display: true,
-                text: "My Productivity of The Week"
+                text: "My Completion Rates by Category"
             },
         }
     });

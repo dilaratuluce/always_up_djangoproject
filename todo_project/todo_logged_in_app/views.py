@@ -570,5 +570,35 @@ def predict_priority(newtodo, request):
         return round((title_score+category_score)/2)
 
 
+def category_success_rate(category, request):
+    todos = Todo.objects.filter(creator=request.user, category=category)
+    if len(todos)==0:
+        return 0
+    finished_num = 0
+    unfinished_num = 0
+    for todo in todos:
+        if todo.is_finished:
+            finished_num += 1
+        else:
+            unfinished_num += 1
+    return round((finished_num / (finished_num+unfinished_num))*100, 1)
+
+
+class CategoryGraph(View):
+    def get(self, request):
+        categories = TodoCategory.objects.filter(creator=request.user)
+        category_names = []
+        for i in categories:
+            category_names.append(i.name)
+
+        category_success_list = []
+        for category in categories:
+            category_success_list.append(category_success_rate(category, request))
+        category_success_list.append(100)
+
+        return render(request, "todo_logged_in_app/category_graph.html", {"category_names": category_names,
+                                                                          "category_success_list": category_success_list})
+
+
 
 
