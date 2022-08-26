@@ -585,6 +585,7 @@ class CategoryGraph(View):
         for category in categories:
             category_success_list.append(category_success_rate(category, request))
         category_success_list.append(100)
+        category_success_list.append(0)
 
         return render(request, "todo_logged_in_app/category_graph.html", {"category_names": category_names,
                                                                           "category_success_list": category_success_list})
