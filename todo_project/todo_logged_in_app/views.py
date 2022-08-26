@@ -11,6 +11,7 @@ from django.views import View
 
 from .forms import TodoForm, CategoryForm
 from .models import Todo, TodoCategory
+from django.core.paginator import Paginator
 
 
 class LogOutRequest(LoginRequiredMixin, View):
@@ -230,8 +231,7 @@ def make_schedule_important_first(request):
     today_creators_todos_notfinished = find_today_creators_todos_notfinished(request)
     for i in range(len(today_creators_todos_notfinished)):
         for j in range(len(today_creators_todos_notfinished) - 1):
-            if priority_dict[today_creators_todos_notfinished[j].priority] < priority_dict[
-                today_creators_todos_notfinished[j + 1].priority]:
+            if priority_dict[today_creators_todos_notfinished[j].priority] < priority_dict[today_creators_todos_notfinished[j + 1].priority]:
                 today_creators_todos_notfinished[j], today_creators_todos_notfinished[j + 1] = \
                 today_creators_todos_notfinished[j + 1], today_creators_todos_notfinished[j]
 
@@ -477,9 +477,6 @@ class Star(View):
             return redirect("/user/starred-to-dos")
         else:
             return redirect("/user/my-to-dos")
-
-
-from django.core.paginator import Paginator
 
 
 class StarredToDos(View):

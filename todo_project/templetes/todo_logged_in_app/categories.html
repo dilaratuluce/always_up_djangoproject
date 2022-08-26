@@ -13,7 +13,7 @@ My Categories
         {{ form.media }}
         {{ form.as_p }}
         <br>
-        <button class="btn btn-danger" id="add-button">Add Category</button>
+        <button class="btn btn-danger" id="add-button" style="width:15%; border-radius: 20px;">Add Category</button>
         <br><br>
     </form>
 </div>
@@ -33,7 +33,7 @@ My Categories
             <th scope="row"></th>
             <td>{{ category.name }}</td>
             <td>
-                <button category.id class="btn btn-danger delete-button" value={{ category.id }}>Delete</button>
+                <button category.id class="btn btn-danger delete-button" value={{ category.id }} style="border-radius:20px;">Delete</button>
             </td>
         </tr>
         {% endfor %}

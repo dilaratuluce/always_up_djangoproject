@@ -25,9 +25,9 @@ Starred To Do's
         {% for todo in todos %}
         {% if todo.is_finished %}
         <tr>
-            <th align="center" scope="row"><a class="btn btn-danger" href="{% url 'delete' todo.id True %}">Delete</a>
+            <th align="center" scope="row"><a class="btn btn-danger" href="{% url 'delete' todo.id True %}" style="border-radius:20px;">Delete</a>
             </th>
-            <th scope="row"><a class="btn btn-warning" href="{% url 'change_is_finished' todo.id True %}">Check</a></th>
+            <th scope="row"><a class="btn btn-warning" href="{% url 'change_is_finished' todo.id True %}" style="border-radius:20px;">Check</a></th>
             <td>
                 <del><p>{{ todo.title }}</p></del>
             </td>
@@ -58,8 +58,8 @@ Starred To Do's
             </td>
             {% else %}
         <tr>
-            <th scope="row"><a class="btn btn-danger" href="{% url 'delete' todo.id True %}">Delete</a></th>
-            <th scope="row"><a class="btn btn-warning" href="{% url 'change_is_finished' todo.id True%}">Check</a></th>
+            <th scope="row"><a class="btn btn-danger" href="{% url 'delete' todo.id True %}" style="border-radius:20px;">Delete</a></th>
+            <th scope="row"><a class="btn btn-warning" href="{% url 'change_is_finished' todo.id True%}" style="border-radius:20px;">Check</a></th>
             <td><p>{{ todo.title }}</p></td>
             <td>{{ todo.description|safe }}</td>
             <td><p>{{ todo.length }}</p></td>

@@ -68,10 +68,10 @@ My To Do's
                 {% for todo in today_creators_todos %}
                 {% if todo.is_finished %}
                 <tr>
-                    <th align="center" scope="row"><a class="btn btn-danger" href="{% url 'delete' todo.id False %}">Delete</a>
+                    <th align="center" scope="row"><a class="btn btn-danger" href="{% url 'delete' todo.id False %}"  style="border-radius:20px;">Delete</a>
                     </th>
                     <th scope="row"><a class="btn btn-warning"
-                                       href="{% url 'change_is_finished' todo.id False %}">Check</a></th>
+                                       href="{% url 'change_is_finished' todo.id False %}" style="border-radius:20px;">Check</a></th>
                     <td>
                         <del><p>{{ todo.title }}</p></del>
                     </td>
@@ -116,9 +116,9 @@ My To Do's
                 </tr>
                 {% else %}
                 <tr>
-                    <th scope="row"><a class="btn btn-danger" href="{% url 'delete' todo.id False %}">Delete</a></th>
+                    <th scope="row"><a class="btn btn-danger" href="{% url 'delete' todo.id False %}" style="border-radius:20px;">Delete</a></th>
                     <th scope="row"><a class="btn btn-warning"
-                                       href="{% url 'change_is_finished' todo.id False %}">Check</a></th>
+                                       href="{% url 'change_is_finished' todo.id False %}" style="border-radius:20px;">Check</a></th>
                     <td><p>{{ todo.title }}</p></td>
                     <td>{{ todo.description|safe }}</td>
                     <td><p>{{ todo.length }}</p></td>
@@ -182,10 +182,10 @@ My To Do's
                 {% for todo in tomorrow_creators_todos %}
                 {% if todo.is_finished %}
                 <tr>
-                    <th align="center" scope="row"><a class="btn btn-danger" href="{% url 'delete' todo.id False %}">Delete</a>
+                    <th align="center" scope="row"><a class="btn btn-danger" href="{% url 'delete' todo.id False %}" style="border-radius:20px;">Delete</a>
                     </th>
                     <th scope="row"><a class="btn btn-warning"
-                                       href="{% url 'change_is_finished' todo.id False %}">Check</a></th>
+                                       href="{% url 'change_is_finished' todo.id False %}" style="border-radius:20px;">Check</a></th>
                     <td>
                         <del><p>{{ todo.title }}</p></del>
                     </td>
@@ -230,9 +230,9 @@ My To Do's
                 </tr>
                 {% else %}
                 <tr>
-                    <th scope="row"><a class="btn btn-danger" href="{% url 'delete' todo.id False %}">Delete</a></th>
+                    <th scope="row"><a class="btn btn-danger" href="{% url 'delete' todo.id False %}" style="border-radius:20px;">Delete</a></th>
                     <th scope="row"><a class="btn btn-warning"
-                                       href="{% url 'change_is_finished' todo.id False %}">Check</a></th>
+                                       href="{% url 'change_is_finished' todo.id False %}" style="border-radius:20px;">Check</a></th>
                     <td><p>{{ todo.title }}</p></td>
                     <td>{{ todo.description|safe }}</td>
                     <td><p>{{ todo.length }}</p></td>
@@ -297,10 +297,10 @@ My To Do's
                 {% for todo in two_later_creators_todos %}
                 {% if todo.is_finished %}
                 <tr>
-                    <th align="center" scope="row"><a class="btn btn-danger" href="{% url 'delete' todo.id False %}">Delete</a>
+                    <th align="center" scope="row"><a class="btn btn-danger" href="{% url 'delete' todo.id False %}" style="border-radius:20px;">Delete</a>
                     </th>
                     <th scope="row"><a class="btn btn-warning"
-                                       href="{% url 'change_is_finished' todo.id False %}">Check</a></th>
+                                       href="{% url 'change_is_finished' todo.id False %}" style="border-radius:20px;">Check</a></th>
                     <td>
                         <del><p>{{ todo.title }}</p></del>
                     </td>
@@ -345,9 +345,9 @@ My To Do's
                 </tr>
                 {% else %}
                 <tr>
-                    <th scope="row"><a class="btn btn-danger" href="{% url 'delete' todo.id False %}">Delete</a></th>
+                    <th scope="row"><a class="btn btn-danger" href="{% url 'delete' todo.id False %}" style="border-radius:20px;">Delete</a></th>
                     <th scope="row"><a class="btn btn-warning"
-                                       href="{% url 'change_is_finished' todo.id False %}">Check</a></th>
+                                       href="{% url 'change_is_finished' todo.id False %}" style="border-radius:20px;">Check</a></th>
                     <td><p>{{ todo.title }}</p></td>
                     <td>{{ todo.description|safe }}</td>
                     <td><p>{{ todo.length }}</p></td>
@@ -412,10 +412,10 @@ My To Do's
                 {% for todo in three_later_creators_todos %}
                 {% if todo.is_finished %}
                 <tr>
-                    <th align="center" scope="row"><a class="btn btn-danger" href="{% url 'delete' todo.id False %}">Delete</a>
+                    <th align="center" scope="row"><a class="btn btn-danger" href="{% url 'delete' todo.id False %}" style="border-radius:20px;">Delete</a>
                     </th>
                     <th scope="row"><a class="btn btn-warning"
-                                       href="{% url 'change_is_finished' todo.id False %}">Check</a></th>
+                                       href="{% url 'change_is_finished' todo.id False %}" style="border-radius:20px;">Check</a></th>
                     <td>
                         <del><p>{{ todo.title }}</p></del>
                     </td>
@@ -460,9 +460,9 @@ My To Do's
                 </tr>
                 {% else %}
                 <tr>
-                    <th scope="row"><a class="btn btn-danger" href="{% url 'delete' todo.id False %}">Delete</a></th>
+                    <th scope="row"><a class="btn btn-danger" href="{% url 'delete' todo.id False %}" style="border-radius:20px;">Delete</a></th>
                     <th scope="row"><a class="btn btn-warning"
-                                       href="{% url 'change_is_finished' todo.id False %}">Check</a></th>
+                                       href="{% url 'change_is_finished' todo.id False %}" style="border-radius:20px;">Check</a></th>
                     <td><p>{{ todo.title }}</p></td>
                     <td>{{ todo.description|safe }}</td>
                     <td><p>{{ todo.length }}</p></td>
@@ -527,10 +527,10 @@ My To Do's
                 {% for todo in four_later_creators_todos %}
                 {% if todo.is_finished %}
                 <tr>
-                    <th align="center" scope="row"><a class="btn btn-danger" href="{% url 'delete' todo.id False %}">Delete</a>
+                    <th align="center" scope="row"><a class="btn btn-danger" href="{% url 'delete' todo.id False %}" style="border-radius:20px;">Delete</a>
                     </th>
                     <th scope="row"><a class="btn btn-warning"
-                                       href="{% url 'change_is_finished' todo.id False %}">Check</a></th>
+                                       href="{% url 'change_is_finished' todo.id False %}" style="border-radius:20px;">Check</a></th>
                     <td>
                         <del><p>{{ todo.title }}</p></del>
                     </td>
@@ -575,9 +575,9 @@ My To Do's
                 </tr>
                 {% else %}
                 <tr>
-                    <th scope="row"><a class="btn btn-danger" href="{% url 'delete' todo.id False %}">Delete</a></th>
+                    <th scope="row"><a class="btn btn-danger" href="{% url 'delete' todo.id False %}" style="border-radius:20px;">Delete</a></th>
                     <th scope="row"><a class="btn btn-warning"
-                                       href="{% url 'change_is_finished' todo.id False %}">Check</a></th>
+                                       href="{% url 'change_is_finished' todo.id False %}" style="border-radius:20px;">Check</a></th>
                     <td><p>{{ todo.title }}</p></td>
                     <td>{{ todo.description|safe }}</td>
                     <td><p>{{ todo.length }}</p></td>
@@ -642,10 +642,10 @@ My To Do's
                 {% for todo in five_later_creators_todos %}
                 {% if todo.is_finished %}
                 <tr>
-                    <th align="center" scope="row"><a class="btn btn-danger" href="{% url 'delete' todo.id False %}">Delete</a>
+                    <th align="center" scope="row"><a class="btn btn-danger" href="{% url 'delete' todo.id False %}" style="border-radius:20px;">Delete</a>
                     </th>
                     <th scope="row"><a class="btn btn-warning"
-                                       href="{% url 'change_is_finished' todo.id False %}">Check</a></th>
+                                       href="{% url 'change_is_finished' todo.id False %}" style="border-radius:20px;">Check</a></th>
                     <td>
                         <del><p>{{ todo.title }}</p></del>
                     </td>
@@ -690,9 +690,9 @@ My To Do's
                 </tr>
                 {% else %}
                 <tr>
-                    <th scope="row"><a class="btn btn-danger" href="{% url 'delete' todo.id False %}">Delete</a></th>
+                    <th scope="row"><a class="btn btn-danger" href="{% url 'delete' todo.id False %}" style="border-radius:20px;">Delete</a></th>
                     <th scope="row"><a class="btn btn-warning"
-                                       href="{% url 'change_is_finished' todo.id False %}">Check</a></th>
+                                       href="{% url 'change_is_finished' todo.id False %}" style="border-radius:20px;">Check</a></th>
                     <td><p>{{ todo.title }}</p></td>
                     <td>{{ todo.description|safe }}</td>
                     <td><p>{{ todo.length }}</p></td>
@@ -757,10 +757,10 @@ My To Do's
                 {% for todo in six_later_creators_todos %}
                 {% if todo.is_finished %}
                 <tr>
-                    <th align="center" scope="row"><a class="btn btn-danger" href="{% url 'delete' todo.id False %}">Delete</a>
+                    <th align="center" scope="row"><a class="btn btn-danger" href="{% url 'delete' todo.id False %}" style="border-radius:20px;">Delete</a>
                     </th>
                     <th scope="row"><a class="btn btn-warning"
-                                       href="{% url 'change_is_finished' todo.id False %}">Check</a></th>
+                                       href="{% url 'change_is_finished' todo.id False %}" style="border-radius:20px;">Check</a></th>
                     <td>
                         <del><p>{{ todo.title }}</p></del>
                     </td>
@@ -805,9 +805,9 @@ My To Do's
                 </tr>
                 {% else %}
                 <tr>
-                    <th scope="row"><a class="btn btn-danger" href="{% url 'delete' todo.id False %}">Delete</a></th>
+                    <th scope="row"><a class="btn btn-danger" href="{% url 'delete' todo.id False %}" style="border-radius:20px;">Delete</a></th>
                     th scope="row"><a class="btn btn-warning"
-                                      href="{% url 'change_is_finished' todo.id False %}">Check</a></th>
+                                      href="{% url 'change_is_finished' todo.id False %}" style="border-radius:20px;">Check</a></th>
                     <td><p>{{ todo.title }}</p></td>
                     <td>{{ todo.description|safe }}</td>
                     <td><p>{{ todo.length }}</p></td>
