@@ -165,6 +165,9 @@ def add_time(clock, time):
 
 
 def find_today_creators_todos_notfinished(request):
+    """
+    yorum
+    """
     today_creators_todos = find_today_creators_todos(request)
     today_creators_todos_notfinished = []
     for i in today_creators_todos:
@@ -587,5 +590,9 @@ class CategoryGraph(View):
         category_success_list.append(100)
         category_success_list.append(0)
 
-        return render(request, "todo_logged_in_app/category_graph.html", {"category_names": category_names,
-                                                                          "category_success_list": category_success_list})
+        return render(
+            request,
+            "todo_logged_in_app/category_graph.html",
+            {"category_names": category_names,
+             "category_success_list": category_success_list}
+        )

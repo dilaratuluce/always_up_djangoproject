@@ -61,7 +61,7 @@ My Categories
             },
             success: function (response) {
                 console.log('AAAA', response)
-                $("#display-data").append('<tr id="row-' + response.added_category + '"><th scope="row" ></th><td>' + name + '</td><td><button class="btn btn-danger delete-button" value="' + response.added_category + '">Delete</button></td></tr>');
+                $("#display-data").append('<tr id="row-' + response.added_category + '"><th scope="row" ></th><td>' + name + '</td><td><button class="btn btn-danger delete-button" value="' + response.added_category + '" style="border-radius:20px;">Delete</button></td></tr>');
             },
             error: function (res) {
                 console.log(res)
